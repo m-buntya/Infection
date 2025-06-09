@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f437f8458ccf29d49ad2514cb6b40b4f, type: 3}
+  m_Name: UnitStatsData
+  m_EditorClassIdentifier: 
+  UnitParameter:
+  - unitCode: 10001
+    unitName: "\u30A2\u30BF\u30C3\u30AB\u30FC"
+    lv: 1
+    hp: 10
+    atk: 10
+    virusPow: 10
+    atkSpd: 10
+    spd: 10
+    isFly: 0
+    range: 10
+    cost: 3
+    sortieCoolTime: 10
+  - unitCode: 10002
+    unitName: "\u30BF\u30F3\u30AB\u30FC"
+    lv: 1
+    hp: 10
+    atk: 10
+    virusPow: 10
+    atkSpd: 10
+    spd: 10
+    isFly: 0
+    range: 10
+    cost: 3
+    sortieCoolTime: 10
+  - unitCode: 10003
+    unitName: "\u30D2\u30FC\u30E9\u30FC"
+    lv: 1
+    hp: 10
+    atk: 10
+    virusPow: 10
+    atkSpd: 10
+    spd: 10
+    isFly: 0
+    range: 10
+    cost: 3
+    sortieCoolTime: 10
