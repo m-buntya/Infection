@@ -15,36 +15,42 @@ MonoBehaviour:
   UnitParameter:
   - unitCode: 10001
     unitName: "\u30A2\u30BF\u30C3\u30AB\u30FC"
+    leaderSkill: 0
+    role: 0
     lv: 1
-    hp: 10
-    atk: 10
-    virusPow: 10
-    atkSpd: 10
-    spd: 10
+    hp: 15
+    atk: 30
+    virusPow: 15
+    atkSpd: 3
+    spd: 12
     isFly: 0
     range: 10
     cost: 3
     sortieCoolTime: 10
   - unitCode: 10002
     unitName: "\u30BF\u30F3\u30AB\u30FC"
+    leaderSkill: 1
+    role: 1
     lv: 1
-    hp: 10
+    hp: 100
     atk: 10
-    virusPow: 10
+    virusPow: 7
     atkSpd: 10
-    spd: 10
+    spd: 5
     isFly: 0
     range: 10
     cost: 3
     sortieCoolTime: 10
   - unitCode: 10003
     unitName: "\u30D2\u30FC\u30E9\u30FC"
+    leaderSkill: 2
+    role: 2
     lv: 1
-    hp: 10
-    atk: 10
+    hp: 30
+    atk: 5
     virusPow: 10
-    atkSpd: 10
-    spd: 10
+    atkSpd: 6
+    spd: 7
     isFly: 0
     range: 10
     cost: 3

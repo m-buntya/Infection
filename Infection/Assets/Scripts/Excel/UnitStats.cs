@@ -3,9 +3,6 @@ using UnityEngine;
 [System.Serializable]
 public class UnitStats
 {
-    public int unitCode;        // ユニット番号
-    public string unitName;     // ユニット名
-
     public enum LEADER_SKILL    // リーダースキル
     {
         AtkBoost,               // 攻撃力上昇
@@ -13,7 +10,7 @@ public class UnitStats
         Regeneration,           // 自然回復
     }
 
-    public  enum ROLE           // ロール
+    public enum ROLE           // ロール
     {
         Attacker,               // アタッカー
         Tank,                   // タンク
@@ -22,6 +19,10 @@ public class UnitStats
         Debaffer,               // デバッファー
     }
 
+    public int unitCode;        // ユニット番号
+    public string unitName;     // ユニット名
+    public LEADER_SKILL leaderSkill;    // リーダースキル
+    public ROLE role;                   // ロール
     public int lv;              // レベル
     public float hp;            // 体力
     public float atk;           // 攻撃力
