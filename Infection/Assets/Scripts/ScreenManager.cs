@@ -5,7 +5,7 @@ public class ScreenManager : MonoBehaviour
     //‚µ‚å‚Á‚Ï‚È‹N“®
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(transform.root.gameObject);
         SceneManager.sceneLoaded += SceneCheck;
     }
 
