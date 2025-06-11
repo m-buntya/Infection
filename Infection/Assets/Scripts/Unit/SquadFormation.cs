@@ -37,7 +37,7 @@ public class SquadStats
     // 部隊のパラメータをセット
     public void SetSquadStats()
     {
-        Debug.Log("パラメータをセット");
+        //Debug.Log("パラメータをセット");
 
         float correction = squadMemberCnt * 0.01f;      // 部隊の人数 * 1%の補正値
 
@@ -86,11 +86,9 @@ public class SquadFormation : MonoBehaviour
         };
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         squadStats = new SquadStats();
-        Debug.Log(squadStats);
 
         squadStats.SetLeaderStats(Clone(unitStatsData.UnitParameter[0]));
 
