@@ -1,7 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 public class ScreenManager : MonoBehaviour
 {
+    [SerializeField] Text text;
     //しょっぱな起動
     void Awake()
     {
@@ -20,6 +23,26 @@ public class ScreenManager : MonoBehaviour
         else
         {
             gameObject.SetActive(false);
+        }
+        Positioning(scene);
+    }
+
+    //シーン別のポジショニング
+    public void Positioning(Scene scene)
+    {
+        if (scene.name == "TitleScene")
+        {
+            RectTransform rt = GetComponent<RectTransform>();
+            rt.anchoredPosition = new Vector2(0, -140);
+            rt.sizeDelta = new Vector2(800, 80);
+            text.text = "スタート";
+        }
+        else if(scene.name == "HomeScene")
+        {
+            RectTransform rt = GetComponent<RectTransform>();
+            rt.anchoredPosition = new Vector2(750, -430);
+            rt.sizeDelta = new Vector2(400, 200);
+            text.text = "出撃";
         }
     }
 
