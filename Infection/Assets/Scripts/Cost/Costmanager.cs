@@ -1,76 +1,72 @@
-using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
 
 public class CostManager : MonoBehaviour
 {
-    [SerializeField] private Image costBar; // UIの横バー
-    [SerializeField] private TextMeshProUGUI costText; // コスト表示用
-
-    private int currentCost = 0; // 初期コスト
-    private const int MAX_COST = 100; // 最大コスト
-    private const float ACCUMULATE_INTERVAL = 3.0f; // コストが増加する間隔
-    private float costRegenTimer = 0f; // タイマー処理用
-    private const float MAX_WIDTH = 100f; // バーの最大横幅
+    [SerializeField] private TMP_Text costText;
+    [SerializeField] private RectTransform costBar;
+    [SerializeField] private float fullBarWidth = 100f; // バー最大幅
+    private int currentCost = 0; // 初期コストは0
+    private const int MAX_COST = 100;
+    private const float AccumulateInterval = 3.0f;
+    private float regenTimer = 0f;
+    private float valueTimer = 0f;
+    private float barFillRatio = 0f;
 
     void Update()
     {
-        costRegenTimer += Time.deltaTime;
-        float progress = costRegenTimer / ACCUMULATE_INTERVAL; // 進行割合
-        float newWidth = MAX_WIDTH * progress; // 横幅を最大値に合わせて調整
-
-        costBar.rectTransform.sizeDelta = new Vector2(newWidth, costBar.rectTransform.sizeDelta.y);
-
-        if (newWidth >= MAX_WIDTH)
+        // コスト回復処理
+        regenTimer += Time.deltaTime;
+        if (regenTimer >= AccumulateInterval)
         {
-            AccumulateCost();
-            costRegenTimer = 0f; // リセット
-         
+            regenTimer = 0f;
+            if (currentCost < MAX_COST)
+            {
+                currentCost++;
+                UpdateCostText();
+            }
         }
-    }
 
-    void AccumulateCost()
-    {
-        if (currentCost < MAX_COST)
-        {
-            currentCost++;
-            UpdateCostUI(); // コスト増加後にUI更新
-            Debug.Log("コスト追加: " + currentCost);
+        // バー伸縮処理（3秒で最大まで伸びる）
+        valueTimer += Time.deltaTime;
+        barFillRatio = Mathf.Clamp01(valueTimer / 3f);
+        float barWidth = fullBarWidth * barFillRatio;
+        costBar.sizeDelta = new Vector2(barWidth, costBar.sizeDelta.y);
 
-        }
-    }
-
-    public void SpendCost(int cost)
-    {
-        if (CanAfford(cost))
+        // 3秒後にリセット
+        if (valueTimer >= 3f)
         {
-            currentCost -= cost;
-            Debug.Log("コスト消費: " + cost + " 残り: " + currentCost);
-            UpdateCostUI(); // UIを更新
-        }
-        else
-        {
-            Debug.LogWarning("コストが不足しています！");
+            valueTimer = 0f;
+            costBar.sizeDelta = new Vector2(0f, costBar.sizeDelta.y);
         }
     }
 
     public bool CanAfford(int cost)
     {
         return currentCost >= cost;
-       
     }
 
+    public void SpendCost(int cost)
+    {
+        if (!CanAfford(cost)) return;
 
-    void UpdateCostUI()
+        currentCost -= cost;
+        UpdateCostText();
+    }
+
+    private void UpdateCostText()
     {
         if (costText != null)
-        {
-            costText.text = currentCost.ToString(); // コストをUIに反映
-            //Debug.Log("コストUI更新: " + currentCost);
-        }
-        else
-        {
-            Debug.LogWarning("costTextが設定されていません！");
-        }
+            costText.text = currentCost.ToString();
+    }
+
+    public int GetCurrentCost()
+    {
+        return currentCost;
+    }
+
+    public void DisplayInsufficientCostFeedBack()
+    {
+        Debug.Log("コストが足りません！");
     }
 }

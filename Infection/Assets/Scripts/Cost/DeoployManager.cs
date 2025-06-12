@@ -1,53 +1,77 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class DeployManager : MonoBehaviour
 {
     [SerializeField] private CostManager costManager;
-    [SerializeField] private Transform deployPosition;
-    [SerializeField] private UnitData[] unitOptions; // ˆÙ‚È‚éƒ†ƒjƒbƒg‚ÌƒŠƒXƒg
+    [SerializeField] private Transform deployParent;
+    [SerializeField] private Vector3 deployPosition = Vector3.zero;
 
-    private UnitData selectedUnit;
+    private const int MAX_DEPLOYABLE_UNITS = 6;
+    private int currentUnitCount = 0;
+    private const float DEPLOY_COOL_DOWNTIME = 5.0f;
+    private float remainingCooldown = 0.0f;
+    private bool isDeployable = true;
+    private bool isCooldownActive = false;
 
-    public void SelectUnit(int index)
+    void Update()
     {
-        if (index >= 0 && index < unitOptions.Length)
+        if (isCooldownActive)
         {
-            selectedUnit = unitOptions[index]; // ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚Æ‚«‚ÉˆÙ‚È‚éƒ†ƒjƒbƒg‚ðƒZƒbƒg
-            Debug.Log("‘I‘ð‚³‚ê‚½ƒ†ƒjƒbƒg: " + selectedUnit.unitName);
+            remainingCooldown -= Time.deltaTime;
+            if (remainingCooldown <= 0f)
+            {
+                remainingCooldown = 0f;
+                isCooldownActive = false;
+            }
         }
     }
 
-    public void TryDeployUnit()
+    public void TryDeployUnit(UnitData unit)
     {
-        Debug.Log("TryDeployUnit ŽÀs: ƒ†ƒjƒbƒgoŒ‚ƒ`ƒFƒbƒN");
-
-        if (selectedUnit == null)
+        if (!isDeployable)
         {
-            Debug.LogWarning("ƒ†ƒjƒbƒg‚ª‘I‘ð‚³‚ê‚Ä‚¢‚Ü‚¹‚ñI");
+            Debug.Log("æ‹ ç‚¹ãŒå´©å£Šã—ã¦ã„ã‚‹ãŸã‚å‡ºæ’ƒã§ãã¾ã›ã‚“ï¼");
             return;
         }
 
-        if (costManager.CanAfford(selectedUnit.cost))
+        if (isCooldownActive)
         {
-            Debug.Log("ƒRƒXƒgOKIoŒ‚‚µ‚Ü‚·I");
-            costManager.SpendCost(selectedUnit.cost);
-            DeployUnit();
+            Debug.Log("ã‚¯ãƒ¼ãƒ«ã‚¿ã‚¤ãƒ ä¸­ã§ã™ï¼");
+            return;
         }
-        else
+
+        if (currentUnitCount >= MAX_DEPLOYABLE_UNITS)
         {
-            Debug.LogWarning("ƒRƒXƒg‚ª‘«‚è‚Ü‚¹‚ñI");
+            Debug.Log("å‡ºæ’ƒå¯èƒ½ä¸Šé™ã«é”ã—ã¦ã„ã¾ã™ï¼");
+            return;
         }
+
+        if (!costManager.CanAfford(unit.cost))
+        {
+            costManager.DisplayInsufficientCostFeedBack();
+            return;
+        }
+
+        costManager.SpendCost(unit.cost); // ðŸ”¥ ã‚³ã‚¹ãƒˆæ¶ˆè²»
+
+        GameObject newUnit = Instantiate(unit.prefab, deployPosition, Quaternion.identity, deployParent);
+        currentUnitCount++;
+
+        StartCooldown();
+        Debug.Log($"{unit.unitName} ã‚’å‡ºæ’ƒã—ã¾ã—ãŸï¼ æ®‹ã‚Šã‚³ã‚¹ãƒˆ: {costManager.GetCurrentCost()}");
     }
 
-    void DeployUnit()
+    public void ResetDeployment()
     {
-        if (selectedUnit == null || selectedUnit.prefab == null)
-        {
-            Debug.LogWarning("ƒ†ƒjƒbƒg‚ÌƒvƒŒƒnƒu‚ªÝ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñI");
-            return;
-        }
+        currentUnitCount = 0;
+        isCooldownActive = false;
+        remainingCooldown = 0f;
+        isDeployable = true;
+    }
 
-        GameObject newUnit = Instantiate(selectedUnit.prefab, deployPosition.position, Quaternion.identity);
-        Debug.Log(selectedUnit.unitName + " ‚ðoŒ‚I => " + newUnit);
+    private void StartCooldown()
+    {
+        remainingCooldown = DEPLOY_COOL_DOWNTIME;
+        isCooldownActive = true;
     }
 }
