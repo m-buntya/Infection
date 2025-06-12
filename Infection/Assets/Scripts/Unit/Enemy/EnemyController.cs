@@ -5,19 +5,41 @@ namespace StatePatteren.StateEnemy
 {
     public class EnemyController : MonoBehaviour
     {
+        public EnemyFormation enemyFormation;
+
         private EnemyStateMachine stateMachine;
         public EnemyStateMachine EnemyStateMachine => stateMachine;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            enemyFormation = GameObject.Find("EnemyFormation").GetComponent<EnemyFormation>();
+            stateMachine = new EnemyStateMachine(this);
 
+            stateMachine.Initialize(stateMachine.moveState);
         }
 
         // Update is called once per frame
         void Update()
         {
+            stateMachine.Update();
+            stateMachine.Transition();
+        }
 
+        // É_ÉÅÅ[ÉWèàóù
+        public void TakeDamage(float damage)
+        {
+            enemyFormation.enemyStats.enemyUnit.hp -= damage;
+            if (enemyFormation.enemyStats.enemyUnit.hp <= 0)
+            {
+                Dead();
+            }
+        }
+
+        // âÛñ≈èàóù
+        public void Dead()
+        {
+            Destroy(gameObject);
         }
     }
 

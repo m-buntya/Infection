@@ -1,3 +1,4 @@
+using StatePatteren.State;
 using StatePatteren.StateEnemy;
 using UnityEngine;
 
@@ -19,7 +20,9 @@ namespace StatePatteren.StateEnemy
 
         public void Enter()
         {
-            
+            atk = enemyController.enemyFormation.enemyStats.enemyUnit.atk;
+            atkSpd = enemyController.enemyFormation.enemyStats.enemyUnit.atkSpd;
+            time = 0;
         }
 
         public void Update()

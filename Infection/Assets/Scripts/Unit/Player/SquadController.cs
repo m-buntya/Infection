@@ -25,6 +25,17 @@ namespace StatePatteren.State
             stateMachine.Transition();
         }
 
+        // ƒ_ƒ[ƒWˆ—
+        public void TakeDamage(float damage)
+        {
+            squadFormation.squadStats.leaderUnit.hp -= damage;
+            if (squadFormation.squadStats.leaderUnit.hp <= 0)
+            {
+                Dead();
+            }
+        }
+
+        // ‰ó–Åˆ—
         public void Dead()
         {
             Destroy(gameObject);
