@@ -1,21 +1,28 @@
-//Chat GPT参照
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
-/// ステージ選択の挙動を制御するコントローラー
+// ステージ選択の挙動を管理するコントローラー
 public class StageSelectionController : MonoBehaviour
 {
-    [Header("メインカメラ")]
+    [Header("Main Camera")]
     [SerializeField] private Camera mainCamera;
 
-    [Header("ステージ選択可能なレイヤー")]
-    [SerializeField] private LayerMask stageLayerMask;
+    [Header("Selectable Stage Layer")]
+    [SerializeField] private LayerMask stageLayer;
+
+    [Header("Stage Info UI")]
+    [SerializeField] private GameObject stageInfoPanel;
+
+    [SerializeField] private Button deployButton;
+
 
     private string selectedAreaName;
+    private string selectedStageName;
 
-    // Awakeでカメラ初期化とPlayerPrefsからエリア名を読み込み
+
+    // 初期化処理
     private void Awake()
     {
         if (mainCamera == null)
@@ -28,15 +35,18 @@ public class StageSelectionController : MonoBehaviour
         if (string.IsNullOrEmpty(selectedAreaName))
         {
             Debug.LogWarning("選択されたエリア名が保存されていません。");
-            // 必要ならここでエリア選択シーンに戻す処理などを追加
         }
         else
         {
             Debug.Log($"エリア「{selectedAreaName}」が選択されました。ステージ選択を開始してください。");
         }
+
+        stageInfoPanel.SetActive(false);
+        deployButton.onClick.AddListener(OnDeployButtonClicked);
     }
 
-    // 毎フレーム、左クリックを検知しステージクリックを判定
+
+    // 毎フレームの更新処理
     private void Update()
     {
         if (string.IsNullOrEmpty(selectedAreaName))
@@ -51,38 +61,49 @@ public class StageSelectionController : MonoBehaviour
     }
 
 
-    /// ステージをクリックしたか判定し、選択したらシーンをロードする
+    // マウスクリックでステージを検出する
     private void DetectStageClick()
     {
-        Vector2 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
         RaycastHit2D hit = Physics2D.Raycast(
-            mousePos,
+            mousePosition,
             Vector2.zero,
             Mathf.Infinity,
-            stageLayerMask
+            stageLayer
         );
 
         if (hit.collider != null)
         {
-            string stageName = hit.collider.gameObject.name;
-            Debug.Log($"ステージ「{stageName}」が選択されました。");
+            selectedStageName = hit.collider.gameObject.name;
 
-            LoadSelectedStageScene(stageName);
+            Debug.Log($"ステージ \"{selectedStageName}\" が選択されました。");
+
+            PlayerPrefs.SetString("SelectedStage", selectedStageName);
+            ShowStageInfoPanel(selectedStageName);
         }
     }
 
-    
-    /// 指定したステージ名のシーンが存在すればロードする
-    private void LoadSelectedStageScene(string stageName)
+
+    // ステージ情報パネルを表示する
+    private void ShowStageInfoPanel(string stageName)
     {
-        if (Application.CanStreamedLevelBeLoaded(stageName))
+        stageInfoPanel.SetActive(true);
+    }
+
+
+    // 出撃ボタンが押されたときの処理
+    private void OnDeployButtonClicked()
+    {
+        if (Application.CanStreamedLevelBeLoaded(selectedStageName))
         {
-            SceneManager.LoadScene(stageName);
+            SceneManager.LoadScene(selectedStageName);
         }
         else
         {
-            Debug.LogError($"シーン '{stageName}' が Build Settings に登録されていません。");
+            Debug.LogError($"シーン '{selectedStageName}' が Build Settings に登録されていません。");
         }
     }
 }
+
+// 出典：ChatGPT によるコードリファクタリング（2025年6月）
