@@ -38,7 +38,7 @@ namespace StatePatteren.StateEnemy
             {
                 if (Input.GetKeyDown(KeyCode.W))
                 {
-                    enemyController.EnemyStateMachine.TransitionTo(enemyController.EnemyStateMachine.attackState);
+                    enemyController.EnemyStateMachine.TransitionTo(enemyController.EnemyStateMachine.combatState);
                 }
                 else if(Input.GetKeyDown(KeyCode.E))
                 {

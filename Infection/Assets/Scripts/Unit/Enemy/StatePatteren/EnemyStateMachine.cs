@@ -8,13 +8,13 @@ namespace StatePatteren.StateEnemy
         public EnemyState CurrenState { get; private set; }
 
         public EnemyMoveState moveState;
-        public EnemyAttackState attackState;
+        public EnemyCombatState combatState;
         public EnemyDeadState deadState;
 
         public EnemyStateMachine(EnemyController enemyController)
         {
             this.moveState = new EnemyMoveState(enemyController);
-            this.attackState = new EnemyAttackState(enemyController);
+            this.combatState = new EnemyCombatState(enemyController);
             this.deadState = new EnemyDeadState(enemyController);
         }
 
