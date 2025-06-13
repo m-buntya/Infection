@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Linq;
 
-
-// ステージ選択の挙動を管理するコントローラー
 public class StageSelectionController : MonoBehaviour
 {
     [Header("Main Camera")]
@@ -17,12 +16,12 @@ public class StageSelectionController : MonoBehaviour
 
     [SerializeField] private Button deployButton;
 
+    [Header("Stage Data")]
+    [SerializeField] private Stage stageDataAsset;  // ScriptableObjectをアタッチ
 
-    private string selectedAreaName;
     private string selectedStageName;
+    private StageData selectedStageData;
 
-
-    // 初期化処理
     private void Awake()
     {
         if (mainCamera == null)
@@ -30,80 +29,61 @@ public class StageSelectionController : MonoBehaviour
             mainCamera = Camera.main;
         }
 
-        selectedAreaName = PlayerPrefs.GetString("SelectedArea", "");
-
-        if (string.IsNullOrEmpty(selectedAreaName))
-        {
-            Debug.LogWarning("選択されたエリア名が保存されていません。");
-        }
-        else
-        {
-            Debug.Log($"エリア「{selectedAreaName}」が選択されました。ステージ選択を開始してください。");
-        }
-
         stageInfoPanel.SetActive(false);
         deployButton.onClick.AddListener(OnDeployButtonClicked);
     }
 
-
-    // 毎フレームの更新処理
     private void Update()
     {
-        if (string.IsNullOrEmpty(selectedAreaName))
-        {
-            return;
-        }
-
         if (Input.GetMouseButtonDown(0))
         {
             DetectStageClick();
         }
     }
 
-
-    // マウスクリックでステージを検出する
     private void DetectStageClick()
     {
         Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
-        RaycastHit2D hit = Physics2D.Raycast(
-            mousePosition,
-            Vector2.zero,
-            Mathf.Infinity,
-            stageLayer
-        );
+        RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, stageLayer);
 
         if (hit.collider != null)
         {
             selectedStageName = hit.collider.gameObject.name;
 
-            Debug.Log($"ステージ \"{selectedStageName}\" が選択されました。");
+            // 対応する StageData を探す
+            selectedStageData = stageDataAsset.stageDatas
+                .FirstOrDefault(s => s.stageID.ToString() == selectedStageName || s.stageID == int.Parse(selectedStageName));
 
-            PlayerPrefs.SetString("SelectedStage", selectedStageName);
-            ShowStageInfoPanel(selectedStageName);
+            if (selectedStageData != null)
+            {
+                Debug.Log($"ステージ '{selectedStageName}' が選択されました (ID: {selectedStageData.stageID})");
+
+                // GameManager にセット
+                GameManager.Instance.SetStageData(selectedStageData);
+
+                ShowStageInfoPanel();
+            }
+            else
+            {
+                Debug.LogWarning($"'{selectedStageName}' に一致するStageDataが見つかりませんでした。");
+            }
         }
     }
 
-
-    // ステージ情報パネルを表示する
-    private void ShowStageInfoPanel(string stageName)
+    private void ShowStageInfoPanel()
     {
         stageInfoPanel.SetActive(true);
     }
 
-
-    // 出撃ボタンが押されたときの処理
     private void OnDeployButtonClicked()
     {
-        if (Application.CanStreamedLevelBeLoaded(selectedStageName))
+        if (selectedStageData != null)
         {
-            SceneManager.LoadScene(selectedStageName);
+            SceneManager.LoadScene("Main");  // 共通の Main シーンに遷移
         }
         else
         {
-            Debug.LogError($"シーン '{selectedStageName}' が Build Settings に登録されていません。");
+            Debug.LogError("出撃しようとしているステージデータが null です。");
         }
     }
 }
-
-// 出典：ChatGPT によるコードリファクタリング（2025年6月）
