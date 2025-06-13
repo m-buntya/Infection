@@ -98,7 +98,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4106731272040309424}
   - component: {fileID: 3616098036207283053}
-  - component: {fileID: -6137455565746978166}
   - component: {fileID: 1803062947234717747}
   m_Layer: 0
   m_Name: virus
@@ -178,21 +177,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-6137455565746978166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2449498712892834152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4306d2f337825fa47ac6f56a6598e703, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  changeDirectionInterval: 4
-  screenBounds: {x: 0, y: 0}
 --- !u!114 &1803062947234717747
 MonoBehaviour:
   m_ObjectHideFlags: 0
