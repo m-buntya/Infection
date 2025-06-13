@@ -1,3 +1,4 @@
+using StatePatteren.State;
 using StatePatteren.StateEnemy;
 using UnityEngine;
 
@@ -55,17 +56,35 @@ public class EnemyStats
 
 public class EnemyFormation : MonoBehaviour
 {
-    public EnemyStats enemyStats;
+    [SerializeField] UnitEnemyStatsData unitEnemyStats;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public EnemyStats enemyStats { get; private set; }
+
+    // UnitStats Ç new Ç≈ï°êªÇ∑ÇÈä÷êîÇçÏÇÈ
+    public UnitEnemyStats Clone(UnitEnemyStats original)
     {
-        
+        return new UnitEnemyStats
+        {
+            unitCode = original.unitCode,
+            unitName = original.unitName,
+            leaderSkill = original.leaderSkill,
+            role = original.role,
+            hp = original.hp,
+            virusHp = original.virusHp,
+            atk = original.atk,
+            atkSpd = original.atkSpd,
+            spd = original.spd,
+            isFly = original.isFly,
+            range = original.range,
+        };
     }
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+        enemyStats = new EnemyStats();
+
+        enemyStats.SetLeaderStats(Clone(unitEnemyStats.UnitEnemyParameter[0]));
+        enemyStats.SetSoldierCnt(100);
+        enemyStats.SetSquadStats();
     }
 }

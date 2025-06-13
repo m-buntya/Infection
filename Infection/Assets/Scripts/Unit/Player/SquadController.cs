@@ -4,10 +4,19 @@ namespace StatePatteren.State
 {
     public class SquadController : MonoBehaviour
     {
+        public SquadStats squadStats;
+
         private SquadStateMachine stateMachine;
         public SquadStateMachine StateMachine => stateMachine;
 
         public SquadFormation squadFormation;
+         
+        float maxDistance = 50f;        // 検知する最大距離
+
+        public void SetUnitStats(SquadStats stats)
+        {
+            squadStats = stats;
+        }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -28,11 +37,22 @@ namespace StatePatteren.State
         // ダメージ処理
         public void TakeDamage(float damage)
         {
-            squadFormation.squadStats.leaderUnit.hp -= damage;
-            if (squadFormation.squadStats.leaderUnit.hp <= 0)
+            squadStats.leaderUnit.hp -= damage;
+
+            Debug.Log($"Squad : {damage}のダメージを受けた");
+
+            if (squadStats.leaderUnit.hp <= 0)
             {
                 Dead();
             }
+        }
+
+        // 回復処理
+        public void CareHp(float hp)
+        {
+            squadStats.leaderUnit.hp += hp;
+
+            Debug.Log($"Squad : {hp}回復した");
         }
 
         // 壊滅処理
@@ -40,6 +60,27 @@ namespace StatePatteren.State
         {
             Destroy(gameObject);
         }
+
+        // 最も近い対象を返す
+        public GameObject GetTarget(string targetTag)
+        {
+            GameObject[] targets = GameObject.FindGameObjectsWithTag(targetTag);
+            GameObject nearest = null;
+            float minDistance = maxDistance;
+
+            foreach (var target in targets)
+            {
+                float dist = Vector2.Distance(transform.position, target.transform.position);
+                if (dist < minDistance)
+                {
+                    minDistance = dist;
+                    nearest = target;
+                }
+            }
+
+            return nearest;
+        }
+
     }
 
 }

@@ -1,3 +1,5 @@
+using StatePatteren.State;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,6 +54,32 @@ public class SquadStats
         //Debug.Log(leaderUnit.virusPow);
         //Debug.Log(leaderUnit.spd);
     }
+
+    // SquadStats を new で複製する関数を作る
+    public SquadStats Clone()
+    {
+        SquadStats clone = new SquadStats();
+        clone.SetLeaderStats(new UnitStats
+        {
+            unitCode = leaderUnit.unitCode,
+            unitName = leaderUnit.unitName,
+            leaderSkill = leaderUnit.leaderSkill,
+            role = leaderUnit.role,
+            lv = leaderUnit.lv,
+            hp = leaderUnit.hp,
+            atk = leaderUnit.atk,
+            virusPow = leaderUnit.virusPow,
+            atkSpd = leaderUnit.atkSpd,
+            spd = leaderUnit.spd,
+            isFly = leaderUnit.isFly,
+            range = leaderUnit.range,
+            cost = leaderUnit.cost,
+            sortieCoolTime = leaderUnit.sortieCoolTime
+        });
+        clone.SetSoldierCnt(this.squadMemberCnt);
+        clone.SetSquadStats();
+        return clone;
+    }
 }
 
 // 部隊の編成管理
@@ -63,6 +91,50 @@ public class SquadFormation : MonoBehaviour
 
     [SerializeField] Slider soldierSlider;
     int squadMemberCnt;
+
+    [SerializeField] List<SquadController> squadList;
+    [SerializeField] GameObject squadObj;       // 部隊オブジェクト
+
+    void Awake()
+    {
+        squadStats = new SquadStats();
+
+        squadStats.SetLeaderStats(Clone(unitStatsData.UnitParameter[0]));
+
+        int squadMemberMinCnt = 0;      // デバッグ用
+        int squadMemberMaxCnt = 100;   // デバッグ用
+
+        // スライダーの最小、最大値設定
+        soldierSlider.minValue = squadMemberMinCnt;
+        soldierSlider.maxValue = squadMemberMaxCnt;
+
+        soldierSlider.onValueChanged.AddListener(OnSliderSoldier);
+
+        squadList.Clear();
+    }
+
+    // リーダー選択
+    public void OnClickLeader(int num)
+    {
+        squadStats.SetLeaderStats(Clone(unitStatsData.UnitParameter[num]));
+        squadStats.SetSquadStats();
+    }
+
+    // 雑兵数選択
+    void OnSliderSoldier(float value)
+    {
+        squadStats.SetSoldierCnt((int)value);
+        squadStats.SetSquadStats();
+    }
+
+    // 部隊作成
+    public void OnClickCreat()
+    {
+        GameObject squad = Instantiate(squadObj);
+        SquadController squadController = squad.GetComponent<SquadController>();
+        squadController.SetUnitStats(squadStats.Clone());
+        squadList.Add(squadController);
+    }
 
     // UnitStats を new で複製する関数を作る
     public UnitStats Clone(UnitStats original)
@@ -84,33 +156,5 @@ public class SquadFormation : MonoBehaviour
             cost = original.cost,
             sortieCoolTime = original.sortieCoolTime
         };
-    }
-
-    void Awake()
-    {
-        squadStats = new SquadStats();
-
-        squadStats.SetLeaderStats(Clone(unitStatsData.UnitParameter[0]));
-
-        int squadMemberMinCnt = 0;      // デバッグ用
-        int squadMemberMaxCnt = 100;   // デバッグ用
-
-        // スライダーの最小、最大値設定
-        soldierSlider.minValue = squadMemberMinCnt;
-        soldierSlider.maxValue = squadMemberMaxCnt;
-
-        soldierSlider.onValueChanged.AddListener(OnSliderSoldier);
-    }
-
-    public void OnClickLeader(int num)
-    {
-        squadStats.SetLeaderStats(Clone(unitStatsData.UnitParameter[num]));
-        squadStats.SetSquadStats();
-    }
-
-    void OnSliderSoldier(float value)
-    {
-        squadStats.SetSoldierCnt((int)value);
-        squadStats.SetSquadStats();
     }
 }
