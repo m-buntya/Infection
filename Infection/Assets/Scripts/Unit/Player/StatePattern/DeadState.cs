@@ -35,7 +35,7 @@ namespace StatePatteren.State
             {
                 if (Input.GetKeyDown(KeyCode.W))
                 {
-                    squadController.StateMachine.TransitionTo(squadController.StateMachine.attackState);
+                    squadController.StateMachine.TransitionTo(squadController.StateMachine.combatState);
                 }
                 else if (Input.GetKeyDown(KeyCode.Q))
                 {

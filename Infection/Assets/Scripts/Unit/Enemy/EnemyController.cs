@@ -30,6 +30,9 @@ namespace StatePatteren.StateEnemy
         public void TakeDamage(float damage)
         {
             enemyFormation.enemyStats.enemyUnit.hp -= damage;
+
+            Debug.Log($"Enemy : {damage}‚Ìƒ_ƒ[ƒW‚ğó‚¯‚½");
+
             if (enemyFormation.enemyStats.enemyUnit.hp <= 0)
             {
                 Dead();

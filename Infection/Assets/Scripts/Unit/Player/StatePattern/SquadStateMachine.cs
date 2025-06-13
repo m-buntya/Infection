@@ -9,13 +9,13 @@ namespace StatePatteren.State
         public SquadState CurrenState { get; private set; }
 
         public MoveState moveState;
-        public AttackState attackState;
+        public CombatState combatState;
         public DeadState deadState;
         
         public SquadStateMachine(SquadController squadController)
         {
            this.moveState = new MoveState(squadController);
-           this.attackState = new AttackState(squadController);
+           this.combatState = new CombatState(squadController);
            this.deadState = new DeadState(squadController);
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StatePatteren.StateEnemy
 {
-    public class EnemyAttackState : EnemyState
+    public class EnemyCombatState : EnemyState
     {
         private EnemyController enemyController;
 
@@ -13,7 +13,7 @@ namespace StatePatteren.StateEnemy
 
         float time = 0;
 
-        public EnemyAttackState(EnemyController enemyController)
+        public EnemyCombatState(EnemyController enemyController)
         {
             this.enemyController = enemyController;
         }
