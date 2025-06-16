@@ -26,7 +26,14 @@ namespace StatePatteren.State
 
         public void Update()
         {
-            ActionTimer();
+          
+            //ターゲットが射程外またはいないなら移動に戻る
+            if(squadController.currentTarget == null || !squadController.IsTargetInRange(squadController.currentTarget))
+            {
+                squadController.StateMachine.TransitionTo(squadController.StateMachine.moveState);
+                return;
+            }
+             ActionTimer();
         }
 
         public void Exit()

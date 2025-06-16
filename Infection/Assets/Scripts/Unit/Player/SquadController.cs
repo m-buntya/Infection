@@ -10,9 +10,24 @@ namespace StatePatteren.State
         public SquadStateMachine StateMachine => stateMachine;
 
         public SquadFormation squadFormation;
+
+        public GameObject currentTarget; //現在の攻撃対象
          
         float maxDistance = 50f;        // 検知する最大距離
 
+        //射程内にターゲットがいるかを判定
+        public bool IsTargetInRange(GameObject target)
+        {
+            if (target == null)
+            {
+                return false;
+            }
+
+            float distance = Vector2.Distance(transform.position, target.transform.position);
+            float attackRange = squadStats.leaderUnit.range;
+
+            return distance <= attackRange;
+        }
         public void SetUnitStats(SquadStats stats)
         {
             squadStats = stats;
