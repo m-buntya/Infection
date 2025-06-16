@@ -1,5 +1,6 @@
 using StatePatteren.State;
 using StatePatteren.StateEnemy;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace StatePatteren.StateEnemy
@@ -54,7 +55,7 @@ namespace StatePatteren.StateEnemy
         // UŒ‚
         void Attack()
         {
-            Debug.Log($"“G‚É‘Î‚µ‚Ä{atk}‚Ìƒ_ƒ[ƒW‚ğ—^‚¦‚½");
+
         }
 
         // UŒ‚‘¬“x

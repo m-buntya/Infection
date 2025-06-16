@@ -12,6 +12,7 @@ namespace StatePatteren.State
         public SquadFormation squadFormation;
          
         float maxDistance = 50f;        // 検知する最大距離
+        public bool isGuard { get; private set; } = false;
 
         public void SetUnitStats(SquadStats stats)
         {
@@ -37,7 +38,14 @@ namespace StatePatteren.State
         // ダメージ処理
         public void TakeDamage(float damage)
         {
-            squadStats.leaderUnit.hp -= damage;
+            if(isGuard)
+            {
+                Debug.Log("ダメージを無効化");
+            }
+            else
+            {
+                squadStats.leaderUnit.hp -= damage;
+            }
 
             Debug.Log($"Squad : {damage}のダメージを受けた");
 
@@ -53,6 +61,12 @@ namespace StatePatteren.State
             squadStats.leaderUnit.hp += hp;
 
             Debug.Log($"Squad : {hp}回復した");
+        }
+
+        // ガード処理
+        public void Guard()
+        {
+            isGuard = true;
         }
 
         // 壊滅処理
@@ -80,7 +94,6 @@ namespace StatePatteren.State
 
             return nearest;
         }
-
     }
 
 }
