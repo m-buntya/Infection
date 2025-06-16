@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 6201030602887471015}
   - component: {fileID: 5239837640967880525}
   - component: {fileID: 5536663413573114902}
+  - component: {fileID: 2742872168595139795}
   m_Layer: 0
   m_Name: monster
   m_TagString: Untagged
@@ -277,3 +278,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarSprite: {fileID: 2290181764101646023}
+--- !u!114 &2742872168595139795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4520513790756411374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4306d2f337825fa47ac6f56a6598e703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  changeDirectionInterval: 4
+  unitData: {fileID: 11400000, guid: e9f0eca7a1f97a94cb7e0ef8320279be, type: 2}
+  screenBounds: {x: 0, y: 0}
