@@ -7,11 +7,11 @@ namespace StrategyPatteren.Role
     {
         public void Action(SquadController squad)
         {
-            var target = squad.GetTarget("Squad")?.GetComponent<SquadController>();
+            var target = squad.GetTarget("Squad")?.GetComponent<SquadController>();     // x‰‡‘ÎÛ‚Ìæ“¾
             if(target != null)
             {
                 Debug.Log($"HealerFx‰‡‘ÎÛF{target}");
-                target.CareHp(squad.squadStats.leaderUnit.atk);
+                target.CareHp(squad.squadStats.leaderUnit.atk);     // UŒ‚—Í•ªHP‚ğ‰ñ•œ‚³‚¹‚é
             }
         }
     }

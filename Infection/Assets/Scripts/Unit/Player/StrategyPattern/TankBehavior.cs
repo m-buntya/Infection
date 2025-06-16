@@ -7,11 +7,11 @@ namespace StrategyPatteren.Role
     {
         public void Action(SquadController squad)
         {
-            var target = squad.GetComponent<SquadController>();
+            var target = squad.GetComponent<SquadController>();     // 自身のコンポーネント取得
             if (target != null)
             {
                 Debug.Log($"Tank：無敵化");
-                target.Guard();
+                target.Guard();     // 自身を無敵化
             }
         }
     }

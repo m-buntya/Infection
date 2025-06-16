@@ -8,11 +8,11 @@ namespace StrategyPatteren.Role
     {
         public void Action(SquadController squad)
         {
-            var target = squad.GetTarget("Enemy")?.GetComponent<EnemyController>();
+            var target = squad.GetTarget("Enemy")?.GetComponent<EnemyController>();     // UŒ‚‘ÎÛ‚Ìæ“¾
             if (target != null)
             {
                 Debug.Log($"AttackerFUŒ‚‘ÎÛF{target}");
-                target.TakeDamage(squad.squadStats.leaderUnit.atk);
+                target.TakeDamage(squad.squadStats.leaderUnit.atk);     // UŒ‚—Í•ªƒ_ƒ[ƒW‚ğ—^‚¦‚é
             }
         }
     }
