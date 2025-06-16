@@ -14,6 +14,7 @@ namespace StatePatteren.State
         public GameObject currentTarget; //現在の攻撃対象
          
         float maxDistance = 50f;        // 検知する最大距離
+        public bool isGuard { get; private set; } = false;
 
         //射程内にターゲットがいるかを判定
         public bool IsTargetInRange(GameObject target)
@@ -52,7 +53,14 @@ namespace StatePatteren.State
         // ダメージ処理
         public void TakeDamage(float damage)
         {
-            squadStats.leaderUnit.hp -= damage;
+            if(isGuard)
+            {
+                Debug.Log("ダメージを無効化");
+            }
+            else
+            {
+                squadStats.leaderUnit.hp -= damage;
+            }
 
             Debug.Log($"Squad : {damage}のダメージを受けた");
 
@@ -68,6 +76,12 @@ namespace StatePatteren.State
             squadStats.leaderUnit.hp += hp;
 
             Debug.Log($"Squad : {hp}回復した");
+        }
+
+        // ガード処理
+        public void Guard()
+        {
+            isGuard = true;
         }
 
         // 壊滅処理
@@ -95,7 +109,6 @@ namespace StatePatteren.State
 
             return nearest;
         }
-
     }
 
 }

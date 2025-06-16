@@ -1,5 +1,6 @@
 using StatePatteren.State;
 using StatePatteren.StateEnemy;
+using System.Collections;
 using UnityEngine;
 
 [System.Serializable]
