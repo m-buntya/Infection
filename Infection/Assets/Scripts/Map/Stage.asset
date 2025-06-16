@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Stage
   m_EditorClassIdentifier: 
   stageDatas:
-  - stageID: 1
+  - stageID: Stage_1
     taskList: 
     enemyList: []
-  - stageID: 2
+  - stageID: Stage_2
     taskList: 
     enemyList: []
-  - stageID: 3
+  - stageID: Stage_3
     taskList: 
     enemyList: []

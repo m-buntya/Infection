@@ -1,89 +1,88 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 using System.Linq;
 
+/// ステージ選択画面でボタンをクリックしてステージデータを選択し、出撃処理を行うコントローラー
+/// 出展：ChatGPT生成
 public class StageSelectionController : MonoBehaviour
 {
-    [Header("Main Camera")]
-    [SerializeField] private Camera mainCamera;
+    [Header("ステージ選択ボタン")]
+    [SerializeField] private Button[] stageButtons;
 
-    [Header("Selectable Stage Layer")]
-    [SerializeField] private LayerMask stageLayer;
-
-    [Header("Stage Info UI")]
+    [Header("ステージ情報UI")]
     [SerializeField] private GameObject stageInfoPanel;
 
     [SerializeField] private Button deployButton;
 
-    [Header("Stage Data")]
-    [SerializeField] private Stage stageDataAsset;  // ScriptableObjectをアタッチ
+    [Header("ステージデータ")]
+    [SerializeField] private Stage stageDataAsset;
 
-    private string selectedStageName;
     private StageData selectedStageData;
+
 
     private void Awake()
     {
-        if (mainCamera == null)
-        {
-            mainCamera = Camera.main;
-        }
-
         stageInfoPanel.SetActive(false);
+
         deployButton.onClick.AddListener(OnDeployButtonClicked);
-    }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
+        foreach (Button stageButton in stageButtons)
         {
-            DetectStageClick();
+            stageButton.onClick.AddListener(() => OnStageButtonClicked(stageButton));
         }
     }
 
-    private void DetectStageClick()
+
+    /// ステージボタンが押されたときに呼ばれる処理
+    private void OnStageButtonClicked(Button button)
     {
-        Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, stageLayer);
+        TMP_Text stageIdText = button.GetComponentInChildren<TMP_Text>();
 
-        if (hit.collider != null)
+        if (stageIdText == null)
         {
-            selectedStageName = hit.collider.gameObject.name;
+            Debug.LogError("ボタンに対応するTMP_Textが見つかりません。");
+            return;
+        }
 
-            // 対応する StageData を探す
-            selectedStageData = stageDataAsset.stageDatas
-                .FirstOrDefault(s => s.stageID.ToString() == selectedStageName || s.stageID == int.Parse(selectedStageName));
+        string stageId = stageIdText.text.Trim();
 
-            if (selectedStageData != null)
-            {
-                Debug.Log($"ステージ '{selectedStageName}' が選択されました (ID: {selectedStageData.stageID})");
+        selectedStageData = stageDataAsset.stageDatas
+            .FirstOrDefault(stage => stage.stageID == stageId);
 
-                // GameManager にセット
-                GameManager.Instance.SetStageData(selectedStageData);
+        if (selectedStageData != null)
+        {
+            Debug.Log($"ステージ「{stageId}」が選択されました。");
 
-                ShowStageInfoPanel();
-            }
-            else
-            {
-                Debug.LogWarning($"'{selectedStageName}' に一致するStageDataが見つかりませんでした。");
-            }
+            GameManager.Instance.SetStageData(selectedStageData);
+
+            ShowStageInfoPanel();
+        }
+        else
+        {
+            Debug.LogWarning($"ステージID「{stageId}」に一致するデータが見つかりませんでした。");
         }
     }
 
+
+    /// ステージ情報パネルを表示
     private void ShowStageInfoPanel()
     {
         stageInfoPanel.SetActive(true);
     }
 
+
+    /// 出撃ボタンが押されたときに呼ばれる処理
     private void OnDeployButtonClicked()
     {
         if (selectedStageData != null)
         {
-            SceneManager.LoadScene("Main");  // 共通の Main シーンに遷移
+            SceneManager.LoadScene("Main");
         }
         else
         {
-            Debug.LogError("出撃しようとしているステージデータが null です。");
+            Debug.LogError("出撃しようとしているステージデータがnullです。");
         }
     }
 }
