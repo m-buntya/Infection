@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
 // 部隊のステータス管理
 public class SquadStats
 {
@@ -92,8 +93,9 @@ public class SquadFormation : MonoBehaviour
     [SerializeField] Slider soldierSlider;
     int squadMemberCnt;
 
-    [SerializeField] List<SquadController> squadList;
-    [SerializeField] GameObject squadObj;       // 部隊オブジェクト
+    [SerializeField] List<GameObject> squadList;      // 各部隊のステータス
+    [SerializeField] List<GameObject> squadIcon;      // 部隊アイコン
+    [SerializeField] GameObject squadObj;             // 部隊オブジェクト
 
     void Awake()
     {
@@ -128,12 +130,37 @@ public class SquadFormation : MonoBehaviour
     }
 
     // 部隊作成
-    public void OnClickCreat()
+    public void OnClickSet()
     {
-        GameObject squad = Instantiate(squadObj);
-        SquadController squadController = squad.GetComponent<SquadController>();
-        squadController.SetUnitStats(squadStats.Clone());
-        squadList.Add(squadController);
+        if(squadList.Count >= 8)
+        {
+            Debug.Log("編成できる部隊の上限は【8部隊】までです");
+        }
+        else
+        {
+            GameObject squad = Instantiate(squadObj);
+            SquadController squadController = squad.GetComponent<SquadController>();
+            squadController.SetUnitStats(squadStats.Clone());
+            squadList.Add(squad);
+            SquadComlete();
+        }
+    }
+
+    // 部隊編成完了表示
+    void SquadComlete()
+    {
+        for(int i = 0; i < squadList.Count; i++)
+        {
+            TextMeshProUGUI completeText = squadIcon[i].transform.Find("SquadCompleteText").GetComponent<TextMeshProUGUI>();
+            if (squadList[i] != null)
+            {
+                completeText.text = "!";
+            }
+            else
+            {
+                completeText.text = "X";
+            }
+        }
     }
 
     // UnitStats を new で複製する関数を作る

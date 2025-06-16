@@ -4,6 +4,8 @@ namespace StatePatteren.State
 {
     public class SquadController : MonoBehaviour
     {
+        SquadController squadController;
+
         public SquadStats squadStats;
 
         private SquadStateMachine stateMachine;
@@ -11,8 +13,13 @@ namespace StatePatteren.State
 
         public SquadFormation squadFormation;
          
-        float maxDistance = 50f;        // ŒŸ’m‚·‚éÅ‘å‹——£
         public bool isGuard { get; private set; } = false;
+
+        //// •”‘à‚Ì‰Šú‰»
+        //public SquadController(SquadController controller)
+        //{
+        //    this.squadController = controller;
+        //}
 
         public void SetUnitStats(SquadStats stats)
         {
@@ -73,26 +80,6 @@ namespace StatePatteren.State
         public void Dead()
         {
             Destroy(gameObject);
-        }
-
-        // Å‚à‹ß‚¢‘ÎÛ‚ğ•Ô‚·
-        public GameObject GetTarget(string targetTag)
-        {
-            GameObject[] targets = GameObject.FindGameObjectsWithTag(targetTag);
-            GameObject nearest = null;
-            float minDistance = maxDistance;
-
-            foreach (var target in targets)
-            {
-                float dist = Vector2.Distance(transform.position, target.transform.position);
-                if (dist < minDistance)
-                {
-                    minDistance = dist;
-                    nearest = target;
-                }
-            }
-
-            return nearest;
         }
     }
 
