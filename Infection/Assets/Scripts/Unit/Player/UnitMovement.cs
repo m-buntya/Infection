@@ -17,7 +17,7 @@ public class UnitMovement : MonoBehaviour
 
     void Update()
     {
-        if (attackTarget == null) // ✅ ターゲットがない場合はランダム移動
+        if (attackTarget == null)
         {
             timer += Time.deltaTime;
             if (timer >= changeDirectionInterval)
@@ -25,17 +25,26 @@ public class UnitMovement : MonoBehaviour
                 timer = 0f;
                 ChangeDirection();
             }
+
             transform.position += moveDirection * moveSpeed * Time.deltaTime;
+
+            // 追加：画面の範囲内に制限
+            Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
+            viewPos.x = Mathf.Clamp01(viewPos.x);
+            viewPos.y = Mathf.Clamp01(viewPos.y);
+            viewPos.z = Mathf.Abs(Camera.main.WorldToViewportPoint(transform.position).z); // Z保持
+            transform.position = Camera.main.ViewportToWorldPoint(viewPos);
         }
-        else // ✅ 村へ向かって移動
+        else
         {
+            // 村へ向かう処理はそのままでOK
             Vector3 dir = (attackTarget.position - transform.position).normalized;
             transform.position += dir * moveSpeed * Time.deltaTime;
 
             if (Vector3.Distance(transform.position, attackTarget.position) < 1f)
             {
-                StopMovement(); // ✅ 移動停止
-                StartCoroutine(AttackVillage()); // ✅ 攻撃を続ける
+                StopMovement();
+                StartCoroutine(AttackVillage());
             }
         }
     }
@@ -55,14 +64,20 @@ public class UnitMovement : MonoBehaviour
     public void StopMovement()
     {
         moveSpeed = 0f; // ✅ ユニットの移動を止める
+        StartCoroutine(AttackVillage());
     }
 
-    public IEnumerator AttackVillage()
+    IEnumerator AttackVillage()
     {
-        while (attackTarget != null) // ✅ 村が存在する限り攻撃を続ける
+        VillageController village = attackTarget.GetComponent<VillageController>();
+        if (village != null)
         {
-            attackTarget.GetComponent<VillageController>()?.ReceiveDamage(unitData.attackPower);
-            yield return new WaitForSeconds(unitData.attackInterval); // ✅ UnitData の攻撃間隔を適用
+            village.ReceiveDamage(unitData.attackPower);
+        }
+        while (attackTarget != null)
+        {
+            village.ReceiveDamage(unitData.attackPower); // ← 攻撃力2
+            yield return new WaitForSeconds(unitData.attackInterval); // ← これがないと超連打
         }
     }
 }

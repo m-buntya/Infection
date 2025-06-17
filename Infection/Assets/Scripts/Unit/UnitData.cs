@@ -11,4 +11,6 @@ public class UnitData : ScriptableObject
     public bool canGrowDeploycount = false;
     public int attackPower = 10; //攻撃力
     public float attackInterval = 1.5f; // ✅ ユニットの攻撃間隔
+
+
 }

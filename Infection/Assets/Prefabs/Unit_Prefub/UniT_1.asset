@@ -15,3 +15,8 @@ MonoBehaviour:
   unitName: Zombi
   cost: 3
   prefab: {fileID: 8922981448447314548, guid: dba739e920a86d8419ec21b9777ec857, type: 3}
+  maxDeployCount: 3
+  cooldownTime: 5
+  canGrowDeploycount: 0
+  attackPower: 4
+  attackInterval: 5
