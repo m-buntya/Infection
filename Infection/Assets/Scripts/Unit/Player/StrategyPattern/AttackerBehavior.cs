@@ -13,7 +13,7 @@ namespace StrategyPatteren.Role
             if (target != null)
             {
                 Debug.Log($"Attacker：攻撃対象：{target}");
-                target.TakeDamage(squad.squadStats.leaderUnit.atk);     // 攻撃力分ダメージを与える
+                target.TakeDamage(squad.unitStats.atk);     // 攻撃力分ダメージを与える
             }
         }
     }

@@ -17,7 +17,7 @@ namespace StatePatteren.State
 
         public void Enter()
         {
-            moveSpeed = squadController.squadFormation.squadStats.leaderUnit.spd;
+            moveSpeed = squadController.unitStats.spd;
 
             moveVector = new Vector2(-1, 0);     // デバッグ用
         }
