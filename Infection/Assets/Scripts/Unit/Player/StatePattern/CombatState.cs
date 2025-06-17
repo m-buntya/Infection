@@ -21,7 +21,7 @@ namespace StatePatteren.State
 
         public void Enter()
         {
-            atkSpd = squadController.squadStats.leaderUnit.atkSpd;
+            atkSpd = squadController.unitStats.atkSpd;
             time = 0;
         }
 
@@ -58,14 +58,14 @@ namespace StatePatteren.State
 
             if(time > atkSpd)
             {
-                RoleAction(squadController.squadStats);
+                RoleAction(squadController.unitStats);
                 time = 0;
             }
         }
 
-        public void RoleAction(SquadStats stats)
+        public void RoleAction(UnitStats stats)
         {
-            IRoleBehavior behavior = RoleBehaviorFactory.Get(stats.leaderUnit.role);
+            IRoleBehavior behavior = RoleBehaviorFactory.Get(stats.role);
             behavior.Action(squadController);
         }
     }

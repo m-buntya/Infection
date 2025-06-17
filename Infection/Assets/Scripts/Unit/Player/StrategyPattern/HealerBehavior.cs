@@ -12,7 +12,7 @@ namespace StrategyPatteren.Role
             if(target != null)
             {
                 Debug.Log($"HealerFx‰‡‘ÎÛF{target}");
-                target.CareHp(squad.squadStats.leaderUnit.atk);     // UŒ‚—Í•ªHP‚ğ‰ñ•œ‚³‚¹‚é
+                target.CareHp(squad.unitStats.atk);     // UŒ‚—Í•ªHP‚ğ‰ñ•œ‚³‚¹‚é
             }
         }
     }
