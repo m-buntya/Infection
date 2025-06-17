@@ -1,64 +1,54 @@
-//Chat GPT参照
+// 出典：ChatGPT参照・生成
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
-
-/// エリア選択の挙動を制御するコントローラー
+/// UIボタンによるエリア選択を制御するコントローラー
 public class AreaSelectionController : MonoBehaviour
 {
-    [Header("クリック検出に使うカメラ")]
-    [SerializeField] private Camera mainCamera;
+    [Header("エリアボタンの一覧")]
+    [SerializeField] private Button[] areaButtonArray;
 
-    [Header("エリアのレイヤーマスク")]
-    [SerializeField] private LayerMask areaLayerMask;
 
-    // Awakeでカメラの初期化を行う
+    /// 各ボタンにクリックイベントを登録する
     private void Awake()
     {
-        if (mainCamera == null)
+        foreach (Button button in areaButtonArray)
         {
-            mainCamera = Camera.main;
+            button.onClick.AddListener(() => OnAreaButtonClicked(button));
         }
     }
 
-    // 毎フレーム、左クリックを検知してエリアクリックを判定する
-    private void Update()
+
+    /// ボタンが押されたときの処理。ボタン内のTextを元にシーンをロードする。
+    private void OnAreaButtonClicked(Button button)
     {
-        if (Input.GetMouseButtonDown(0))
+        TMP_Text areaText = button.GetComponentInChildren<TMP_Text>();
+
+        if (areaText == null)
         {
-            DetectAreaClick();
+            Debug.LogError("ボタンにTextMeshProのテキストが見つかりません。");
+            return;
         }
+
+        string areaName = areaText.text.Trim();
+
+        if (string.IsNullOrEmpty(areaName))
+        {
+            Debug.LogError("エリア名が空です。");
+            return;
+        }
+
+        PlayerPrefs.SetString("SelectedArea", areaName);
+        PlayerPrefs.Save();
+
+        LoadSelectedAreaScene(areaName);
     }
 
-    
-    /// エリアをクリックしたか判定し、選択したらシーンをロードする
-    private void DetectAreaClick()
-    {
-        Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
-        RaycastHit2D hit = Physics2D.Raycast(
-            mousePosition,
-            Vector2.zero,
-            Mathf.Infinity,
-            areaLayerMask
-        );
-
-        if (hit.collider != null)
-        {
-            string areaName = hit.collider.gameObject.name;
-            Debug.Log($"選択されたエリア: {areaName}");
-
-            // PlayerPrefsに保存
-            PlayerPrefs.SetString("SelectedArea", areaName);
-            PlayerPrefs.Save();
-
-            LoadSelectedAreaScene(areaName);
-        }
-    }
-
-    
-    /// 指定したエリア名のシーンが存在すればロードする
+    /// シーンがBuildに登録されていれば読み込む
     private void LoadSelectedAreaScene(string areaName)
     {
         if (Application.CanStreamedLevelBeLoaded(areaName))
