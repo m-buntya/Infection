@@ -25,15 +25,15 @@ public class UnitUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        roleText.text = squadFormation.squadStats.leaderUnit.role.ToString();
-        soldierCntText.text = squadFormation.squadStats.squadMemberCnt.ToString();
-        hpText.text = squadFormation.squadStats.leaderUnit.hp.ToString("F1");
-        atkText.text = squadFormation.squadStats.leaderUnit.atk.ToString("F1");
-        virusPowText.text = squadFormation.squadStats.leaderUnit.virusPow.ToString("F1");
-        atkSpdText.text = squadFormation.squadStats.leaderUnit.atkSpd.ToString("F1");
-        spdText.text = squadFormation.squadStats.leaderUnit.spd.ToString("F1");
+        roleText.text = squadFormation.squadData.leaderUnit.role.ToString();
+        soldierCntText.text = squadFormation.squadData.squadMemberCnt.ToString();
+        hpText.text = squadFormation.squadData.leaderUnit.hp.ToString("F1");
+        atkText.text = squadFormation.squadData.leaderUnit.atk.ToString("F1");
+        virusPowText.text = squadFormation.squadData.leaderUnit.virusPow.ToString("F1");
+        atkSpdText.text = squadFormation.squadData.leaderUnit.atkSpd.ToString("F1");
+        spdText.text = squadFormation.squadData.leaderUnit.spd.ToString("F1");
 
-        if(squadFormation.squadStats.leaderUnit.isFly)
+        if(squadFormation.squadData.leaderUnit.isFly)
         {
             isFlyText.text = "Sky";
         }
@@ -42,7 +42,7 @@ public class UnitUIManager : MonoBehaviour
             isFlyText.text = "Ground";
         }
 
-        rangeText.text = squadFormation.squadStats.leaderUnit.range.ToString();
-        costText.text = squadFormation.squadStats.leaderUnit.cost.ToString();
+        rangeText.text = squadFormation.squadData.leaderUnit.range.ToString();
+        costText.text = squadFormation.squadData.leaderUnit.cost.ToString();
     }
 }
