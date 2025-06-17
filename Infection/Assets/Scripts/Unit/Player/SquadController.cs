@@ -6,7 +6,7 @@ namespace StatePatteren.State
     {
         SquadController squadController;
 
-        public SquadStats squadStats;
+        public UnitStats unitStats;
 
         private SquadStateMachine stateMachine;
         public SquadStateMachine StateMachine => stateMachine;
@@ -21,9 +21,9 @@ namespace StatePatteren.State
         //    this.squadController = controller;
         //}
 
-        public void SetUnitStats(SquadStats stats)
+        public void SetUnitStats(UnitStats stats)
         {
-            squadStats = stats;
+            unitStats = stats;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -51,12 +51,12 @@ namespace StatePatteren.State
             }
             else
             {
-                squadStats.leaderUnit.hp -= damage;
+                unitStats.hp -= damage;
             }
 
             Debug.Log($"Squad : {damage}‚Ìƒ_ƒ[ƒW‚ğó‚¯‚½");
 
-            if (squadStats.leaderUnit.hp <= 0)
+            if (unitStats.hp <= 0)
             {
                 Dead();
             }
@@ -65,7 +65,7 @@ namespace StatePatteren.State
         // ‰ñ•œˆ—
         public void CareHp(float hp)
         {
-            squadStats.leaderUnit.hp += hp;
+            unitStats.hp += hp;
 
             Debug.Log($"Squad : {hp}‰ñ•œ‚µ‚½");
         }
