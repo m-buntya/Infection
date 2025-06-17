@@ -4,6 +4,8 @@ namespace StatePatteren.State
 {
     public class SquadController : MonoBehaviour
     {
+        SquadController squadController;
+
         public SquadStats squadStats;
 
         private SquadStateMachine stateMachine;
@@ -11,7 +13,13 @@ namespace StatePatteren.State
 
         public SquadFormation squadFormation;
          
-        float maxDistance = 50f;        // 検知する最大距離
+        public bool isGuard { get; private set; } = false;
+
+        //// 部隊の初期化
+        //public SquadController(SquadController controller)
+        //{
+        //    this.squadController = controller;
+        //}
 
         public void SetUnitStats(SquadStats stats)
         {
@@ -37,7 +45,14 @@ namespace StatePatteren.State
         // ダメージ処理
         public void TakeDamage(float damage)
         {
-            squadStats.leaderUnit.hp -= damage;
+            if(isGuard)
+            {
+                Debug.Log("ダメージを無効化");
+            }
+            else
+            {
+                squadStats.leaderUnit.hp -= damage;
+            }
 
             Debug.Log($"Squad : {damage}のダメージを受けた");
 
@@ -55,32 +70,17 @@ namespace StatePatteren.State
             Debug.Log($"Squad : {hp}回復した");
         }
 
+        // ガード処理
+        public void Guard()
+        {
+            isGuard = true;
+        }
+
         // 壊滅処理
         public void Dead()
         {
             Destroy(gameObject);
         }
-
-        // 最も近い対象を返す
-        public GameObject GetTarget(string targetTag)
-        {
-            GameObject[] targets = GameObject.FindGameObjectsWithTag(targetTag);
-            GameObject nearest = null;
-            float minDistance = maxDistance;
-
-            foreach (var target in targets)
-            {
-                float dist = Vector2.Distance(transform.position, target.transform.position);
-                if (dist < minDistance)
-                {
-                    minDistance = dist;
-                    nearest = target;
-                }
-            }
-
-            return nearest;
-        }
-
     }
 
 }
