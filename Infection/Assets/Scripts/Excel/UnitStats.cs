@@ -1,5 +1,4 @@
 using StatePatteren.State;
-using StatePatteren.StateEnemy;
 using System.Collections;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ public class UnitStats
         Regeneration,           // 自然回復
     }
 
-    public enum ROLE           // ロール
+    public enum ROLE            // ロール
     {
         Attacker,               // アタッカー
         Tank,                   // タンク
@@ -22,18 +21,19 @@ public class UnitStats
         Debaffer,               // デバッファー
     }
 
-    public int unitCode;        // ユニット番号
-    public string unitName;     // ユニット名
+    public int unitCode;                // ユニット番号
+    public string unitName;             // ユニット名
     public LEADER_SKILL leaderSkill;    // リーダースキル
     public ROLE role;                   // ロール
-    public int lv;              // レベル
-    public float hp;            // 体力
-    public float atk;           // 攻撃力
-    public float virusPow;      // 感染力
-    public float atkSpd;        // 攻撃速度
-    public float spd;           // 移動速度
-    public bool isFly;          // 移動方法
-    public float range;         // 射程距離
-    public int cost;            // コスト
-    public int sortieCoolTime;  // 出撃にかかる時間
+    public int lv;                      // レベル
+    public float hp;                    // 体力
+    public float virusHp;               // 感染体力
+    public float atk;                   // 攻撃力
+    public float virusPow;              // 感染力
+    public float atkSpd;                // 攻撃速度
+    public float spd;                   // 移動速度
+    public bool isFly;                  // 移動方法
+    public float range;                 // 射程距離
+    public int cost;                    // コスト
+    public int sortieCoolTime;          // 出撃にかかる時間
 }

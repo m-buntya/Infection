@@ -1,27 +1,25 @@
-using StatePatteren.StateEnemy;
 using StrategyPatteren.Role;
 using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace StatePatteren.State
 {
-    public class CombatState : SquadState
+    public class CombatState : UnitState
     {
-        SquadController squadController;
-        EnemyController enemyController;
+        UnitController unitController;
 
         float atkSpd = 0;
 
         float time = 0;
 
-        public CombatState(SquadController squadController)
+        public CombatState(UnitController unitController)
         {
-            this.squadController = squadController;
+            this.unitController = unitController;
         }
 
         public void Enter()
         {
-            atkSpd = squadController.unitStats.atkSpd;
+            atkSpd = unitController.unitStats.atkSpd;
             time = 0;
         }
 
@@ -42,11 +40,11 @@ namespace StatePatteren.State
             {
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    squadController.StateMachine.TransitionTo(squadController.StateMachine.moveState);
+                    unitController.StateMachine.TransitionTo(unitController.StateMachine.moveState);
                 }
                 else if (Input.GetKeyDown(KeyCode.E))
                 {
-                    squadController.StateMachine.TransitionTo(squadController.StateMachine.deadState);
+                    unitController.StateMachine.TransitionTo(unitController.StateMachine.deadState);
                 }
             }
         }
@@ -58,7 +56,7 @@ namespace StatePatteren.State
 
             if(time > atkSpd)
             {
-                RoleAction(squadController.unitStats);
+                RoleAction(unitController.unitStats);
                 time = 0;
             }
         }
@@ -66,7 +64,7 @@ namespace StatePatteren.State
         public void RoleAction(UnitStats stats)
         {
             IRoleBehavior behavior = RoleBehaviorFactory.Get(stats.role);
-            behavior.Action(squadController);
+            behavior.Action(unitController);
         }
     }
 }

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1857118075311927068}
   - component: {fileID: 5752403158612051482}
   m_Layer: 0
-  m_Name: Squad
-  m_TagString: Squad
+  m_Name: Unit
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365a171a063bbf74ba17258df329e0c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  squadFormation: {fileID: 0}
+  unitFormation: {fileID: 0}
 --- !u!60 &5752403158612051482
 PolygonCollider2D:
   m_ObjectHideFlags: 0

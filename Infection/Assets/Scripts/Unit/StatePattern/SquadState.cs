@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace StatePatteren.State
 {
-    public interface SquadState
+    public interface UnitState
     {
         public void Enter()
         {

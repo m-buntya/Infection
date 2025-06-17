@@ -19,6 +19,7 @@ MonoBehaviour:
     role: 0
     lv: 1
     hp: 15
+    virusHp: 0
     atk: 30
     virusPow: 15
     atkSpd: 3
@@ -33,6 +34,7 @@ MonoBehaviour:
     role: 1
     lv: 1
     hp: 100
+    virusHp: 0
     atk: 10
     virusPow: 7
     atkSpd: 10
@@ -47,6 +49,7 @@ MonoBehaviour:
     role: 2
     lv: 1
     hp: 30
+    virusHp: 0
     atk: 5
     virusPow: 10
     atkSpd: 6
