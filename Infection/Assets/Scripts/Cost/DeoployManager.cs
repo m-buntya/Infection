@@ -70,10 +70,10 @@ public class DeployManager : MonoBehaviour
         Debug.Log($"{unit.unitName} を出撃！ 次は {unit.cooldownTime} 秒後に再出撃できます。");
         UnitMovement newUnit = Instantiate(unit.prefab, deployPosition, Quaternion.identity, deployParent).GetComponent<UnitMovement>();
 
-        if (VillageController.Instance != null) // ✅ すでに村が存在するならターゲットを設定
-        {
-            newUnit.SetAttackTarget(VillageController.Instance.transform);
-        }
+        //if (VillageController.Instance != null) // ✅ すでに村が存在するならターゲットを設定
+        //{
+        //    newUnit.SetAttackTarget(VillageController.Instance.transform);
+        //}
     }
 
     public void ResetDeployment()
