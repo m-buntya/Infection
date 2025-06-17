@@ -1,43 +1,31 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class UnitMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float changeDirectionInterval = 3f;
-    public UnitData unitData; // ✅ ユニットのデータ
+    [SerializeField] private Vector2 screenBounds; // 画面の境界（設定）
+
     private Vector3 moveDirection;
     private float timer = 0f;
-    private Transform attackTarget;
 
     void Start()
     {
+        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         ChangeDirection();
     }
 
     void Update()
     {
-        if (attackTarget == null) // ✅ ターゲットがない場合はランダム移動
+        timer += Time.deltaTime;
+        if (timer >= changeDirectionInterval)
         {
-            timer += Time.deltaTime;
-            if (timer >= changeDirectionInterval)
-            {
-                timer = 0f;
-                ChangeDirection();
-            }
-            transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            timer = 0f;
+            ChangeDirection();
         }
-        else // ✅ 村へ向かって移動
-        {
-            Vector3 dir = (attackTarget.position - transform.position).normalized;
-            transform.position += dir * moveSpeed * Time.deltaTime;
 
-            if (Vector3.Distance(transform.position, attackTarget.position) < 1f)
-            {
-                StopMovement(); // ✅ 移動停止
-                StartCoroutine(AttackVillage()); // ✅ 攻撃を続ける
-            }
-        }
+        transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        KeepUnitInsideScreen(); // ✅ 画面の外に出ないように制限
     }
 
     void ChangeDirection()
@@ -47,22 +35,11 @@ public class UnitMovement : MonoBehaviour
         moveDirection = new Vector3(randomX, randomY, 0f).normalized;
     }
 
-    public void SetAttackTarget(Transform target)
+    void KeepUnitInsideScreen()
     {
-        attackTarget = target;
-    }
-
-    public void StopMovement()
-    {
-        moveSpeed = 0f; // ✅ ユニットの移動を止める
-    }
-
-    public IEnumerator AttackVillage()
-    {
-        while (attackTarget != null) // ✅ 村が存在する限り攻撃を続ける
-        {
-            attackTarget.GetComponent<VillageController>()?.ReceiveDamage(unitData.attackPower);
-            yield return new WaitForSeconds(unitData.attackInterval); // ✅ UnitData の攻撃間隔を適用
-        }
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, -screenBounds.x, screenBounds.x);
+        pos.y = Mathf.Clamp(pos.y, -screenBounds.y, screenBounds.y);
+        transform.position = pos;
     }
 }

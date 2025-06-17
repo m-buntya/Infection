@@ -99,7 +99,6 @@ GameObject:
   - component: {fileID: 4106731272040309424}
   - component: {fileID: 3616098036207283053}
   - component: {fileID: 1803062947234717747}
-  - component: {fileID: 7408013162360409170}
   m_Layer: 0
   m_Name: virus
   m_TagString: Untagged
@@ -191,22 +190,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarSprite: {fileID: 7227267613425562742}
---- !u!114 &7408013162360409170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2449498712892834152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4306d2f337825fa47ac6f56a6598e703, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 6
-  changeDirectionInterval: 2
-  unitData: {fileID: 11400000, guid: b1856163b55fd074687b03447652d10f, type: 2}
-  screenBounds: {x: 0, y: 0}
 --- !u!1 &4523801949686163820
 GameObject:
   m_ObjectHideFlags: 0
