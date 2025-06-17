@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d8670a65086726428875f33328bf296, type: 3}
+  m_Name: VirusData
+  m_EditorClassIdentifier: 
+  VirusParameter:
+  - virusCode: 30001
+    transmission: 0
+    evolutionConditions: 0
+    name: TestVirus1
+    explanation: Test Virus 1
+    hp: 1
+    atk: 1
+    virusPow: 1
+    atkSpd: 1
+    spd: 1
+    range: 1
+  - virusCode: 30002
+    transmission: 1
+    evolutionConditions: 1
+    name: TestVirus2
+    explanation: Test Virus 2
+    hp: 2
+    atk: 2
+    virusPow: 2
+    atkSpd: 2
+    spd: 2
+    range: 2
+  - virusCode: 30003
+    transmission: 2
+    evolutionConditions: 2
+    name: TestVirus3
+    explanation: Test Virus 3
+    hp: 3
+    atk: 3
+    virusPow: 3
+    atkSpd: 3
+    spd: 3
+    range: 3
+  - virusCode: 30004
+    transmission: 0
+    evolutionConditions: 1
+    name: TestVirus4
+    explanation: Test Virus 4
+    hp: 4
+    atk: 4
+    virusPow: 4
+    atkSpd: 4
+    spd: 4
+    range: 4
