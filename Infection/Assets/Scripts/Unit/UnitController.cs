@@ -2,24 +2,18 @@ using UnityEngine;
 
 namespace StatePatteren.State
 {
-    public class SquadController : MonoBehaviour
+    public class UnitController : MonoBehaviour
     {
-        SquadController squadController;
+        UnitController unitController;
 
-        public UnitStats unitStats;
+        public UnitStats unitStats { get; private set; }
 
         private SquadStateMachine stateMachine;
         public SquadStateMachine StateMachine => stateMachine;
 
-        public SquadFormation squadFormation;
+        public UnitFormation unitFormation;
          
         public bool isGuard { get; private set; } = false;
-
-        //// 部隊の初期化
-        //public SquadController(SquadController controller)
-        //{
-        //    this.squadController = controller;
-        //}
 
         public void SetUnitStats(UnitStats stats)
         {
@@ -29,7 +23,7 @@ namespace StatePatteren.State
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            squadFormation = GameObject.Find("SquadFormation").GetComponent<SquadFormation>();
+            unitFormation = GameObject.Find("SquadFormation").GetComponent<UnitFormation>();
             stateMachine = new SquadStateMachine(this);
 
             stateMachine.Initialize(stateMachine.moveState);
@@ -54,7 +48,7 @@ namespace StatePatteren.State
                 unitStats.hp -= damage;
             }
 
-            Debug.Log($"Squad : {damage}のダメージを受けた");
+            Debug.Log($"Unit：{damage}のダメージを受けた");
 
             if (unitStats.hp <= 0)
             {
@@ -62,12 +56,27 @@ namespace StatePatteren.State
             }
         }
 
+        // 感染ダメージ処理
+        public void TakeVirusDamage(float virusDamage)
+        {
+            unitStats.virusHp -= virusDamage;
+            Debug.Log($"Unit：{virusDamage}の感染ダメージを受けた");
+        }
+
         // 回復処理
         public void CareHp(float hp)
         {
             unitStats.hp += hp;
 
-            Debug.Log($"Squad : {hp}回復した");
+            Debug.Log($"Unit：体力が{hp}回復した");
+        }
+
+        // 感染回復処理
+        public void CareVirusHp(float virusHp)
+        {
+            unitStats.virusHp += virusHp;
+
+            Debug.Log($"Unit：感染体力が{virusHp}回復した");
         }
 
         // ガード処理

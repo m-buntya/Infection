@@ -6,26 +6,26 @@ namespace StatePatteren.State
     [SerializeField]
     public class SquadStateMachine
     {
-        public SquadState CurrenState { get; private set; }
+        public UnitState CurrenState { get; private set; }
 
         public MoveState moveState;
         public CombatState combatState;
         public DeadState deadState;
         
-        public SquadStateMachine(SquadController squadController)
+        public SquadStateMachine(UnitController unitController)
         {
-           this.moveState = new MoveState(squadController);
-           this.combatState = new CombatState(squadController);
-           this.deadState = new DeadState(squadController);
+           this.moveState = new MoveState(unitController);
+           this.combatState = new CombatState(unitController);
+           this.deadState = new DeadState(unitController);
         }
 
-        public void Initialize(SquadState state)
+        public void Initialize(UnitState state)
         {
             CurrenState = state;
             state.Enter();
         }
 
-        public void TransitionTo(SquadState nextState)
+        public void TransitionTo(UnitState nextState)
         {
             Debug.Log($"{CurrenState}Ç©ÇÁ{nextState}Ç÷à⁄çsÇµÇ‹Ç∑");
 

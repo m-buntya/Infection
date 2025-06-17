@@ -4,18 +4,18 @@ using UnityEngine;
 
 namespace StatePatteren.State
 {
-    public class DeadState : SquadState
+    public class DeadState : UnitState
     {
-        private SquadController squadController;
+        private UnitController unitController;
 
-        public DeadState(SquadController squadController)
+        public DeadState(UnitController unitController)
         {
-            this.squadController = squadController;
+            this.unitController = unitController;
         }
 
         public void Enter()
         {
-            squadController.Dead();
+            unitController.Dead();
         }
 
         public void Update()
@@ -35,11 +35,11 @@ namespace StatePatteren.State
             {
                 if (Input.GetKeyDown(KeyCode.W))
                 {
-                    squadController.StateMachine.TransitionTo(squadController.StateMachine.combatState);
+                    unitController.StateMachine.TransitionTo(unitController.StateMachine.combatState);
                 }
                 else if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    squadController.StateMachine.TransitionTo(squadController.StateMachine.moveState);
+                    unitController.StateMachine.TransitionTo(unitController.StateMachine.moveState);
                 }
             }
         }
