@@ -55,7 +55,10 @@ namespace StatePatteren.StateEnemy
         // UŒ‚
         void Attack()
         {
-
+            GetTargetSystem getTarget = new GetTargetSystem();
+            var target = getTarget.GetTarget("Squad", enemyController.gameObject);
+            SquadController squad = target.GetComponent<SquadController>();
+            squad.TakeDamage(enemyController.enemyFormation.enemyStats.enemyUnit.atk);
         }
 
         // UŒ‚‘¬“x
