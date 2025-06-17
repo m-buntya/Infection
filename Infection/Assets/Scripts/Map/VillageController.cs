@@ -1,110 +1,67 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class VillageController : MonoBehaviour
 {
     [SerializeField] private int maxHP = 100;
     private int currentHP;
 
-    [SerializeField] private GameObject defenderPrefab; // 増援として出るユニット
-    [SerializeField] private Transform spawnParent;
-    [SerializeField] private RectTransform hpBar; // ✅ HPバーとして使うUI
-    [SerializeField] private float hpBarShrinkSpeed = 0.5f; // ✅ HPバーの減少速度
-    [SerializeField] private float spawnRadius = 3f; // 増援ユニットの出現範囲
-    [SerializeField] private List<UnitData> growableUnits; // 増える対象のユニットリスト
-    [SerializeField] private UnitData unitData;
+    [SerializeField] private Image hpFillImage;
 
-    private bool isBeingAttacked = false;
+    [SerializeField] private float hpBarLerpSpeed = 10f;
 
-    void Start()
+    private float targetRatio = 1f;
+    private float currentRatio = 1f;
+
+    private void Start()
     {
         currentHP = maxHP;
-        UpdateHPBarInstant();
+        targetRatio = 0.95f;
+        currentRatio = 0.95f;
+        UpdateHPBarImmediate(); // ������Ԃɔ��f
     }
 
-    void OnMouseDown()
+    private void Update()
     {
-        CommandAllUnitsToAttack(); // ✅ 毎回タップ時にすべてのユニットを攻撃状態にする
-    }
+        // ���炩��X�����̔䗦�̂ݕύX
+        currentRatio = Mathf.Lerp(currentRatio, targetRatio, Time.deltaTime * hpBarLerpSpeed);
 
-    void CommandAllUnitsToAttack()
-    {
-        UnitMovement[] allUnits = FindObjectsOfType<UnitMovement>(); // ✅ すべてのユニットを取得
-
-        foreach (var unit in allUnits)
+        if (hpFillImage != null)
         {
-            unit.SetAttackTarget(transform); // ✅ すべてのユニットのターゲットを村に設定
+            Vector3 originalScale = hpFillImage.rectTransform.localScale;
+            hpFillImage.rectTransform.localScale = new Vector3(currentRatio, originalScale.y, originalScale.z);
         }
     }
 
     public void ReceiveDamage(int damage)
     {
-        currentHP -= damage;
-        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
-
-        StartCoroutine(SmoothShrinkHPBar(damage)); // ✅ ダメージ量に応じてHPバー縮小
-
-        if (currentHP <= 0)
+        currentHP = Mathf.Max(currentHP - damage, 0);
+        targetRatio = (float)currentHP / maxHP;
+        Debug.Log($"�_���[�W: {damage}, ����HP: {currentHP}, ����: {targetRatio}");
+        Debug.Log($"�󂯂��_���[�W: {damage}, �c��HP: {currentHP}, targetRatio: {targetRatio}");
+        if (currentHP == 0)
         {
-            Destroy(gameObject);
-            Debug.Log("村が陥落しました！");
+            
+            // TODO: �ח����o�Ȃǒǉ�
         }
     }
 
-    void UpdateHPBarInstant()
+    private void OnMouseDown()
     {
-        if (hpBar != null)
+        UnitMovement[] allUnits = FindObjectsOfType<UnitMovement>();
+        foreach (var unit in allUnits)
         {
+            unit.SetAttackTarget(transform);
+        }
+    }
+
+    private void UpdateHPBarImmediate()
+    {
+        if (hpFillImage != null)
+        {
+            Vector3 originalScale = hpFillImage.rectTransform.localScale;
             float ratio = (float)currentHP / maxHP;
-            hpBar.localScale = new Vector3(ratio, 1f, 1f);
-        }
-    }
-
-    IEnumerator SmoothShrinkHPBar(int damage) // ✅ 引数を受け取るように修正
-    {
-        float startRatio = hpBar.localScale.x;
-        float targetRatio = (float)currentHP / maxHP; // ✅ HPの割合を計算
-        float progress = 0f;
-
-        while (progress < 1f)
-        {
-            progress += Time.deltaTime * hpBarShrinkSpeed;
-            float newRatio = Mathf.Lerp(startRatio, targetRatio, progress);
-            hpBar.localScale = new Vector3(newRatio, 1f, 1f);
-            yield return null; // ✅ 毎フレーム更新してスムーズに縮む
-        }
-    }
-
-    void SpawnRandomDefenders()
-    {
-        int spawnCount = Random.Range(1, 4); // 1〜3体ランダム増援
-        for (int i = 0; i < spawnCount; i++)
-        {
-            Vector3 spawnPos = transform.position + (Vector3)Random.insideUnitCircle * spawnRadius;
-            Instantiate(defenderPrefab, spawnPos, Quaternion.identity, spawnParent);
-        }
-    }
-
-    void IncreaseDeployableUnits()
-    {
-        foreach (var unit in growableUnits)
-        {
-            if (unit.canGrowDeploycount)
-            {
-                unit.maxDeployCount += Random.Range(1, 3); // 1～2体ランダム増加
-                Debug.Log($"{unit.unitName} の最大出撃数が {unit.maxDeployCount} に増えました！");
-            }
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        UnitMovement unit = other.GetComponent<UnitMovement>();
-        if (unit != null)
-        {
-            unit.StopMovement(); // ✅ 移動を停止
-            unit.StartCoroutine(unit.AttackVillage()); // ✅ 攻撃を開始
+            hpFillImage.rectTransform.localScale = new Vector3(ratio, originalScale.y, originalScale.z);
         }
     }
 }

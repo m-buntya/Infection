@@ -6,7 +6,7 @@ public class DeployManager : MonoBehaviour
     [SerializeField] private CostManager costManager;
     [SerializeField] private Transform deployParent;
     [SerializeField] private Vector3 deployPosition = Vector3.zero;
-
+    [SerializeField] private Transform deployPoint;
     [SerializeField] private TMP_Text deployCounterText;
     [SerializeField] private UnitData unitData;
     private const int MAX_DEPLOYABLE_UNITS = 6;
@@ -34,6 +34,15 @@ public class DeployManager : MonoBehaviour
             }
         }
     }
+    private Vector3 GetValidDeployPosition()
+    {
+        Vector3 basePosition = deployPoint.position;
+        Vector3 viewportPos = Camera.main.WorldToViewportPoint(basePosition);
+        viewportPos.x = Mathf.Clamp(viewportPos.x, 0.1f, 0.9f);
+        viewportPos.y = Mathf.Clamp(viewportPos.y, 0.1f, 0.9f);
+        viewportPos.z = basePosition.z - Camera.main.transform.position.z;
+        return Camera.main.ViewportToWorldPoint(viewportPos);
+    }
 
     public void TryDeployUnit(UnitData unit)
     {
@@ -59,21 +68,18 @@ public class DeployManager : MonoBehaviour
             costManager.DisplayInsufficientCostFeedBack();
             return;
         }
-
-        // ✅ 出撃処理スタート！
         costManager.SpendCost(unit.cost);
-        Instantiate(unit.prefab, deployPosition, Quaternion.identity, deployParent);
+        Vector3 validPosition = GetValidDeployPosition();
+        GameObject unitObj = Instantiate(unit.prefab, validPosition, Quaternion.identity, deployParent);
+
+        // 必要ならここで UnitMovement 取得やターゲット指定もできる
+        UnitMovement newUnit = unitObj.GetComponent<UnitMovement>();
 
         deployCounts[unit]++;
         unitCooldowns[unit] = unit.cooldownTime;
 
         Debug.Log($"{unit.unitName} を出撃！ 次は {unit.cooldownTime} 秒後に再出撃できます。");
-        UnitMovement newUnit = Instantiate(unit.prefab, deployPosition, Quaternion.identity, deployParent).GetComponent<UnitMovement>();
-
-        //if (VillageController.Instance != null) // ✅ すでに村が存在するならターゲットを設定
-        //{
-        //    newUnit.SetAttackTarget(VillageController.Instance.transform);
-        //}
+       
     }
 
     public void ResetDeployment()
