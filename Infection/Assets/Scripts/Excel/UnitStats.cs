@@ -32,7 +32,6 @@ public class UnitStats
     public float virusPow;              // 感染力
     public float atkSpd;                // 攻撃速度
     public float spd;                   // 移動速度
-    public bool isFly;                  // 移動方法
     public float range;                 // 射程距離
     public int cost;                    // コスト
     public int sortieCoolTime;          // 出撃にかかる時間

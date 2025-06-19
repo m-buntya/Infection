@@ -12,7 +12,6 @@ public class UnitUIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI virusPowText;
     [SerializeField] TextMeshProUGUI atkSpdText;
     [SerializeField] TextMeshProUGUI spdText;
-    [SerializeField] TextMeshProUGUI isFlyText;
     [SerializeField] TextMeshProUGUI rangeText;
     [SerializeField] TextMeshProUGUI costText;
 
@@ -38,15 +37,6 @@ public class UnitUIManager : MonoBehaviour
         virusPowText.text = unitFormation.unitPara.leaderUnit.virusPow.ToString("F1");
         atkSpdText.text = unitFormation.unitPara.leaderUnit.atkSpd.ToString("F1");
         spdText.text = unitFormation.unitPara.leaderUnit.spd.ToString("F1");
-
-        if (unitFormation.unitPara.leaderUnit.isFly)
-        {
-            isFlyText.text = "Sky";
-        }
-        else
-        {
-            isFlyText.text = "Ground";
-        }
 
         rangeText.text = unitFormation.unitPara.leaderUnit.range.ToString();
         costText.text = unitFormation.unitPara.leaderUnit.cost.ToString();
