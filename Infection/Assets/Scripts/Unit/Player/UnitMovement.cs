@@ -1,31 +1,52 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class UnitMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float changeDirectionInterval = 3f;
-    [SerializeField] private Vector2 screenBounds; // 画面の境界（設定）
-
+    public UnitData unitData; // ✅ ユニットのデータ
     private Vector3 moveDirection;
     private float timer = 0f;
+    private Transform attackTarget;
 
     void Start()
     {
-        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         ChangeDirection();
     }
 
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer >= changeDirectionInterval)
+        if (attackTarget == null)
         {
-            timer = 0f;
-            ChangeDirection();
-        }
+            timer += Time.deltaTime;
+            if (timer >= changeDirectionInterval)
+            {
+                timer = 0f;
+                ChangeDirection();
+            }
 
-        transform.position += moveDirection * moveSpeed * Time.deltaTime;
-        KeepUnitInsideScreen(); // ✅ 画面の外に出ないように制限
+            transform.position += moveDirection * moveSpeed * Time.deltaTime;
+
+            // 追加：画面の範囲内に制限
+            Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
+            viewPos.x = Mathf.Clamp01(viewPos.x);
+            viewPos.y = Mathf.Clamp01(viewPos.y);
+            viewPos.z = Mathf.Abs(Camera.main.WorldToViewportPoint(transform.position).z); // Z保持
+            transform.position = Camera.main.ViewportToWorldPoint(viewPos);
+        }
+        else
+        {
+            // 村へ向かう処理はそのままでOK
+            Vector3 dir = (attackTarget.position - transform.position).normalized;
+            transform.position += dir * moveSpeed * Time.deltaTime;
+
+            if (Vector3.Distance(transform.position, attackTarget.position) < 1f)
+            {
+                StopMovement();
+                StartCoroutine(AttackVillage());
+            }
+        }
     }
 
     void ChangeDirection()
@@ -35,11 +56,28 @@ public class UnitMovement : MonoBehaviour
         moveDirection = new Vector3(randomX, randomY, 0f).normalized;
     }
 
-    void KeepUnitInsideScreen()
+    public void SetAttackTarget(Transform target)
     {
-        Vector3 pos = transform.position;
-        pos.x = Mathf.Clamp(pos.x, -screenBounds.x, screenBounds.x);
-        pos.y = Mathf.Clamp(pos.y, -screenBounds.y, screenBounds.y);
-        transform.position = pos;
+        attackTarget = target;
+    }
+
+    public void StopMovement()
+    {
+        moveSpeed = 0f; // ✅ ユニットの移動を止める
+        StartCoroutine(AttackVillage());
+    }
+
+    IEnumerator AttackVillage()
+    {
+        VillageController village = attackTarget.GetComponent<VillageController>();
+        if (village != null)
+        {
+            village.ReceiveDamage(unitData.attackPower);
+        }
+        while (attackTarget != null)
+        {
+            village.ReceiveDamage(unitData.attackPower); // ← 攻撃力2
+            yield return new WaitForSeconds(unitData.attackInterval); // ← これがないと超連打
+        }
     }
 }
