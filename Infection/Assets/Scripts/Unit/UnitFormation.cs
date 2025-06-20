@@ -192,7 +192,6 @@ public class UnitFormation : MonoBehaviour
             virusPow = original.virusPow,
             atkSpd = original.atkSpd,
             spd = original.spd,
-            isFly = original.isFly,
             range = original.range,
             cost = original.cost,
             sortieCoolTime = original.sortieCoolTime
