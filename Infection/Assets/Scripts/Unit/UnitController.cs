@@ -59,7 +59,7 @@ namespace StatePatteren.State
         // 感染ダメージ処理
         public void TakeVirusDamage(float virusDamage)
         {
-            unitStats.virusHp -= virusDamage;
+            unitStats.virusHp += virusDamage;
             Debug.Log($"Unit：{virusDamage}の感染ダメージを受けた");
         }
 
