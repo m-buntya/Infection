@@ -1,13 +1,27 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GetTargetSystem
 {
     float maxDistance = 50f;        // ŒŸ’m‚·‚éÅ‘å‹——£
+    UnitManager unitManager;
 
     // Å‚à‹ß‚¢‘ÎÛ‚ğ•Ô‚·
-    public GameObject GetTarget(string targetTag, GameObject myObj)
+    public GameObject GetTarget(GameObject myObj, string targetGroup)
     {
-        GameObject[] targets = GameObject.FindGameObjectsWithTag(targetTag);
+        unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
+
+        List<GameObject> targets = new List<GameObject>();
+
+        if(targetGroup == "Player")
+        {
+            targets = unitManager.GetPlayerUnits();
+        }
+        else if(targetGroup == "Enemy")
+        {
+            targets = unitManager.GetEnemyUnits();
+        }
+
         GameObject nearest = null;
         float minDistance = maxDistance;
 

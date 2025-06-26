@@ -8,7 +8,7 @@ namespace StrategyPatteren.Role
         public void Action(UnitController unit)
         {
             GetTargetSystem getTarget = new GetTargetSystem();
-            var target = getTarget.GetTarget("Squad", unit.gameObject)?.GetComponent<UnitController>();     // x‰‡‘ÎÛ‚Ìæ“¾
+            var target = getTarget.GetTarget(unit.gameObject, "Player")?.GetComponent<UnitController>();     // x‰‡‘ÎÛ‚Ìæ“¾
             if(target != null)
             {
                 Debug.Log($"HealerFx‰‡‘ÎÛF{target}");
