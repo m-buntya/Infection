@@ -1,3 +1,4 @@
+using System.Net;
 using UnityEngine;
 
 namespace StatePatteren.State
@@ -56,27 +57,47 @@ namespace StatePatteren.State
             }
         }
 
-        // 感染ダメージ処理
-        public void TakeVirusDamage(float virusDamage)
+        // 感染ゲージ増加処理
+        public void TakeVirusDamage(float addPoint, string type)
         {
+<<<<<<< HEAD
             unitStats.virusHp += virusDamage;
             Debug.Log($"Unit：{virusDamage}の感染ダメージを受けた");
+=======
+            if (type == "Enemy")
+            {
+                unitStats.enemyVirusPoint += addPoint;
+                Debug.Log($"Unit：敵ウイルスの感染ゲージが{addPoint}上昇した");
+            }
+            else
+            {
+                unitStats.virusPoint += addPoint;
+                Debug.Log($"Unit：自ウイルスの感染ゲージが{addPoint}上昇した");
+            }            
+>>>>>>> alpha
         }
 
         // 回復処理
         public void CareHp(float hp)
         {
-            unitStats.hp += hp;
+            unitStats.hp = Mathf.Max(unitStats.hp + hp, unitStats.maxHp);
 
             Debug.Log($"Unit：体力が{hp}回復した");
         }
 
         // 感染回復処理
-        public void CareVirusHp(float virusHp)
+        public void CarevirusPoint(float carePoint, string type)
         {
-            unitStats.virusHp += virusHp;
-
-            Debug.Log($"Unit：感染体力が{virusHp}回復した");
+            if (type == "Enemy")
+            {
+                unitStats.enemyVirusPoint -= carePoint;
+                Debug.Log($"Unit：敵ウイルスの感染ゲージが{carePoint}減少した");
+            }
+            else
+            {
+                unitStats.virusPoint -= carePoint;
+                Debug.Log($"Unit：自ウイルスの感染ゲージが{carePoint}減少した");
+            }
         }
 
         // ガード処理

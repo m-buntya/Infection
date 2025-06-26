@@ -32,7 +32,7 @@ public class UnitUIManager : MonoBehaviour
     {
         roleText.text = unitFormation.unitPara.leaderUnit.role.ToString();
         soldierCntText.text = unitFormation.unitPara.unitMemberCnt.ToString();
-        hpText.text = unitFormation.unitPara.leaderUnit.hp.ToString("F1");
+        hpText.text = unitFormation.unitPara.leaderUnit.maxHp.ToString("F1");
         atkText.text = unitFormation.unitPara.leaderUnit.atk.ToString("F1");
         virusPowText.text = unitFormation.unitPara.leaderUnit.virusPow.ToString("F1");
         atkSpdText.text = unitFormation.unitPara.leaderUnit.atkSpd.ToString("F1");

@@ -10,7 +10,7 @@ public class UnitParametor
 {
     public UnitStats leaderUnit { get; private set; }   // リーダーユニットのパラメータ
 
-    float defaultHp = 0;
+    float defaultMaxHp = 0;
     float defaultAtk = 0;
     float defaultVirusPow = 0;
     float defaultSpd = 0;
@@ -30,7 +30,7 @@ public class UnitParametor
     {
         leaderUnit = leader;
 
-        defaultHp = leader.hp;
+        defaultMaxHp = leader.maxHp;
         defaultAtk = leader.atk;
         defaultVirusPow = leader.virusPow;
         defaultSpd = leader.spd;
@@ -43,7 +43,8 @@ public class UnitParametor
 
         float correction = unitMemberCnt * 0.01f;      // 部隊の人数 * 1%の補正値
 
-        leaderUnit.hp       = defaultHp       + defaultHp       * correction;
+        leaderUnit.maxHp    = defaultMaxHp       + defaultMaxHp * correction;
+        leaderUnit.hp       = defaultMaxHp;
         leaderUnit.atk      = defaultAtk      + defaultAtk      * correction;
         leaderUnit.virusPow = defaultVirusPow + defaultVirusPow * correction;
         float slowRate = (float)unitMemberCnt / unitMemberMaxCnt;
