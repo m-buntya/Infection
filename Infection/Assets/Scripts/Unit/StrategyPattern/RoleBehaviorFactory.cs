@@ -13,6 +13,7 @@ namespace StrategyPatteren.Role
             { UnitStats.ROLE.Healer, new HealerBehavior()     },
             { UnitStats.ROLE.Tank, new TankBehavior()         },
             { UnitStats.ROLE.Archer, new ArcherBehavior()     },
+            { UnitStats.ROLE.Wizard, new WizardBehavior()     },
         };
 
         // ロールを渡して呼び出すだけで適応した行動を行う
