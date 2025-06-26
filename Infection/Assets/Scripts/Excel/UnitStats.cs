@@ -19,6 +19,7 @@ public class UnitStats
         Healer,                 // ヒーラー
         Baffer,                 // バッファー
         Debaffer,               // デバッファー
+        Archer,                 // アーチャー
     }
 
     public int unitCode;                // ユニット番号

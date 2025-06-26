@@ -60,10 +60,6 @@ namespace StatePatteren.State
         // 感染ゲージ増加処理
         public void TakeVirusDamage(float addPoint, string type)
         {
-<<<<<<< HEAD
-            unitStats.virusHp += virusDamage;
-            Debug.Log($"Unit：{virusDamage}の感染ダメージを受けた");
-=======
             if (type == "Enemy")
             {
                 unitStats.enemyVirusPoint += addPoint;
@@ -74,7 +70,6 @@ namespace StatePatteren.State
                 unitStats.virusPoint += addPoint;
                 Debug.Log($"Unit：自ウイルスの感染ゲージが{addPoint}上昇した");
             }            
->>>>>>> alpha
         }
 
         // 回復処理
