@@ -70,3 +70,22 @@ MonoBehaviour:
     range: 10
     cost: 3
     sortieCoolTime: 10
+  - unitCode: 10004
+    unitName: "\u30A2\u30FC\u30C1\u30E3\u30FC"
+    leaderSkill: 0
+    role: 5
+    lv: 1
+    maxLv: 50
+    hp: 0
+    maxHp: 10
+    virusPoint: 0
+    virusMaxPoint: 100
+    enemyVirusPoint: 0
+    enemyVirusMaxPoint: 100
+    atk: 5
+    virusPow: 10
+    atkSpd: 6
+    spd: 7
+    range: 10
+    cost: 3
+    sortieCoolTime: 10
