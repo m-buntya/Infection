@@ -18,8 +18,13 @@ MonoBehaviour:
     leaderSkill: 0
     role: 0
     lv: 1
+    maxLv: 50
     hp: 0
-    virusHp: 0
+    maxHp: 15
+    virusPoint: 0
+    virusMaxPoint: 100
+    enemyVirusPoint: 0
+    enemyVirusMaxPoint: 100
     atk: 30
     virusPow: 15
     atkSpd: 3
@@ -32,8 +37,13 @@ MonoBehaviour:
     leaderSkill: 1
     role: 1
     lv: 1
+    maxLv: 50
     hp: 0
-    virusHp: 0
+    maxHp: 100
+    virusPoint: 0
+    virusMaxPoint: 100
+    enemyVirusPoint: 0
+    enemyVirusMaxPoint: 100
     atk: 10
     virusPow: 7
     atkSpd: 10
@@ -46,8 +56,13 @@ MonoBehaviour:
     leaderSkill: 2
     role: 2
     lv: 1
+    maxLv: 50
     hp: 0
-    virusHp: 0
+    maxHp: 30
+    virusPoint: 0
+    virusMaxPoint: 100
+    enemyVirusPoint: 0
+    enemyVirusMaxPoint: 100
     atk: 5
     virusPow: 10
     atkSpd: 6
