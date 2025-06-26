@@ -6290,7 +6290,6 @@ MonoBehaviour:
   virusPowText: {fileID: 1220403881}
   atkSpdText: {fileID: 2069857273}
   spdText: {fileID: 1209950728}
-  isFlyText: {fileID: 0}
   rangeText: {fileID: 797572735}
   costText: {fileID: 374817569}
 --- !u!4 &1852798266
