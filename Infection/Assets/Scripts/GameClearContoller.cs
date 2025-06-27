@@ -70,18 +70,18 @@ public class GameClearController : MonoBehaviour
         if (enemyBaseHP <= 0)
         {
             TriggerGameClearEffects(GAME_CLEAR_TYPE.ObjectiveVictory);
-            SceneManager.LoadScene("HomeScene");　//敵の拠点が０になったら勝利シーン（仮でHomeScene）に移動！
+            SceneManager.LoadScene("ResultScene");　//敵の拠点が０になったら勝利シーン（仮でHomeScene）に移動！
         }
         else if (playerBaseHP <= 0)
         {
             TriggerGameOverEffects(GAME_CLEAR_TYPE.SurvivalVictory);
-            SceneManager.LoadScene("HomeScene"); //味方の拠点が０になったら敗北シーン（仮でHomeScene）に移動！
+            SceneManager.LoadScene("ResultScene"); //味方の拠点が０になったら敗北シーン（仮でHomeScene）に移動！
         }
         else if(remainingtime<=0) //カウントダウン終了
         {
             Debug.Log("120秒間生存達成！ゲームクリアシーンに移動！");
             TriggerGameClearEffects(GAME_CLEAR_TYPE.SurvivalVictory);
-            SceneManager.LoadScene("HomeScene");
+            SceneManager.LoadScene("ResultScene");
         }
        
      }
