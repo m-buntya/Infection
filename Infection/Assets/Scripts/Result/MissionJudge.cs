@@ -24,8 +24,17 @@ public class MissionJudge : MonoBehaviour
     //達成したミッションに合わせてマークを出す
     private void ActiveClearMark()
     {
-        missionMark_1.gameObject.SetActive(true);
-        missionMark_2.gameObject.SetActive(true);
-        missionMark_3.gameObject.SetActive(true);
+        if (isMission_1 == true)
+        {
+            missionMark_1.gameObject.SetActive(true);
+        }
+        if (isMission_2 == true)
+        {
+            missionMark_2.gameObject.SetActive(true);
+        }
+        if (isMission_3 == true)
+        {
+            missionMark_3.gameObject.SetActive(true);
+        }
     }
 }
