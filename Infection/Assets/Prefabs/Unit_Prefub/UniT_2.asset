@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: virus
   cost: 2
-  prefab: {fileID: 2449498712892834152, guid: c0405885cce625342ad4a8f7e9ba6719, type: 3}
+  prefab: {fileID: 5485771749992652259, guid: acbeaecf5d5b3664cbcc3f1f11d7fc5c, type: 3}
   maxDeployCount: 3
   cooldownTime: 5
   canGrowDeploycount: 0
   attackPower: 2
   attackInterval: 3
+  initialvirusPoint: 0
+  maxVirusPoint: 100
+  virusResistance: 0

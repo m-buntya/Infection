@@ -4178,7 +4178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4f0bcf4f37ba6a4c9107d741137a5a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTestMode: 1
+  isTestMode: 0
 --- !u!114 &2070969598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4191,15 +4191,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5d35e89590efa0428fee60229db9b6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infectionMode: 1
-  infectionInterval: 3
-  infectionPoint: 2
-  infectionType: Enemy
   unitList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  nextInfectionTime: 0
+  - {fileID: -1372196467838446890, guid: 867e976a028857f478f9aa420f504578, type: 3}
+  - {fileID: 2191438368491215067, guid: acbeaecf5d5b3664cbcc3f1f11d7fc5c, type: 3}
+  - {fileID: 8692106525418995562, guid: c1e9d65f3ceda9549a483c4cb527d83f, type: 3}
+  interval: 3
+  virusPointPerTick: 10
+  virusType: Enemy
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

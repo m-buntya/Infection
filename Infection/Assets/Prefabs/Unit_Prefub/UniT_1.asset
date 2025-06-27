@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Zombi
   cost: 3
-  prefab: {fileID: 8922981448447314548, guid: dba739e920a86d8419ec21b9777ec857, type: 3}
+  prefab: {fileID: 3091858684701047378, guid: c1e9d65f3ceda9549a483c4cb527d83f, type: 3}
   maxDeployCount: 3
   cooldownTime: 5
   canGrowDeploycount: 0
   attackPower: 4
   attackInterval: 5
+  initialvirusPoint: 0
+  maxVirusPoint: 100
+  virusResistance: 0
