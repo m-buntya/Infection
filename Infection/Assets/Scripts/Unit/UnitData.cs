@@ -12,5 +12,9 @@ public class UnitData : ScriptableObject
     public int attackPower = 10; //攻撃力
     public float attackInterval = 1.5f; // ✅ ユニットの攻撃間隔
 
+    [Header("感染関連パラメーター")]
+    public float initialvirusPoint = 0f; //初期感染値
+    public float maxVirusPoint = 100f;　//最大感染値
+    public float virusResistance = 0f; //感染体制
 
 }
