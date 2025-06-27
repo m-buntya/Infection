@@ -7,11 +7,12 @@ namespace StrategyPatteren.Role
     {
         public void Action(UnitController unit)
         {
-            var target = unit.GetComponent<UnitController>();     // 自身のコンポーネント取得
+            GetTargetSystem getTarget = new GetTargetSystem();
+            var target = getTarget.GetTarget(unit.gameObject, "Enemy")?.GetComponent<UnitController>();     // 攻撃対象の取得
             if (target != null)
             {
-                Debug.Log($"Tank：無敵化");
-                target.Guard();     // 自身を無敵化
+                Debug.Log($"Attacker：攻撃対象：{target}");
+                target.TakeDamage(unit.unitStats.atk);     // 攻撃力分ダメージを与える
             }
         }
     }

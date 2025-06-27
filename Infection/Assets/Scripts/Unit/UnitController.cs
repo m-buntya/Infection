@@ -5,26 +5,39 @@ namespace StatePatteren.State
 {
     public class UnitController : MonoBehaviour
     {
+        public enum UNIT_GROUP
+        {
+            PLAYER,
+            ENEMY,
+        }
+
         UnitController unitController;
+        UnitFormation unitFormation;
+        UnitManager unitManager;
 
         public UnitStats unitStats { get; private set; }
 
         private SquadStateMachine stateMachine;
         public SquadStateMachine StateMachine => stateMachine;
 
-        public UnitFormation unitFormation;
-         
-        public bool isGuard { get; private set; } = false;
+        UNIT_GROUP unitGroup;
 
-        public void SetUnitStats(UnitStats stats)
+        public void SetUnitStats(UnitStats stats, UNIT_GROUP group)
         {
             unitStats = stats;
+            unitGroup = group;
+        }
+
+        public UNIT_GROUP GetUnitGroup()
+        {
+            return unitGroup;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             unitFormation = GameObject.Find("UnitFormation").GetComponent<UnitFormation>();
+            unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
             stateMachine = new SquadStateMachine(this);
 
             stateMachine.Initialize(stateMachine.moveState);
@@ -40,15 +53,7 @@ namespace StatePatteren.State
         // ダメージ処理
         public void TakeDamage(float damage)
         {
-            if(isGuard)
-            {
-                Debug.Log("ダメージを無効化");
-            }
-            else
-            {
-                unitStats.hp -= damage;
-            }
-
+            unitStats.hp -= damage;
             Debug.Log($"Unit：{damage}のダメージを受けた");
 
             if (unitStats.hp <= 0)
@@ -58,9 +63,9 @@ namespace StatePatteren.State
         }
 
         // 感染ゲージ増加処理
-        public void TakeVirusDamage(float addPoint, string type)
+        public void TakeVirusDamage(float addPoint, string group)
         {
-            if (type == "Enemy")
+            if (group == "Enemy")
             {
                 unitStats.enemyVirusPoint += addPoint;
                 Debug.Log($"Unit：敵ウイルスの感染ゲージが{addPoint}上昇した");
@@ -81,9 +86,9 @@ namespace StatePatteren.State
         }
 
         // 感染回復処理
-        public void CarevirusPoint(float carePoint, string type)
+        public void CarevirusPoint(float carePoint, string group)
         {
-            if (type == "Enemy")
+            if (group == "Enemy")
             {
                 unitStats.enemyVirusPoint -= carePoint;
                 Debug.Log($"Unit：敵ウイルスの感染ゲージが{carePoint}減少した");
@@ -95,15 +100,20 @@ namespace StatePatteren.State
             }
         }
 
-        // ガード処理
-        public void Guard()
-        {
-            isGuard = true;
-        }
-
         // 壊滅処理
         public void Dead()
         {
+            Debug.Log("死亡処理開始");
+
+            if(unitGroup == UNIT_GROUP.PLAYER)
+            {
+                unitManager.RemoveUnitList(gameObject, "Player");
+            }
+            else
+            {
+                unitManager.RemoveUnitList(gameObject, "Enemy");
+            }
+
             Destroy(gameObject);
         }
     }

@@ -7,21 +7,26 @@ public class MoveSystem
     public void Move(GameObject myObj, string targetTag, float moveSpeed, Vector3 vector)
     {
         GetTargetSystem getTarget = new GetTargetSystem();
-        //GameObject target = getTarget.GetTarget(targetTag, myObj);
-        GameObject target = null;
+        GameObject target = getTarget.GetTarget(myObj, targetTag);
 
-        if (target != null) // 対象の方向を計算
+        if (target == null)
         {
-            vector = (target.transform.position - myObj.transform.position).normalized;
-            Debug.Log($"対象への方向：{vector}");
+            if (targetTag == "Enemy")
+            {
+                vector = new Vector3(-1, 0);
+            }
+            else
+            {
+                vector = new Vector3(1, 0);
+            }
         }
-        else                // 対象がいないなら真っすぐ進む
+        else
         {
-            vector = new Vector3(-1, 0);
+            vector = target.transform.position - myObj.transform.position;
         }
 
         // 移動
-        Vector3 moveVelocity = vector * moveSpeed * 0.1f * Time.deltaTime;
+        Vector3 moveVelocity = vector.normalized * moveSpeed * 0.1f * Time.deltaTime;
         myObj.transform.position += moveVelocity;
     }
 }

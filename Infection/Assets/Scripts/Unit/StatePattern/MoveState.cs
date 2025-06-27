@@ -20,12 +20,18 @@ namespace StatePatteren.State
         {
             moveSpeed = unitController.unitStats.spd;
             moveSystem = new MoveSystem();
-
         }
 
         public void Update()
         {
-            moveSystem.Move(unitController.gameObject, "UnitEnemy", moveSpeed, moveVector);
+            if(unitController.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)
+            {
+                moveSystem.Move(unitController.gameObject, "Enemy", moveSpeed, moveVector);
+            }
+            if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY)
+            {
+                moveSystem.Move(unitController.gameObject, "Player", moveSpeed, moveVector);
+            }
         }
 
         public void Exit()
@@ -35,16 +41,30 @@ namespace StatePatteren.State
 
         public void Transition()
         {
-            // デバッグ用
-            if(Input.GetKey(KeyCode.LeftShift))
+            GetTargetSystem getTargetSystem = new GetTargetSystem();
+
+            if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)
             {
-                if (Input.GetKeyDown(KeyCode.W))
+                GameObject target = getTargetSystem.GetTarget(unitController.gameObject, "Enemy");
+                if(target != null)
                 {
-                    unitController.StateMachine.TransitionTo(unitController.StateMachine.combatState);
+                    float distance = Vector2.Distance(unitController.gameObject.transform.position, target.transform.position);
+                    if (distance <= unitController.unitStats.range)
+                    {
+                        unitController.StateMachine.TransitionTo(unitController.StateMachine.combatState);
+                    }
                 }
-                else if(Input.GetKeyDown(KeyCode.E))
+            }
+            else
+            {
+                GameObject target = getTargetSystem.GetTarget(unitController.gameObject, "Player");
+                if (target != null)
                 {
-                    unitController.StateMachine.TransitionTo(unitController.StateMachine.deadState);
+                    float distance = Vector2.Distance(unitController.gameObject.transform.position, target.transform.position);
+                    if (distance <= unitController.unitStats.range)
+                    {
+                        unitController.StateMachine.TransitionTo(unitController.StateMachine.combatState);
+                    }
                 }
             }
         }
