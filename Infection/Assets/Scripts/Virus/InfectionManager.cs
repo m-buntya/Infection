@@ -1,107 +1,87 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StatePatteren.State;
-
-public enum InfectionMode
-{
-    Off,
-    AutoTest,
-    Manual
-}
+using UnityEditor;
 
 public class InfectionManager : MonoBehaviour
 {
-    [Header("感染モード")]
-    [SerializeField] private InfectionMode infectionMode = InfectionMode.Off;
+    [Tooltip("管理対象のユニット（自動追加も可能)")]
+    public List<UnitController> unitList = new List<UnitController>();
 
-    [Header("感染設定")]
-    [SerializeField] private float infectionInterval = 3f;
-    [SerializeField] private float infectionPoint = 2f;
-    [SerializeField] private string infectionType = "Enemy";
-    [SerializeField] private float maxPoint = 100f;
+    [Tooltip("感染加算間隔（秒）")]
+    public float interval = 3f;
 
-    [Header("管理ユニット一覧")]
-    [SerializeField] private List<UnitController> unitList = new List<UnitController>();
+    [Tooltip("感染加算ポイント")]
+    public float virusPointPerTick = 10f;
+    [Tooltip("感染タイプ（Enemy　or　Self")]
+    public string virusType = "Enemy";
+    private Dictionary<UnitController, UnitData> unitDataMap = new Dictionary<UnitController, UnitData>();
 
-    private float nextInfectionTime = 0f;
 
-    void Start()
+    private void Start()
     {
-        nextInfectionTime = Time.time + infectionInterval;
+        
+        unitList.AddRange(FindObjectsOfType<UnitController>());
+        StartCoroutine(AddVirusPointsRoutine());
+
     }
-
-    void Update()
+    IEnumerator AddVirusPointsRoutine()
     {
-        if (infectionMode != InfectionMode.AutoTest) return;
-
-        if (Time.time >= nextInfectionTime)
+        while (true)
         {
-            ApplyInfectionToAll();
-            nextInfectionTime = Time.time + infectionInterval;
+            yield return new WaitForSeconds(interval);
+
+            foreach (var unit in unitList)
+            {
+                if (unit == null || !unitDataMap.ContainsKey(unit)) continue;
+
+                UnitData data = unitDataMap[unit];
+                float resistance = Mathf.Max(data.virusResistance, 0.1f);
+                float maxPoint = data.maxVirusPoint;
+
+                float current = virusType == "Enemy"
+                    ? unit.unitStats.enemyVirusPoint
+                    : unit.unitStats.virusPoint;
+
+                // 最大値に到達していなければ感染を加算
+                if (current < maxPoint)
+                {
+                    float add = Mathf.Min(virusPointPerTick / resistance, maxPoint - current);
+                    unit.TakeVirusDamage(add, virusType);
+
+                    float after = virusType == "Enemy"
+                        ? unit.unitStats.enemyVirusPoint
+                        : unit.unitStats.virusPoint;
+
+                    Debug.Log($"[{unit.name}] {virusType}ウイルス：{after} / {maxPoint} (+{add})");
+                }
+            }
         }
     }
 
-    public void ApplyInfectionToAll()
+
+    public void AddUnit(UnitController unit)
     {
-        foreach (var unit in unitList)
+        if (!unitList.Contains(unit))
         {
-            if (unit == null) continue;
-
-            AddInfection(unit, infectionPoint, infectionType);
-            Debug.Log($"[AutoTest] {unit.name} に {infectionPoint} 感染ポイントを加算");
-        }
-    }
-
-    public void Infect(UnitController unit, float point, string type)
-    {
-        if (unit != null)
-        {
-            AddInfection(unit, point, type);
-        }
-    }
-
-    public void HealInfection(UnitController unit, float point, string type)
-    {
-        if (unit == null) return;
-
-        if (type == "Enemy")
-            unit.unitStats.enemyVirusPoint = Mathf.Max(0f, unit.unitStats.enemyVirusPoint - point);
-        else
-            unit.unitStats.virusPoint = Mathf.Max(0f, unit.unitStats.virusPoint - point);
-    }
-
-    private void AddInfection(UnitController unit, float point, string type)
-    {
-        if (type == "Enemy")
-            unit.unitStats.enemyVirusPoint = Mathf.Min(unit.unitStats.enemyVirusPoint + point, maxPoint);
-        else
-            unit.unitStats.virusPoint = Mathf.Min(unit.unitStats.virusPoint + point, maxPoint);
-    }
-
-    public void RegisterUnit(UnitController unit)
-    {
-        if (unit != null && !unitList.Contains(unit))
             unitList.Add(unit);
-    }
-
-    public void UnregisterUnit(UnitController unit)
-    {
-        if (unitList.Contains(unit))
-            unitList.Remove(unit);
-    }
-
-    public void SetInfectionMode(InfectionMode mode)
-    {
-        infectionMode = mode;
-    }
-
-    public void ResetAllInfections()
-    {
-        foreach (var unit in unitList)
-        {
-            if (unit == null) continue;
-            unit.unitStats.virusPoint = 0f;
-            unit.unitStats.enemyVirusPoint = 0f;
         }
     }
+
+    //ユニット削除（仮）
+    public void RemoveUnit(UnitController unit)
+    {
+        //unitList.Remove(unit);
+    }
+
+    public void RegisterUnit(UnitController unit, UnitData data)
+    {
+        if (!unitList.Contains(unit))
+        {
+            unitList.Add(unit);
+            unitDataMap[unit] = data;
+        }
+    }
+
 }
