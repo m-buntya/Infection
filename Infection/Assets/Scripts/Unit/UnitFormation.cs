@@ -77,6 +77,9 @@ public class UnitFormation : MonoBehaviour
     const int UNIT_MAX_CNT = 8;     // ì¬‚Å‚«‚é•”‘à‚ÌãŒÀ
     int unitsIndex = 0;             // ì¬‚µ‚½•”‘à”
 
+    [SerializeField] Transform UnitSpawnPoint;
+    [SerializeField] Transform EnemySpawnPoint;
+
     void Awake()
     {
         UnitReset();
@@ -146,24 +149,18 @@ public class UnitFormation : MonoBehaviour
     // •”‘à¶¬ƒ{ƒ^ƒ“
     public void OnClickCreate(int num)
     {
-        GameObject unit = GenerateUnit(num);
-        unitManager.AddUnitList(unit, "Player");
-    }
-
-    // •”‘à¶¬
-    public GameObject GenerateUnit(int num)
-    {
-        GameObject unit = Instantiate(unitObj);
+        GameObject unit = Instantiate(unitObj, UnitSpawnPoint.position, transform.rotation);
         UnitController unitController = unit.GetComponent<UnitController>();
-        unitController.SetUnitStats(units[num]);
-
-        return unit;
+        unitController.SetUnitStats(units[num], UnitController.UNIT_GROUP.PLAYER);
+        unitManager.AddUnitList(unit, "Player");
     }
 
     // “G•”‘à¶¬
     public void OnClickEnemyCreate()
     {
-        GameObject unit = GenerateUnit(0);
+        GameObject unit = Instantiate(unitObj, EnemySpawnPoint.position, transform.rotation);
+        UnitController unitController = unit.GetComponent<UnitController>();
+        unitController.SetUnitStats(units[0], UnitController.UNIT_GROUP.ENEMY);
         unitManager.AddUnitList(unit, "Enemy");
     }
 
