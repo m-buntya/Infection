@@ -24,7 +24,7 @@ namespace StatePatteren.State
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            unitFormation = GameObject.Find("SquadFormation").GetComponent<UnitFormation>();
+            unitFormation = GameObject.Find("UnitFormation").GetComponent<UnitFormation>();
             stateMachine = new SquadStateMachine(this);
 
             stateMachine.Initialize(stateMachine.moveState);
@@ -69,7 +69,7 @@ namespace StatePatteren.State
             {
                 unitStats.virusPoint += addPoint;
                 Debug.Log($"Unit：自ウイルスの感染ゲージが{addPoint}上昇した");
-            }      
+            }            
         }
 
         // 回復処理

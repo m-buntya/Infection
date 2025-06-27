@@ -63,6 +63,7 @@ public class UnitFormation : MonoBehaviour
     [SerializeField] UnitStatsData unitStatsData;
 
     UnitUIManager unitUIManager;
+    UnitManager unitManager;
 
     public UnitParametor unitPara { get; private set; }     // 部隊のステータス(設定中)
 
@@ -81,6 +82,7 @@ public class UnitFormation : MonoBehaviour
         UnitReset();
 
         unitUIManager = GameObject.Find("UnitUIManager").GetComponent<UnitUIManager>();
+        unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
 
         unitPara = new UnitParametor();
         unitPara.SetLeaderStats(Clone(unitStatsData.UnitParameter[0]));
@@ -141,12 +143,28 @@ public class UnitFormation : MonoBehaviour
         UnitReset();
     }
 
-    // 部隊生成
+    // 部隊生成ボタン
     public void OnClickCreate(int num)
+    {
+        GameObject unit = GenerateUnit(num);
+        unitManager.AddUnitList(unit, "Player");
+    }
+
+    // 部隊生成
+    public GameObject GenerateUnit(int num)
     {
         GameObject unit = Instantiate(unitObj);
         UnitController unitController = unit.GetComponent<UnitController>();
         unitController.SetUnitStats(units[num]);
+
+        return unit;
+    }
+
+    // 敵部隊生成
+    public void OnClickEnemyCreate()
+    {
+        GameObject unit = GenerateUnit(0);
+        unitManager.AddUnitList(unit, "Enemy");
     }
 
     // 部隊編成完了表示
@@ -188,7 +206,13 @@ public class UnitFormation : MonoBehaviour
             leaderSkill = original.leaderSkill,
             role = original.role,
             lv = original.lv,
+            maxLv = original.maxLv,
             hp = original.hp,
+            maxHp = original.maxHp,
+            virusPoint = original.virusPoint,
+            virusMaxPoint = original.virusMaxPoint,
+            enemyVirusPoint = original.enemyVirusPoint,
+            enemyVirusMaxPoint = original.enemyVirusMaxPoint,
             atk = original.atk,
             virusPow = original.virusPow,
             atkSpd = original.atkSpd,
