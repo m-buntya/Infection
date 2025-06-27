@@ -419,6 +419,7 @@ GameObject:
   - component: {fileID: 581374644}
   - component: {fileID: 581374646}
   - component: {fileID: 581374647}
+  - component: {fileID: 581374648}
   m_Layer: 5
   m_Name: MissionBackScreen
   m_TagString: Untagged
@@ -489,6 +490,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &581374648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581374643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea71d0e1d1ba5045a6db438df0ae3c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMission_1: 0
+  isMission_2: 0
+  isMission_3: 0
+  missionMark_1: {fileID: 800409343}
+  missionMark_2: {fileID: 1449459752}
+  missionMark_3: {fileID: 1696366704}
 --- !u!1 &627916032
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,7 +725,7 @@ GameObject:
   - component: {fileID: 800409344}
   - component: {fileID: 800409343}
   m_Layer: 5
-  m_Name: MissionClear
+  m_Name: MissionMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1039,7 +1058,7 @@ GameObject:
   - component: {fileID: 1449459753}
   - component: {fileID: 1449459752}
   m_Layer: 5
-  m_Name: MissionClear
+  m_Name: MissionMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1114,7 +1133,7 @@ GameObject:
   - component: {fileID: 1696366705}
   - component: {fileID: 1696366704}
   m_Layer: 5
-  m_Name: MissionClear
+  m_Name: MissionMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
