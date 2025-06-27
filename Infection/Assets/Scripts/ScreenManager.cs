@@ -44,6 +44,13 @@ public class ScreenManager : MonoBehaviour
             rt.sizeDelta = new Vector2(400, 200);
             text.text = "出撃";
         }
+        else if (scene.name == "ResultScene")
+        {
+            RectTransform rt = GetComponent<RectTransform>();
+            rt.anchoredPosition = new Vector2(795, -430);
+            rt.sizeDelta = new Vector2(300, 150);
+            text.text = "退出";
+        }
     }
 
     //他シーンへ移動
