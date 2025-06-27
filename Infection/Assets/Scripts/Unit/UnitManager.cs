@@ -15,30 +15,30 @@ public class UnitManager : MonoBehaviour
     // エネミーユニットのリストを取得
     public List<GameObject> GetEnemyUnits()
     {
-        return playerUnits;
+        return enemyUnits;
     }
 
     // ユニットリストに追加
-    public void AddUnitList(GameObject unit, string type)
+    public void AddUnitList(GameObject unit, string group)
     {
-        if(type == "Player")
+        if(group == "Player")
         {
             playerUnits.Add(unit);
         }
-        else if (type == "Enemy")
+        else if (group == "Enemy")
         {
             enemyUnits.Add(unit);
         }
     }
 
     // ユニットリストから削除
-    public void RemoveUnitList(GameObject unit, string type)
+    public void RemoveUnitList(GameObject unit, string group)
     {
-        if (type == "Player")
+        if (group == "Player")
         {
             playerUnits.Remove(unit);
         }
-        else if (type == "Enemy")
+        else if (group == "Enemy")
         {
             enemyUnits.Remove(unit);
         }

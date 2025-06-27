@@ -1,6 +1,5 @@
 using StrategyPatteren.Role;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace StatePatteren.State
 {
@@ -35,16 +34,22 @@ namespace StatePatteren.State
 
         public void Transition()
         {
-            // デバッグ用
-            if (Input.GetKey(KeyCode.LeftShift))
+            GetTargetSystem getTargetSystem = new GetTargetSystem();
+
+            if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)
             {
-                if (Input.GetKeyDown(KeyCode.Q))
+                GameObject target = getTargetSystem.GetTarget(unitController.gameObject, "Enemy");
+                if (target == null)
                 {
                     unitController.StateMachine.TransitionTo(unitController.StateMachine.moveState);
                 }
-                else if (Input.GetKeyDown(KeyCode.E))
+            }
+            if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY)
+            {
+                GameObject target = getTargetSystem.GetTarget(unitController.gameObject, "Player");
+                if (target == null)
                 {
-                    unitController.StateMachine.TransitionTo(unitController.StateMachine.deadState);
+                    unitController.StateMachine.TransitionTo(unitController.StateMachine.moveState);
                 }
             }
         }

@@ -5,6 +5,8 @@ public class UnitUIManager : MonoBehaviour
 {
     [SerializeField] UnitFormation unitFormation;
 
+    [SerializeField] Canvas SquadUI;
+
     [SerializeField] TextMeshProUGUI roleText;
     [SerializeField] TextMeshProUGUI soldierCntText;
     [SerializeField] TextMeshProUGUI hpText;
@@ -15,6 +17,8 @@ public class UnitUIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI rangeText;
     [SerializeField] TextMeshProUGUI costText;
 
+    bool isActive = true;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,7 +28,14 @@ public class UnitUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if(Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+                SquadUI.gameObject.SetActive(!isActive);
+                isActive = !isActive;
+            }
+        }
     }
 
     // 部隊のステータス表示

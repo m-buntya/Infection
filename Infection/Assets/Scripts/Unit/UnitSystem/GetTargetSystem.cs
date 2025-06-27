@@ -3,13 +3,14 @@ using System.Collections.Generic;
 
 public class GetTargetSystem
 {
-    float maxDistance = 50f;        // ŒŸ’m‚·‚éÅ‘å‹——£
+    float maxDistance = 10f;        // ŒŸ’m‚·‚éÅ‘å‹——£
     UnitManager unitManager;
 
     // Å‚à‹ß‚¢‘ÎÛ‚ğ•Ô‚·
     public GameObject GetTarget(GameObject myObj, string targetGroup)
     {
         unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
+        if (unitManager == null) Debug.Log("unitManager‚ªnull‚Å‚·");
 
         List<GameObject> targets = new List<GameObject>();
 
@@ -17,7 +18,7 @@ public class GetTargetSystem
         {
             targets = unitManager.GetPlayerUnits();
         }
-        else if(targetGroup == "Enemy")
+        if(targetGroup == "Enemy")
         {
             targets = unitManager.GetEnemyUnits();
         }
@@ -35,6 +36,13 @@ public class GetTargetSystem
             }
         }
 
-        return nearest;
+        if(nearest != null)
+        {
+            return nearest;
+        }
+        else
+        {
+            return null;
+        }
     }
 }

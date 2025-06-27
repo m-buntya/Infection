@@ -29,7 +29,7 @@ MonoBehaviour:
     virusPow: 15
     atkSpd: 3
     spd: 12
-    range: 10
+    range: 2
     cost: 3
     sortieCoolTime: 10
   - unitCode: 10002
@@ -48,7 +48,7 @@ MonoBehaviour:
     virusPow: 7
     atkSpd: 10
     spd: 5
-    range: 10
+    range: 2
     cost: 3
     sortieCoolTime: 10
   - unitCode: 10003
@@ -67,7 +67,7 @@ MonoBehaviour:
     virusPow: 10
     atkSpd: 6
     spd: 7
-    range: 10
+    range: 2
     cost: 3
     sortieCoolTime: 10
   - unitCode: 10004
