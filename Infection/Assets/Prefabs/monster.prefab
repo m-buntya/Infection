@@ -115,7 +115,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.97, y: 0.8, z: 1}
+  m_LocalScale: {x: 0, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1788759143096670648}
@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 5239837640967880525}
   - component: {fileID: 2742872168595139795}
   - component: {fileID: -1372196467838446890}
+  - component: {fileID: -6785354065269388855}
   m_Layer: 0
   m_Name: monster
   m_TagString: Untagged
@@ -292,4 +293,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365a171a063bbf74ba17258df329e0c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitFormation: {fileID: 0}
+--- !u!114 &-6785354065269388855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4520513790756411374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68f3f48f1d750f643b34f10d45895d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virusPoint: 0
+  unitData: {fileID: 11400000, guid: e9f0eca7a1f97a94cb7e0ef8320279be, type: 2}
+  gaugeBar: {fileID: 4465718779396685229}
+  maxGaugeWidth: 0.97
+  gaugeOffset: -0.01
+  testAutoInfect: 0
+  testInfectSpeed: 0.1

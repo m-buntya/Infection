@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+
 public class DeployManager : MonoBehaviour
 {
     [SerializeField] private CostManager costManager;
@@ -9,6 +10,7 @@ public class DeployManager : MonoBehaviour
     [SerializeField] private Transform deployPoint;
     [SerializeField] private TMP_Text deployCounterText;
     [SerializeField] private UnitData unitData;
+
     private const int MAX_DEPLOYABLE_UNITS = 6;
     private int currentUnitCount = 0;
     private bool isDeployable = true;
@@ -17,13 +19,26 @@ public class DeployManager : MonoBehaviour
     private Dictionary<UnitData, float> unitCooldowns = new Dictionary<UnitData, float>();
 
     public static DeployManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Start()
     {
-        UpdateDeployText();        
+        UpdateDeployText();
     }
+
     void Update()
     {
-        // 各ユニットのクールタイムをカウントダウン
         List<UnitData> keys = new List<UnitData>(unitCooldowns.Keys);
         foreach (var unit in keys)
         {
@@ -34,6 +49,7 @@ public class DeployManager : MonoBehaviour
             }
         }
     }
+
     private Vector3 GetValidDeployPosition()
     {
         Vector3 basePosition = deployPoint.position;
@@ -68,18 +84,19 @@ public class DeployManager : MonoBehaviour
             costManager.DisplayInsufficientCostFeedBack();
             return;
         }
+
         costManager.SpendCost(unit.cost);
         Vector3 validPosition = GetValidDeployPosition();
         GameObject unitObj = Instantiate(unit.prefab, validPosition, Quaternion.identity, deployParent);
 
-        // 必要ならここで UnitMovement 取得やターゲット指定もできる
+        // ⬇ 感染マネージャーへの登録
+       
         UnitMovement newUnit = unitObj.GetComponent<UnitMovement>();
 
         deployCounts[unit]++;
         unitCooldowns[unit] = unit.cooldownTime;
 
         Debug.Log($"{unit.unitName} を出撃！ 次は {unit.cooldownTime} 秒後に再出撃できます。");
-       
     }
 
     public void ResetDeployment()
@@ -89,6 +106,7 @@ public class DeployManager : MonoBehaviour
         deployCounts.Clear();
         unitCooldowns.Clear();
     }
+
     private void UpdateDeployText()
     {
         if (deployCounterText != null && unitData != null)
@@ -97,19 +115,9 @@ public class DeployManager : MonoBehaviour
             deployCounterText.text = $"出撃可能: {remainingDeploys}/{unitData.maxDeployCount}";
         }
     }
+
     public int GetDeployedCount(UnitData unit)
     {
         return deployCounts.ContainsKey(unit) ? deployCounts[unit] : 0;
-    }
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 }

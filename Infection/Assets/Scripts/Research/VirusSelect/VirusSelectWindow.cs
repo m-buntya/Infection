@@ -13,19 +13,20 @@ public class VirusSelectWindow : MonoBehaviour
     [SerializeField] VirusChoice virusChoice;
     [SerializeField] private List<Sprite> mockIcons; // 仮置き
 
-    private ResearchSlotButton currentSlot;
+    //private ResearchSlotButton currentSlot;
 
     //VirusStats 〇〇〇;
     //〇〇〇 = virusChoice.GetCurrentVirus();
     
     // ウィンドウを開く
-    public void Open(ResearchSlotButton caller)
-    {
-        currentSlot = caller;
-        gameObject.SetActive(true);
+    //public void Open(ResearchSlotButton caller)
+    //public void Open(ResearchSlotButton caller)
+    //{
+    //    currentSlot = caller;
+    //    gameObject.SetActive(true);
 
-        GenerateButtons();
-    }
+    //    GenerateButtons();
+    //}
 
     //開きなおす際に一度消して再生成
     private void GenerateButtons()
@@ -61,7 +62,7 @@ public class VirusSelectWindow : MonoBehaviour
     public void OnSelect(Sprite selectedIcon, int id)//仮置き
     {                                                //仮置き
         selectID = id;                               //仮置き
-        currentSlot.SetMockCharacter(selectedIcon);  //仮置き
+        //currentSlot.SetMockCharacter(selectedIcon);  //仮置き
         gameObject.SetActive(false);                 //仮置き
     }                                                //仮置き
 
@@ -77,6 +78,6 @@ public class VirusSelectWindow : MonoBehaviour
     public void Close()
     {
         gameObject.SetActive(false);
-        currentSlot = null;
+        //currentSlot = null;
     }
 }
