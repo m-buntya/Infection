@@ -10,13 +10,11 @@ namespace StatePatteren.State
 
         public MoveState moveState;
         public CombatState combatState;
-        public DeadState deadState;
         
         public SquadStateMachine(UnitController unitController)
         {
            this.moveState = new MoveState(unitController);
            this.combatState = new CombatState(unitController);
-           this.deadState = new DeadState(unitController);
         }
 
         public void Initialize(UnitState state)
