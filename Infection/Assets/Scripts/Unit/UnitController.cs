@@ -22,9 +22,13 @@ namespace StatePatteren.State
 
         UNIT_GROUP unitGroup;
 
-        public void SetUnitStats(UnitStats stats, UNIT_GROUP group)
+        public void SetUnitStats(UnitStats stats)
         {
             unitStats = stats;
+        }
+
+        public void SetUnitGroup(UNIT_GROUP group)
+        {
             unitGroup = group;
         }
 
