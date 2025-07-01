@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class VirusEvolutionCheck : MonoBehaviour
 {
-    [SerializeField] ResearchSlotButton researchSlotButton;
+    //[SerializeField] ResearchSlotButton researchSlotButton;
     [SerializeField] VirusSelectWindow virusSelectWindow;
     [SerializeField] Image VirusImage;
 
@@ -18,13 +18,13 @@ public class VirusEvolutionCheck : MonoBehaviour
     //ãåÉAÉCÉRÉìê›íË
     public void OverwriteVirusIcon()
     {
-        researchSlotButton.IconSharing(VirusImage);
+        //researchSlotButton.IconSharing(VirusImage);
     }
 
     //çÏê¨
     public void OnClickEvolutionCheck()
     {
-        researchSlotButton.ResetSlot();
+        //researchSlotButton.ResetSlot();
         Close();
     }
 

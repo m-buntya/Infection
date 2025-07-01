@@ -8,21 +8,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6785354065269388855, guid: 867e976a028857f478f9aa420f504578, type: 3}
+      propertyPath: unitData
+      value: 
+      objectReference: {fileID: 11400000, guid: 2ea6218a1e0a4d546804f0f278b4c86e, type: 2}
     - target: {fileID: 1788759143096670648, guid: 867e976a028857f478f9aa420f504578, type: 3}
       propertyPath: m_LocalScale.x
-      value: 8.4375
+      value: 5.90625
       objectReference: {fileID: 0}
     - target: {fileID: 1788759143096670648, guid: 867e976a028857f478f9aa420f504578, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.82500005
+      value: 0.6909375
       objectReference: {fileID: 0}
     - target: {fileID: 1788759143096670648, guid: 867e976a028857f478f9aa420f504578, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.06
+      value: 4.81
       objectReference: {fileID: 0}
     - target: {fileID: 2742872168595139795, guid: 867e976a028857f478f9aa420f504578, type: 3}
+      propertyPath: unitData
+      value: 
+      objectReference: {fileID: 11400000, guid: 2ea6218a1e0a4d546804f0f278b4c86e, type: 2}
+    - target: {fileID: 2742872168595139795, guid: 867e976a028857f478f9aa420f504578, type: 3}
       propertyPath: moveSpeed
-      value: 5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2742872168595139795, guid: 867e976a028857f478f9aa420f504578, type: 3}
+      propertyPath: changeDirectionInterval
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4520513790756411374, guid: 867e976a028857f478f9aa420f504578, type: 3}
       propertyPath: m_Name
