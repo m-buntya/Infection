@@ -5,15 +5,42 @@ namespace StrategyPatteren.Role
 {
     public class ArcherBehavior : IRoleBehavior
     {
+        private float projectileSpeed = 10f;
+
         public void Action(UnitController unit)
         {
             GetTargetSystem getTarget = new GetTargetSystem();
-            //var target = getTarget.GetTarget("UnitEnemy", unit.gameObject)?.GetComponent<EnemyController>();     // UŒ‚‘ÎÛ‚Ìæ“¾
-            //if (target != null)
-            //{
-            //    Debug.Log($"ArcherFUŒ‚‘ÎÛF{target}");
-            //    target.TakeDamage(unit.unitStats.atk);     // UŒ‚—Í•ªƒ_ƒ[ƒW‚ğ—^‚¦‚é
-            //}
+            string targetTag = unit.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER ? "Enemy" : "Player";
+
+            var target = getTarget.GetTarget(unit.gameObject, targetTag);
+            if (target == null) return;
+
+            if (ProjectilePool.Instance == null)
+            {
+                Debug.LogWarning("ProjectilePoolã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒã‚ã‚Šã¾ã›ã‚“ï¼");
+                return;
+            }
+
+            GameObject projectile = ProjectilePool.Instance.GetProjectile();
+
+            projectile.transform.position = unit.transform.position;
+            projectile.transform.rotation = Quaternion.identity;
+
+            Vector2 direction = (target.transform.position - unit.transform.position).normalized;
+
+            Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.linearVelocity = direction * projectileSpeed;  // velocityãŒæ­£ã—ã„
+            }
+
+            Projectile proj = projectile.GetComponent<Projectile>();
+            if (proj != null)
+            {
+                proj.damage = (int)unit.unitStats.atk;
+                // ç™ºå°„è€…ã®æ‰€å±ã‚°ãƒ«ãƒ¼ãƒ—ã‚’ã‚»ãƒƒãƒˆã™ã‚‹ãŸã‚ã€
+                proj.shooterGroup = unit.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER ? UnitGroup.Player : UnitGroup.Enemy;
+            }
         }
     }
 }
