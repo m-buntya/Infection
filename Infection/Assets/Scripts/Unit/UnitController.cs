@@ -22,9 +22,13 @@ namespace StatePatteren.State
 
         UNIT_GROUP unitGroup;
 
-        public void SetUnitStats(UnitStats stats, UNIT_GROUP group)
+        public void SetUnitStats(UnitStats stats)
         {
             unitStats = stats;
+        }
+
+        public void SetUnitGroup(UNIT_GROUP group)
+        {
             unitGroup = group;
         }
 
@@ -48,6 +52,11 @@ namespace StatePatteren.State
         {
             stateMachine.Update();
             stateMachine.Transition();
+
+            if (unitStats.hp <= 0)
+            {
+                Dead();
+            }
         }
 
         // ダメージ処理
@@ -55,11 +64,6 @@ namespace StatePatteren.State
         {
             unitStats.hp -= damage;
             Debug.Log($"Unit：{damage}のダメージを受けた");
-
-            if (unitStats.hp <= 0)
-            {
-                Dead();
-            }
         }
 
         // 感染ゲージ増加処理
@@ -101,7 +105,7 @@ namespace StatePatteren.State
         }
 
         // 壊滅処理
-        public void Dead()
+        void Dead()
         {
             Debug.Log("死亡処理開始");
 

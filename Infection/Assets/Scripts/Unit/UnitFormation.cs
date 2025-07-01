@@ -151,7 +151,8 @@ public class UnitFormation : MonoBehaviour
     {
         GameObject unit = Instantiate(unitObj, UnitSpawnPoint.position, transform.rotation);
         UnitController unitController = unit.GetComponent<UnitController>();
-        unitController.SetUnitStats(units[num], UnitController.UNIT_GROUP.PLAYER);
+        unitController.SetUnitStats(units[num]);
+        unitController.SetUnitGroup(UnitController.UNIT_GROUP.PLAYER);
         unitManager.AddUnitList(unit, "Player");
     }
 
@@ -160,7 +161,8 @@ public class UnitFormation : MonoBehaviour
     {
         GameObject unit = Instantiate(unitObj, EnemySpawnPoint.position, transform.rotation);
         UnitController unitController = unit.GetComponent<UnitController>();
-        unitController.SetUnitStats(units[0], UnitController.UNIT_GROUP.ENEMY);
+        unitController.SetUnitStats(units[0]);
+        unitController.SetUnitGroup(UnitController.UNIT_GROUP.ENEMY);
         unitManager.AddUnitList(unit, "Enemy");
     }
 
