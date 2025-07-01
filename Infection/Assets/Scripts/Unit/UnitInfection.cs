@@ -1,3 +1,4 @@
+ï»¿using StatePatteren.State;
 using UnityEngine;
 
 public class UnitInfection : MonoBehaviour
@@ -5,30 +6,52 @@ public class UnitInfection : MonoBehaviour
     public float virusPoint = 0f;
     public UnitData unitData;
 
-    [Header("Š´õƒQ[ƒW")]
-    [SerializeField] private Transform gaugeBar; // ƒQ[ƒW•”•ª‚ÌTransform
-    [SerializeField] private float maxGaugeWidth = 1f; // Å‘å‚ÌxƒXƒP[ƒ‹
-    [SerializeField] private float gaugeOffset = -0.05f; // ¶‚ÉŠñ‚¹‚é’²®’li•K—v‚É‰‚¶‚Ä’²®j
+    [Header("æ„ŸæŸ“ã‚²ãƒ¼ã‚¸")]
+    [SerializeField] private Transform gaugeBar;
+    [SerializeField] private float maxGaugeWidth = 1f;
+    [SerializeField] private float gaugeOffset = -0.05f;
 
-    [SerializeField] private bool testAutoInfect = false; // ƒeƒXƒgƒ‚[ƒhƒXƒCƒbƒ`
-    [SerializeField] private float testInfectSpeed = 10f; // 1•b‚ ‚½‚è‚Ì‘‰Á—Ê
+    [Header("ã‚²ãƒ¼ã‚¸è‰²è¨­å®š")]
+    [SerializeField] private Color playerColor = Color.green;
+    [SerializeField] private Color enemyColor = Color.red;
 
+    [Header("ãƒ†ã‚¹ãƒˆç”¨è‡ªå‹•æ„ŸæŸ“")]
+    [SerializeField] private bool testAutoInfect = false;
+    [SerializeField] private float testInfectSpeed = 10f;
+
+    private SpriteRenderer gaugeRenderer;
     private Vector3 initialScale;
     private Vector3 initialLocalPosition;
 
+    // âœ… å®Ÿè¡Œæ™‚ã®æ‰€å±ã‚’å€‹åˆ¥ã«ç®¡ç†ï¼
+    private UNITSIDE currentSide;
 
-    private void Start()
+    void Start()
     {
         virusPoint = unitData.initialvirusPoint;
+        currentSide = unitData.defaultSide; // â† åˆæœŸæ‰€å±ã‚’ã‚³ãƒ”ãƒ¼ï¼
+
         InfectionManager.Instance.RegisterUnit(this);
 
         if (gaugeBar != null)
         {
+            gaugeRenderer = gaugeBar.GetComponent<SpriteRenderer>();
             initialScale = gaugeBar.localScale;
             initialLocalPosition = gaugeBar.localPosition;
+            UpdateGaugeColor();
+        }
+
+        // æ‰€å±ã«å¿œã˜ã¦ãƒ¦ãƒ‹ãƒƒãƒˆã‚°ãƒ«ãƒ¼ãƒ—ã‚’è¨­å®šï¼ˆå¿…è¦ãªå ´åˆï¼‰
+        var controller = GetComponent<UnitController>();
+        if (controller != null)
+        {
+            controller.SetUnitGroup(currentSide == UNITSIDE.Player ?
+                UnitController.UNIT_GROUP.PLAYER :
+                UnitController.UNIT_GROUP.ENEMY);
         }
     }
-    private void Update()
+
+    void Update()
     {
         if (testAutoInfect && virusPoint < unitData.maxVirusPoint)
         {
@@ -38,49 +61,72 @@ public class UnitInfection : MonoBehaviour
 
             if (virusPoint >= unitData.maxVirusPoint)
             {
-                Debug.Log($"{unitData.unitName} ‚ÍŠ´õŒÀŠE‚É’B‚µAƒeƒXƒgƒ‚[ƒh‚Å‚àÁ–Å‚µ‚Ü‚µ‚½B");
-                InfectionManager.Instance.UnregisterUnit(this);
-                Destroy(gameObject);
+                Debug.Log($"{unitData.unitName} ã¯æ„ŸæŸ“é™ç•Œã«é”ã—ã€æ‰€å±ãŒåˆ‡ã‚Šæ›¿ã‚ã‚Šã¾ã™ï¼");
+                ChangeSide();
             }
         }
     }
 
-
     public void AddInfection(float amount)
     {
         virusPoint = Mathf.Min(virusPoint + amount, unitData.maxVirusPoint);
-        Debug.Log($"{unitData.unitName} ‚ÌŠ´õ’l: {virusPoint}");
-
         UpdateGaugeBar();
 
-        if (virusPoint >= unitData.maxVirusPoint) //ƒQ[ƒWƒ}ƒbƒNƒX‚É‚È‚Á‚½‚ÉÁ‚¦‚Ü‚·
+        if (virusPoint >= unitData.maxVirusPoint)
         {
-            Debug.Log($"{unitData.unitName} ‚ÍŠ´õŒÀŠE‚É’B‚µAÁ–Å‚µ‚Ü‚µ‚½B");
-            //InfectionManager.Instance.UnregisterUnit(this);
-            //Destroy(gameObject);
+            Debug.Log($"{unitData.unitName} ã¯æ„ŸæŸ“é™ç•Œã«é”ã—ã€æ‰€å±ãŒåˆ‡ã‚Šæ›¿ã‚ã‚Šã¾ã™ï¼");
+            ChangeSide();
         }
     }
 
-    private void UpdateGaugeBar()
+    void ChangeSide()
+    {
+        var before = currentSide;
+
+        // æ‰€å±ã‚’åˆ‡ã‚Šæ›¿ãˆï¼ˆunitData ã¯å¤‰æ›´ã—ãªã„ï¼ï¼‰
+        if (currentSide == UNITSIDE.Player)
+        {
+            currentSide = UNITSIDE.Enemy;
+            GetComponent<UnitController>().SetUnitGroup(UnitController.UNIT_GROUP.ENEMY);
+        }
+        else
+        {
+            currentSide = UNITSIDE.Player;
+            GetComponent<UnitController>().SetUnitGroup(UnitController.UNIT_GROUP.PLAYER);
+        }
+
+        // æ„ŸæŸ“å€¤ã¨ã‚²ãƒ¼ã‚¸ã‚’ãƒªã‚»ãƒƒãƒˆ
+        virusPoint = 0f;
+        UpdateGaugeBar();
+        UpdateGaugeColor();
+
+        Debug.Log($"âœ… æ‰€å±ãŒåˆ‡ã‚Šæ›¿ã‚ã‚Šã¾ã—ãŸï¼š{before} â†’ {currentSide}");
+    }
+
+    void UpdateGaugeBar()
     {
         if (gaugeBar == null) return;
 
         float ratio = Mathf.Clamp01(virusPoint / unitData.maxVirusPoint);
         float newWidth = ratio * maxGaugeWidth;
 
-        // ƒXƒP[ƒ‹
         Vector3 newScale = gaugeBar.localScale;
         newScale.x = newWidth;
         gaugeBar.localScale = newScale;
 
-        // ¶‚©‚çL‚Ñ‚é‚æ‚¤‚ÉˆÊ’u’²®i{‚³‚ç‚ÉŠñ‚¹ƒIƒtƒZƒbƒgj
         Vector3 newPos = gaugeBar.localPosition;
         newPos.x = (newWidth - maxGaugeWidth) / 2f + gaugeOffset;
         gaugeBar.localPosition = newPos;
     }
 
+    void UpdateGaugeColor()
+    {
+        if (gaugeRenderer == null) return;
 
-    private void OnDestroy()
+        gaugeRenderer.color = currentSide == UNITSIDE.Player ? playerColor : enemyColor;
+    }
+
+    void OnDestroy()
     {
         if (InfectionManager.Instance != null)
             InfectionManager.Instance.UnregisterUnit(this);

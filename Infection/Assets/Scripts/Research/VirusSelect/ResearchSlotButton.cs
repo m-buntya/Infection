@@ -40,7 +40,7 @@ public class ResearchSlotButton : MonoBehaviour
     //スロットを押す
     public void OnClickSlot()
     {
-        virusSelectWindow.Open(this);
+        //virusSelectWindow.Open(this);
     }
 
     //アイコン共有

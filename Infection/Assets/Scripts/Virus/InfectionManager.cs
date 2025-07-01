@@ -6,9 +6,9 @@ public class InfectionManager : MonoBehaviour
     public static InfectionManager Instance { get; private set; }
 
     private List<UnitInfection> activeUnits = new List<UnitInfection>();
-    private float infectionInterval = 3f;
+    private float infectionInterval = 3f; //感染間隔
     private float timer = 0f;
-    private float infectionAmount = 10f;
+    private float infectionAmount = 10f;　//感染値
 
     private void Awake()
     {
@@ -16,11 +16,14 @@ public class InfectionManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private void Update()
+    void Update()
     {
         timer += Time.deltaTime;
+       
+
         if (timer >= infectionInterval)
         {
+          
             timer = 0f;
             ApplyInfection();
         }
@@ -28,10 +31,12 @@ public class InfectionManager : MonoBehaviour
 
     private void ApplyInfection()
     {
+      
         // リストのコピーを使用して安全にループする
         var snapshot = new List<UnitInfection>(activeUnits);
         foreach (var unit in snapshot)
         {
+           
             unit.AddInfection(infectionAmount);
         }
     }
