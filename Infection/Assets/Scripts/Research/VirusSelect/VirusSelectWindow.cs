@@ -12,21 +12,19 @@ public class VirusSelectWindow : MonoBehaviour
     //[SerializeField] private [] ;
     [SerializeField] VirusChoice virusChoice;
     [SerializeField] private List<Sprite> mockIcons; // ‰¼’u‚«
-
-    //private ResearchSlotButton currentSlot;
+    private ResearchSlotButton currentSlot;
 
     //VirusStats ZZZ;
     //ZZZ = virusChoice.GetCurrentVirus();
     
     // ƒEƒBƒ“ƒhƒE‚ğŠJ‚­
-    //public void Open(ResearchSlotButton caller)
-    //public void Open(ResearchSlotButton caller)
-    //{
-    //    currentSlot = caller;
-    //    gameObject.SetActive(true);
+    public void Open(ResearchSlotButton caller)
+    {
+        currentSlot = caller;
+        gameObject.SetActive(true);
 
-    //    GenerateButtons();
-    //}
+        GenerateButtons();
+    }
 
     //ŠJ‚«‚È‚¨‚·Û‚Éˆê“xÁ‚µ‚ÄÄ¶¬
     private void GenerateButtons()
