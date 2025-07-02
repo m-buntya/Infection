@@ -590,6 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b98904935384ed4190b024a65c0dea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  researchSlotButton: {fileID: 378771213}
   virusSelectWindow: {fileID: 502435630}
   VirusImage: {fileID: 1119793355}
 --- !u!1 &279606927
