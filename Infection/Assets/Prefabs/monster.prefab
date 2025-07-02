@@ -312,3 +312,5 @@ MonoBehaviour:
   gaugeOffset: -0.01
   testAutoInfect: 0
   testInfectSpeed: 0.1
+  playerColor: {r: 0.15686274, g: 0.23321319, b: 1, a: 1}
+  enemyColor: {r: 1, g: 0.19215685, b: 0.24744715, a: 1}

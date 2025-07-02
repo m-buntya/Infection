@@ -3937,7 +3937,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2062502059}
   - component: {fileID: 2062502058}
-  - component: {fileID: 2062502057}
   - component: {fileID: 2062502056}
   m_Layer: 0
   m_Name: Main Camera (1)
@@ -3990,14 +3989,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &2062502057
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2062502055}
-  m_Enabled: 1
 --- !u!20 &2062502058
 Camera:
   m_ObjectHideFlags: 0
@@ -4191,13 +4182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5d35e89590efa0428fee60229db9b6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitList:
-  - {fileID: -1372196467838446890, guid: 867e976a028857f478f9aa420f504578, type: 3}
-  - {fileID: 2191438368491215067, guid: acbeaecf5d5b3664cbcc3f1f11d7fc5c, type: 3}
-  - {fileID: 8692106525418995562, guid: c1e9d65f3ceda9549a483c4cb527d83f, type: 3}
-  interval: 3
-  virusPointPerTick: 10
-  virusType: Enemy
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
