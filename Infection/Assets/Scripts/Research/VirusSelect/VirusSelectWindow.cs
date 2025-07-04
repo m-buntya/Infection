@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEditor.U2D.Animation;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ public class VirusSelectWindow : MonoBehaviour
     {
         currentSlot = caller;
         gameObject.SetActive(true);
+        gameObject.transform.SetAsLastSibling();  
 
         GenerateButtons();
     }
@@ -60,7 +62,7 @@ public class VirusSelectWindow : MonoBehaviour
     public void OnSelect(Sprite selectedIcon, int id)//仮置き
     {                                                //仮置き
         selectID = id;                               //仮置き
-        //currentSlot.SetMockCharacter(selectedIcon);  //仮置き
+        currentSlot.SetMockCharacter(selectedIcon);  //仮置き
         gameObject.SetActive(false);                 //仮置き
     }                                                //仮置き
 
@@ -76,6 +78,6 @@ public class VirusSelectWindow : MonoBehaviour
     public void Close()
     {
         gameObject.SetActive(false);
-        //currentSlot = null;
+        currentSlot = null;
     }
 }

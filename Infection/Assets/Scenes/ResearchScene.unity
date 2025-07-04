@@ -590,6 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b98904935384ed4190b024a65c0dea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  researchSlotButton: {fileID: 378771213}
   virusSelectWindow: {fileID: 502435630}
   VirusImage: {fileID: 1119793355}
 --- !u!1 &279606927
@@ -1522,12 +1523,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1689784080}
+  - {fileID: 502435629}
   - {fileID: 22489711}
   - {fileID: 284978250}
   - {fileID: 1500320468}
-  - {fileID: 502435629}
-  - {fileID: 70880376}
   - {fileID: 275678830}
+  - {fileID: 70880376}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

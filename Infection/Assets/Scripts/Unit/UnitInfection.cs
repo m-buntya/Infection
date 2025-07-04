@@ -59,11 +59,6 @@ public class UnitInfection : MonoBehaviour
             virusPoint = Mathf.Min(virusPoint, unitData.maxVirusPoint);
             UpdateGaugeBar();
 
-            if (virusPoint >= unitData.maxVirusPoint)
-            {
-                Debug.Log($"{unitData.unitName} は感染限界に達し、所属が切り替わります！");
-                ChangeSide();
-            }
         }
     }
 
@@ -100,7 +95,7 @@ public class UnitInfection : MonoBehaviour
         UpdateGaugeBar();
         UpdateGaugeColor();
 
-        Debug.Log($"✅ 所属が切り替わりました：{before} → {currentSide}");
+        Debug.Log($"✅ 所属が切り替わりました{unitData.unitName}：{before} → {currentSide}");
     }
 
     void UpdateGaugeBar()
