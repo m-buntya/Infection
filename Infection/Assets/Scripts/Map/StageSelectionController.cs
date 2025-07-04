@@ -15,6 +15,9 @@ public class StageSelectionController : MonoBehaviour
     [SerializeField] private GameObject stageInfoPanel;
 
     [SerializeField] private Button deployButton;
+    [SerializeField] private Button backButton;
+    [Header("エリアバックUI")]
+    [SerializeField] private Button areabackButton;
 
     [Header("ステージデータ")]
     [SerializeField] private Stage stageDataAsset;
@@ -24,9 +27,13 @@ public class StageSelectionController : MonoBehaviour
 
     private void Awake()
     {
+        areabackButton.onClick.AddListener(OnAreaBackButtonClicked);
+
         stageInfoPanel.SetActive(false);
 
         deployButton.onClick.AddListener(OnDeployButtonClicked);
+
+        backButton.onClick.AddListener(OnBackButtonClicked);
 
         foreach (Button stageButton in stageButtons)
         {
@@ -84,5 +91,17 @@ public class StageSelectionController : MonoBehaviour
         {
             Debug.LogError("出撃しようとしているステージデータがnullです。");
         }
+    }
+
+    /// 編成が表示中に戻るボタンが押されたときの処理
+    private void OnBackButtonClicked()
+    {
+            stageInfoPanel.SetActive(false);
+    }
+
+    // 戻るボタンを押したときエリアシーンからマップシーンに戻る処理
+    private void OnAreaBackButtonClicked()
+    { 
+            SceneManager.LoadScene("MapScene"); 
     }
 }
