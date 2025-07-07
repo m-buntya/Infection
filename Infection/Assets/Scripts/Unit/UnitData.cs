@@ -17,6 +17,7 @@ public class UnitData : ScriptableObject
     public bool canGrowDeploycount = false;
     public int attackPower = 10;
     public float attackInterval = 1.5f;
+    public Sprite icon;
 
     [Header("感染関連パラメーター")]
     public float initialvirusPoint = 0f;
@@ -25,4 +26,8 @@ public class UnitData : ScriptableObject
 
     [Header("所属（初期値）")]
     public UNITSIDE defaultSide;
+
+    [Header("表示用UIプレハブ")]
+    public GameObject uiPanelPrefab;
+
 }
