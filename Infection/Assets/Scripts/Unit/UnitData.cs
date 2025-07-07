@@ -30,4 +30,7 @@ public class UnitData : ScriptableObject
     [Header("表示用UIプレハブ")]
     public GameObject uiPanelPrefab;
 
+    [TextArea(3, 10)]
+    public string unitDescription;
+
 }
