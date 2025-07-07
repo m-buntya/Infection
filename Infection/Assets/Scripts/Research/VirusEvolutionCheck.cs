@@ -4,27 +4,28 @@ using UnityEngine.UI;
 
 public class VirusEvolutionCheck : MonoBehaviour
 {
-    //[SerializeField] ResearchSlotButton researchSlotButton;
+    [SerializeField] ResearchSlotButton researchSlotButton;
     [SerializeField] VirusSelectWindow virusSelectWindow;
     [SerializeField] Image VirusImage;
 
     //呼び出し
     public void CheckOnClick()
     {
+        gameObject.transform.SetAsLastSibling();
         gameObject.SetActive(true);
-        OverwriteVirusIcon();
+        VirusIcon();
     }
 
-    //旧アイコン設定
-    public void OverwriteVirusIcon()
+    //アイコン設定
+    public void VirusIcon()
     {
-        //researchSlotButton.IconSharing(VirusImage);
+        researchSlotButton.IconSharing(VirusImage);
     }
 
     //作成
     public void OnClickEvolutionCheck()
     {
-        //researchSlotButton.ResetSlot();
+        researchSlotButton.ResetSlot();
         Close();
     }
 
