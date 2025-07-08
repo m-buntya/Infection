@@ -9,7 +9,8 @@ public class UnitSlotButton : MonoBehaviour
 
     public ObjectToggler toggler;
     public GameObject targetPanelToShow;
-    public System.Action<UnitData> onClickAction;
+    public FormationPanelManager formationPanelManager;
+
     private void Start()
     {
         if (assignedUnit != null && iconImage != null)
@@ -20,6 +21,9 @@ public class UnitSlotButton : MonoBehaviour
             if (toggler != null && targetPanelToShow != null && assignedUnit != null)
             {
                 toggler.ShowPanelWithUnit(targetPanelToShow, assignedUnit.icon);
+
+                // 編成画面に初期ユニットとこのボタンを渡す
+                formationPanelManager.ShowFormationPanel(assignedUnit, this);
             }
         });
     }

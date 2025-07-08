@@ -20,6 +20,10 @@ MonoBehaviour:
   canGrowDeploycount: 0
   attackPower: 4
   attackInterval: 5
+  icon: {fileID: 21300000, guid: a5144c8245c1d0548a007d23998555bf, type: 3}
   initialvirusPoint: 0
   maxVirusPoint: 100
   virusResistance: 0
+  defaultSide: 0
+  uiPanelPrefab: {fileID: 0}
+  unitDescription: "\u79FB\u52D5\u901F\u5EA6\u30FB\u653B\u6483\u901F\u5EA6\u306F\u9045\u3044\u304C\n\u653B\u6483\u529B\u306F\u30D4\u30AB\u30A4\u30C1"
