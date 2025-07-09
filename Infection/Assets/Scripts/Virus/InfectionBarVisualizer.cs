@@ -22,9 +22,7 @@ public class InfectionBarVisualizer : MonoBehaviour
     {
         if (unit == null || barRenderer == null) return;
 
-        float value = virusType == "Enemy"
-            ? unit.unitStats.enemyVirusPoint
-            : unit.unitStats.virusPoint;
+        float value = virusType == "Enemy" ? unit.unitStats.enemyVirusPoint : unit.unitStats.virusPoint;
 
         float ratio = Mathf.Clamp01(value / maxPoint);
 
