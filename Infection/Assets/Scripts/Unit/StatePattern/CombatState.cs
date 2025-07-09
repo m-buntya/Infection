@@ -19,7 +19,7 @@ namespace StatePatteren.State
         public void Enter()
         {
             atkSpd = unitController.unitStats.atkSpd;
-            time = 0;
+            time = atkSpd;
         }
 
         public void Update()
