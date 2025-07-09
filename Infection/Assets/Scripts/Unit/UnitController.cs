@@ -18,6 +18,7 @@ namespace StatePatteren.State
         public UnitStats unitStats { get; private set; }
 
         private SquadStateMachine stateMachine;
+
         public SquadStateMachine StateMachine => stateMachine;
 
         UNIT_GROUP unitGroup;
