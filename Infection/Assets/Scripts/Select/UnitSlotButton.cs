@@ -11,6 +11,7 @@ public class UnitSlotButton : MonoBehaviour
     public GameObject targetPanelToShow;
     public FormationPanelManager formationPanelManager;
 
+    public UnitData defaultUnit;
     private void Start()
     {
         if (assignedUnit != null && iconImage != null)
@@ -18,13 +19,20 @@ public class UnitSlotButton : MonoBehaviour
 
         button.onClick.AddListener(() =>
         {
-            if (toggler != null && targetPanelToShow != null && assignedUnit != null)
+            if (toggler != null && targetPanelToShow != null)
             {
-                toggler.ShowPanelWithUnit(targetPanelToShow, assignedUnit.icon);
+                toggler.ShowPanelWithUnit(targetPanelToShow, assignedUnit != null ? assignedUnit.icon : null);
 
-                // 編成画面に初期ユニットとこのボタンを渡す
-                formationPanelManager.ShowFormationPanel(assignedUnit, this);
+                // 空ボタンでも仮の初期値（ダミーデータ）を使って編成画面を開く
+                UnitData unitToEdit = assignedUnit ?? GetDefaultUnitForEditing(); // ←ここ大事
+
+                formationPanelManager.ShowFormationPanel(unitToEdit, this);
             }
         });
+    }
+    private UnitData GetDefaultUnitForEditing()
+    {
+        // 仮のダミーユニット or ウイルスなど、1つ用意しておくと安心
+        return defaultUnit; // 事前にインスペクターで設定しておく
     }
 }

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d2fdb8efd85504c80a9e5fd21c1edf, type: 3}
+  m_Name: UniT_6
+  m_EditorClassIdentifier: 
+  unitName: monster
+  cost: 3
+  prefab: {fileID: 4520513790756411374, guid: 867e976a028857f478f9aa420f504578, type: 3}
+  maxDeployCount: 3
+  cooldownTime: 5
+  canGrowDeploycount: 0
+  attackPower: 10
+  attackInterval: 6
+  icon: {fileID: 21300000, guid: 539677e9d18d1f0479060ca5f7cfc548, type: 3}
+  unitType: 1
+  initialvirusPoint: 0
+  maxVirusPoint: 100
+  virusResistance: 0
+  defaultSide: 0
+  uiPanelPrefab: {fileID: 0}
+  unitDescription: "\u653B\u6483\u30FB\u79FB\u52D5\u30FB\u30B3\u30B9\u30C8\u5168\u90E8\n\u5B89\u5B9A\u3057\u3066\u3044\u308B\u3002"
