@@ -58,7 +58,6 @@ public class UnitInfection : MonoBehaviour
             virusPoint += testInfectSpeed * Time.deltaTime;
             virusPoint = Mathf.Min(virusPoint, unitData.maxVirusPoint);
             UpdateGaugeBar();
-
         }
     }
 

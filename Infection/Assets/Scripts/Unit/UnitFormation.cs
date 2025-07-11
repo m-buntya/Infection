@@ -37,14 +37,14 @@ public class UnitParametor
     }
 
     // 部隊のパラメータをセット
-    public void SetunitPara()
+    public void SetUnitPara()
     {
         //Debug.Log("パラメータをセット");
 
         float correction = unitMemberCnt * 0.01f;      // 部隊の人数 * 1%の補正値
 
         leaderUnit.maxHp    = defaultMaxHp       + defaultMaxHp * correction;
-        leaderUnit.hp       = defaultMaxHp;
+        leaderUnit.hp       = leaderUnit.maxHp;
         leaderUnit.atk      = defaultAtk      + defaultAtk      * correction;
         leaderUnit.virusPow = defaultVirusPow + defaultVirusPow * correction;
         float slowRate = (float)unitMemberCnt / unitMemberMaxCnt;
@@ -116,14 +116,14 @@ public class UnitFormation : MonoBehaviour
     public void OnClickLeader(int num)
     {
         unitPara.SetLeaderStats(Clone(unitStatsData.UnitParameter[num]));
-        unitPara.SetunitPara();
+        unitPara.SetUnitPara();
     }
 
     // 雑兵数選択
     void OnSliderSoldier(float value)
     {
         unitPara.SetSoldierCnt((int)value);
-        unitPara.SetunitPara();
+        unitPara.SetUnitPara();
         unitUIManager.UnitParaTexts();
     }
 
@@ -151,7 +151,7 @@ public class UnitFormation : MonoBehaviour
     {
         GameObject unit = Instantiate(unitObj, UnitSpawnPoint.position, transform.rotation);
         UnitController unitController = unit.GetComponent<UnitController>();
-        unitController.SetUnitStats(units[num]);
+        unitController.SetUnitStats(Clone(units[num]));
         unitController.SetUnitGroup(UnitController.UNIT_GROUP.PLAYER);
         unitManager.AddUnitList(unit, "Player");
     }
@@ -161,7 +161,7 @@ public class UnitFormation : MonoBehaviour
     {
         GameObject unit = Instantiate(unitObj, EnemySpawnPoint.position, transform.rotation);
         UnitController unitController = unit.GetComponent<UnitController>();
-        unitController.SetUnitStats(units[0]);
+        unitController.SetUnitStats(Clone(units[0]));
         unitController.SetUnitGroup(UnitController.UNIT_GROUP.ENEMY);
         unitManager.AddUnitList(unit, "Enemy");
     }

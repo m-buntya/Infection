@@ -3,7 +3,6 @@ using UnityEngine;
 
 /// 指定範囲内にPrefabを重ならないようにグリッド状に配置するマネージャー
 /// 出典：ChatGPT生成（Unity 2D Grid 配置）
-
 public class PrefabGridManager : MonoBehaviour
 {
     [Header("配置するプレハブ")]
@@ -41,6 +40,7 @@ public class PrefabGridManager : MonoBehaviour
         }
 
         PlacePrefabs();
+
     }
 
 
