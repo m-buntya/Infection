@@ -41,5 +41,5 @@ public class UnitStats
     public float spd;                   // 移動速度
     public float range;                 // 射程距離
     public int cost;                    // コスト
-    public int sortieCoolTime;          // 出撃にかかる時間
+    public int sortieCoolTime;          // 次の出撃にかかる時間
 }

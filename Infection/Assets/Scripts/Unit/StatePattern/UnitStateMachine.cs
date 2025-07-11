@@ -8,11 +8,13 @@ namespace StatePatteren.State
     {
         public UnitState CurrenState { get; private set; }
 
+        public ReadyState readyState;
         public MoveState moveState;
         public CombatState combatState;
         
         public SquadStateMachine(UnitController unitController)
         {
+            this.readyState = new ReadyState(unitController);
            this.moveState = new MoveState(unitController);
            this.combatState = new CombatState(unitController);
         }

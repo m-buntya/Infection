@@ -1,3 +1,4 @@
+
 using System.Data;
 using System.Net;
 using UnityEngine;
@@ -62,55 +63,55 @@ namespace StatePatteren.State
             }
         }
 
-        // ƒ_ƒ[ƒWˆ—
+        // ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†
         public void TakeDamage(float damage)
         {
             synthesisUnitStats.hp -= damage;
-            Debug.Log($"UnitF{damage}‚Ìƒ_ƒ[ƒW‚ğó‚¯‚½");
+            Debug.Log($"Unitï¼š{damage}ã®ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ãŸ");
         }
 
-        // Š´õƒQ[ƒW‘‰Áˆ—
+        // æ„ŸæŸ“ã‚²ãƒ¼ã‚¸å¢—åŠ å‡¦ç†
         //public void TakeVirusDamage(float addPoint, string group)
         //{
         //    if (group == "Enemy")
         //    {
         //        synthesisUnitStats.enemyVirusPoint += addPoint;
-        //        Debug.Log($"UnitF“GƒEƒCƒ‹ƒX‚ÌŠ´õƒQ[ƒW‚ª{addPoint}ã¸‚µ‚½");
+        //        Debug.Log($"Unitï¼šæ•µã‚¦ã‚¤ãƒ«ã‚¹ã®æ„ŸæŸ“ã‚²ãƒ¼ã‚¸ãŒ{addPoint}ä¸Šæ˜‡ã—ãŸ");
         //    }
         //    else
         //    {
         //        synthesisUnitStats.virusPoint += addPoint;
-        //        Debug.Log($"UnitF©ƒEƒCƒ‹ƒX‚ÌŠ´õƒQ[ƒW‚ª{addPoint}ã¸‚µ‚½");
+        //        Debug.Log($"Unitï¼šè‡ªã‚¦ã‚¤ãƒ«ã‚¹ã®æ„ŸæŸ“ã‚²ãƒ¼ã‚¸ãŒ{addPoint}ä¸Šæ˜‡ã—ãŸ");
         //    }
         //}
 
-        // ‰ñ•œˆ—
+        // å›å¾©å‡¦ç†
         public void CareHp(float hp)
         {
             synthesisUnitStats.hp = Mathf.Max(synthesisUnitStats.hp + hp, synthesisUnitStats.maxHp);
 
-            Debug.Log($"UnitF‘Ì—Í‚ª{hp}‰ñ•œ‚µ‚½");
+            Debug.Log($"Unitï¼šä½“åŠ›ãŒ{hp}å›å¾©ã—ãŸ");
         }
 
-        // Š´õ‰ñ•œˆ—
+        // æ„ŸæŸ“å›å¾©å‡¦ç†
         //public void CarevirusPoint(float carePoint, string group)
         //{
         //    if (group == "Enemy")
         //    {
         //        synthesisUnitStats.enemyVirusPoint -= carePoint;
-        //        Debug.Log($"UnitF“GƒEƒCƒ‹ƒX‚ÌŠ´õƒQ[ƒW‚ª{carePoint}Œ¸­‚µ‚½");
+        //        Debug.Log($"Unitï¼šæ•µã‚¦ã‚¤ãƒ«ã‚¹ã®æ„ŸæŸ“ã‚²ãƒ¼ã‚¸ãŒ{carePoint}æ¸›å°‘ã—ãŸ");
         //    }
         //    else
         //    {
         //        synthesisUnitStats.virusPoint -= carePoint;
-        //        Debug.Log($"UnitF©ƒEƒCƒ‹ƒX‚ÌŠ´õƒQ[ƒW‚ª{carePoint}Œ¸­‚µ‚½");
+        //        Debug.Log($"Unitï¼šè‡ªã‚¦ã‚¤ãƒ«ã‚¹ã®æ„ŸæŸ“ã‚²ãƒ¼ã‚¸ãŒ{carePoint}æ¸›å°‘ã—ãŸ");
         //    }
         //}
 
-        // ‰ó–Åˆ—
+        // å£Šæ»…å‡¦ç†
         void Dead()
         {
-            Debug.Log("€–Sˆ—ŠJn");
+            Debug.Log("æ­»äº¡å‡¦ç†é–‹å§‹");
 
             if (unitGroup == UNIT_GROUP.PLAYER)
             {
