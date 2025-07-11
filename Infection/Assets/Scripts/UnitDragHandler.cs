@@ -1,5 +1,15 @@
-﻿using UnityEngine;
+﻿using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.EventSystems;
+
+public static class WaitEndDrag
+{
+    // ドラッグ終了まで待機
+    public static async Task WaitDragEndAsync()
+    {
+        await UnitDragHandler.dragEndTcs.Task;
+    }
+}
 
 public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -12,6 +22,8 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // スナップする距離のしきい値
     private const float SNAP_THRESHOLD = 1.0f;
 
+    public static TaskCompletionSource<PointerEventData> dragEndTcs;
+
     private void Start()
     {
         cam = Camera.main;
@@ -19,9 +31,13 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        dragEndTcs = new TaskCompletionSource<PointerEventData>();
+
         // 仮の表示用ユニットを生成（半透明）
         dragPreviewObject = Instantiate(unitPrefab);
         SetDragPreviewAlpha(dragPreviewObject, 0.5f);
+
+        _ = WaitEndDrag.WaitDragEndAsync();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -72,8 +88,11 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (hit.collider != null && hit.collider.CompareTag("DropField"))
         {
             // 本物のユニットをマスに生成
-            Instantiate(unitPrefab, hit.collider.transform.position, Quaternion.identity);
+            UnitFormation u = GameObject.Find("UnitFormation").GetComponent<UnitFormation>();
+            u.UnitGenerate(gameObject, hit.collider.transform.position);
         }
+
+        dragEndTcs?.TrySetResult(eventData);
     }
 
     // 半透明表示にする（仮オブジェクト用）
@@ -86,4 +105,6 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             sr.color = c;
         }
     }
+
+
 }
