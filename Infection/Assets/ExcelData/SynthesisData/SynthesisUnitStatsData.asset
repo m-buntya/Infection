@@ -15,8 +15,11 @@ MonoBehaviour:
   SynthesisUnitParameter:
   - unitCode: 20001
     unitName: "\u30A2\u30BF\u30C3\u30AB\u30FC\u6539"
+    combo1: 0
+    combo2: 0
     role: 0
     hp: 100
+    maxHp: 200
     atk: 50
     virusPow: 20
     atkSpd: 2
@@ -25,8 +28,11 @@ MonoBehaviour:
     range: 10
   - unitCode: 20002
     unitName: "\u30BF\u30F3\u30AF\u6539"
+    combo1: 1
+    combo2: 1
     role: 1
     hp: 200
+    maxHp: 350
     atk: 20
     virusPow: 14
     atkSpd: 7
@@ -35,8 +41,11 @@ MonoBehaviour:
     range: 10
   - unitCode: 20003
     unitName: "\u30D2\u30FC\u30E9\u30FC\u6539"
+    combo1: 2
+    combo2: 2
     role: 2
     hp: 150
+    maxHp: 200
     atk: 10
     virusPow: 8
     atkSpd: 4

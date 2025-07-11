@@ -12,19 +12,20 @@ namespace StatePatteren.State
             ENEMY,
         }
 
-        UnitController unitController;
+        SynthesisUnitController synthesisUnitController;
         UnitFormation unitFormation;
         UnitManager unitManager;
 
         public SynthesisUnitStats synthesisUnitStats { get; private set; }
 
         private SquadStateMachine stateMachine;
+
         public SquadStateMachine StateMachine => stateMachine;
 
 
         UNIT_GROUP unitGroup;
 
-        public void SetsynthesisUnitStats(SynthesisUnitStats stats)
+        public void SetUnitStats(SynthesisUnitStats stats)
         {
             synthesisUnitStats = stats;
         }
@@ -44,7 +45,7 @@ namespace StatePatteren.State
         {
             unitFormation = GameObject.Find("UnitFormation").GetComponent<UnitFormation>();
             unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
-            stateMachine = new SquadStateMachine(this);
+            //stateMachine = new SquadStateMachine(this);
 
             stateMachine.Initialize(stateMachine.moveState);
         }
@@ -68,7 +69,20 @@ namespace StatePatteren.State
             Debug.Log($"Unit：{damage}のダメージを受けた");
         }
 
-
+        // 感染ゲージ増加処理
+        //public void TakeVirusDamage(float addPoint, string group)
+        //{
+        //    if (group == "Enemy")
+        //    {
+        //        synthesisUnitStats.enemyVirusPoint += addPoint;
+        //        Debug.Log($"Unit：敵ウイルスの感染ゲージが{addPoint}上昇した");
+        //    }
+        //    else
+        //    {
+        //        synthesisUnitStats.virusPoint += addPoint;
+        //        Debug.Log($"Unit：自ウイルスの感染ゲージが{addPoint}上昇した");
+        //    }
+        //}
 
         // 回復処理
         public void CareHp(float hp)
@@ -79,26 +93,26 @@ namespace StatePatteren.State
         }
 
         // 感染回復処理
-        public void CarevirusPoint(float carePoint, string group)
-        {
-            if (group == "Enemy")
-            {
-                synthesisUnitStats.enemyVirusPoint -= carePoint;
-                Debug.Log($"Unit：敵ウイルスの感染ゲージが{carePoint}減少した");
-            }
-            else
-            {
-                synthesisUnitStats.virusPoint -= carePoint;
-                Debug.Log($"Unit：自ウイルスの感染ゲージが{carePoint}減少した");
-            }
-        }
+        //public void CarevirusPoint(float carePoint, string group)
+        //{
+        //    if (group == "Enemy")
+        //    {
+        //        synthesisUnitStats.enemyVirusPoint -= carePoint;
+        //        Debug.Log($"Unit：敵ウイルスの感染ゲージが{carePoint}減少した");
+        //    }
+        //    else
+        //    {
+        //        synthesisUnitStats.virusPoint -= carePoint;
+        //        Debug.Log($"Unit：自ウイルスの感染ゲージが{carePoint}減少した");
+        //    }
+        //}
 
         // 壊滅処理
         void Dead()
         {
             Debug.Log("死亡処理開始");
 
-            if(unitGroup == UNIT_GROUP.PLAYER)
+            if (unitGroup == UNIT_GROUP.PLAYER)
             {
                 unitManager.RemoveUnitList(gameObject, "Player");
             }

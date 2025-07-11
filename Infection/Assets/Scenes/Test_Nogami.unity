@@ -1743,8 +1743,8 @@ MonoBehaviour:
   synthesissystem: {fileID: 1971704856}
   synthesisCanvas: {fileID: 1272549593}
   SynthesisTextBox: {fileID: 1309108159}
-  Unit1: "\u30A2\u30FC\u30C1\u30E3\u30FC"
-  Unit2: "\u30A2\u30BF\u30C3\u30AB\u30FC"
+  targetUnit1: "\u30A2\u30FC\u30C1\u30E3\u30FC"
+  targetUnit2: "\u30A2\u30BF\u30C3\u30AB\u30FC"
 --- !u!1 &374817567
 GameObject:
   m_ObjectHideFlags: 0
@@ -8440,10 +8440,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a860f7ffe93223d49b0fe22b1afdc0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitManager: {fileID: 0}
-  targetUnit1: {fileID: 0}
-  targetUnit2: {fileID: 0}
+  SynthesisUnit: {fileID: 567963377511684761, guid: 488cd95e54cad5e4e85b0e4046dfe75c, type: 3}
+  synthesisUnitStatsData: {fileID: 11400000, guid: 0c8cfb2d17dcbae4fb06cd12a71c0900, type: 2}
+  taergetUnitName1: "\u30A2\u30FC\u30C1\u30E3\u30FC"
+  targetUnitName2: "\u30A2\u30BF\u30C3\u30AB\u30FC"
   isSynthes: 0
+  hasDisplay: 0
 --- !u!4 &1971704857
 Transform:
   m_ObjectHideFlags: 0
