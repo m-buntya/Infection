@@ -72,6 +72,7 @@ public class UnitFormation : MonoBehaviour
 
     [SerializeField] UnitStats[] units;              // 各部隊のステータス(設定後)
     [SerializeField] List<GameObject> unitIcon;      // 部隊アイコン
+    Dictionary<GameObject, UnitStats> unitStatsDic = new Dictionary<GameObject, UnitStats>();
     [SerializeField] GameObject unitObj;             // 部隊オブジェクト
 
     const int UNIT_MAX_CNT = 8;     // 作成できる部隊の上限
@@ -133,6 +134,7 @@ public class UnitFormation : MonoBehaviour
         if(unitsIndex < UNIT_MAX_CNT)
         {
             units.SetValue(Clone(unitPara.leaderUnit), unitsIndex);
+            unitStatsDic[unitIcon[unitsIndex]] = units[unitsIndex];
             UnitComplete(unitsIndex);
         }
 
@@ -146,12 +148,12 @@ public class UnitFormation : MonoBehaviour
         UnitReset();
     }
 
-    // 部隊生成ボタン
-    public void OnClickCreate(int num)
+    // 部隊生成
+    public void UnitGenerate(GameObject create, Vector3 pos)
     {
-        GameObject unit = Instantiate(unitObj, UnitSpawnPoint.position, transform.rotation);
+        GameObject unit = Instantiate(unitObj, pos, transform.rotation);
         UnitController unitController = unit.GetComponent<UnitController>();
-        unitController.SetUnitStats(Clone(units[num]));
+        unitController.SetUnitStats(Clone(unitStatsDic[create]));
         unitController.SetUnitGroup(UnitController.UNIT_GROUP.PLAYER);
         unitManager.AddUnitList(unit, "Player");
     }
