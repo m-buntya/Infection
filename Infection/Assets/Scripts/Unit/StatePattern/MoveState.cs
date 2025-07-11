@@ -8,7 +8,6 @@ namespace StatePatteren.State
         MoveSystem moveSystem;
 
         float moveSpeed = 0f;
-        float rotationSpeed = 5f;
         Vector3 moveVector = Vector3.zero;
 
         public MoveState(UnitController unitController)
