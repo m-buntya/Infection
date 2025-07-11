@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d2fdb8efd85504c80a9e5fd21c1edf, type: 3}
+  m_Name: UniT_4
+  m_EditorClassIdentifier: 
+  unitName: Zombi
+  cost: 3
+  prefab: {fileID: 3091858684701047378, guid: c1e9d65f3ceda9549a483c4cb527d83f, type: 3}
+  maxDeployCount: 3
+  cooldownTime: 5
+  canGrowDeploycount: 0
+  attackPower: 4
+  attackInterval: 5
+  icon: {fileID: 21300000, guid: a5144c8245c1d0548a007d23998555bf, type: 3}
+  unitType: 1
+  initialvirusPoint: 0
+  maxVirusPoint: 100
+  virusResistance: 0
+  defaultSide: 0
+  uiPanelPrefab: {fileID: 0}
+  unitDescription: "\u79FB\u52D5\u901F\u5EA6\u30FB\u653B\u6483\u901F\u5EA6\u306F\u9045\u3044\u304C\n\u653B\u6483\u529B\u306F\u30D4\u30AB\u30A4\u30C1"

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StatePatteren.State
 {
-    public class UnitController : MonoBehaviour
+    public class SynthesisUnitController : MonoBehaviour
     {
         public enum UNIT_GROUP
         {
@@ -16,18 +16,17 @@ namespace StatePatteren.State
         UnitFormation unitFormation;
         UnitManager unitManager;
 
-        public UnitStats unitStats { get; private set; }
+        public SynthesisUnitStats synthesisUnitStats { get; private set; }
 
         private SquadStateMachine stateMachine;
-
         public SquadStateMachine StateMachine => stateMachine;
 
 
         UNIT_GROUP unitGroup;
 
-        public void SetUnitStats(UnitStats stats)
+        public void SetsynthesisUnitStats(SynthesisUnitStats stats)
         {
-            unitStats = stats;
+            synthesisUnitStats = stats;
         }
 
         public void SetUnitGroup(UNIT_GROUP group)
@@ -56,7 +55,7 @@ namespace StatePatteren.State
             stateMachine.Update();
             stateMachine.Transition();
 
-            if (unitStats.hp <= 0)
+            if (synthesisUnitStats.hp <= 0)
             {
                 Dead();
             }
@@ -65,29 +64,16 @@ namespace StatePatteren.State
         // ダメージ処理
         public void TakeDamage(float damage)
         {
-            unitStats.hp -= damage;
+            synthesisUnitStats.hp -= damage;
             Debug.Log($"Unit：{damage}のダメージを受けた");
         }
 
-        // 感染ゲージ増加処理
-        public void TakeVirusDamage(float addPoint, string group)
-        {
-            if (group == "Enemy")
-            {
-                unitStats.enemyVirusPoint += addPoint;
-                Debug.Log($"Unit：敵ウイルスの感染ゲージが{addPoint}上昇した");
-            }
-            else
-            {
-                unitStats.virusPoint += addPoint;
-                Debug.Log($"Unit：自ウイルスの感染ゲージが{addPoint}上昇した");
-            }            
-        }
+
 
         // 回復処理
         public void CareHp(float hp)
         {
-            unitStats.hp = Mathf.Max(unitStats.hp + hp, unitStats.maxHp);
+            synthesisUnitStats.hp = Mathf.Max(synthesisUnitStats.hp + hp, synthesisUnitStats.maxHp);
 
             Debug.Log($"Unit：体力が{hp}回復した");
         }
@@ -97,12 +83,12 @@ namespace StatePatteren.State
         {
             if (group == "Enemy")
             {
-                unitStats.enemyVirusPoint -= carePoint;
+                synthesisUnitStats.enemyVirusPoint -= carePoint;
                 Debug.Log($"Unit：敵ウイルスの感染ゲージが{carePoint}減少した");
             }
             else
             {
-                unitStats.virusPoint -= carePoint;
+                synthesisUnitStats.virusPoint -= carePoint;
                 Debug.Log($"Unit：自ウイルスの感染ゲージが{carePoint}減少した");
             }
         }

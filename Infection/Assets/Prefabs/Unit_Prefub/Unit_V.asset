@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d2fdb8efd85504c80a9e5fd21c1edf, type: 3}
+  m_Name: Unit_V
+  m_EditorClassIdentifier: 
+  unitName: 
+  cost: 0
+  prefab: {fileID: 5392146104975821629, guid: 55032752ecb4b924f9d698881f206117, type: 3}
+  maxDeployCount: 0
+  cooldownTime: 0
+  canGrowDeploycount: 0
+  attackPower: 0
+  attackInterval: 0
+  icon: {fileID: 0}
+  unitType: 1
+  initialvirusPoint: 0
+  maxVirusPoint: 0
+  virusResistance: 0
+  defaultSide: 0
+  uiPanelPrefab: {fileID: 0}
+  unitDescription: 
