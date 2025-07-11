@@ -1,114 +1,129 @@
-//using System.Data;
-//using System.Net;
-//using UnityEngine;
 
-//namespace StatePatteren.State
-//{
-//    public class SynthesisUnitController : MonoBehaviour
-//    {
-//        public enum UNIT_GROUP
-//        {
-//            PLAYER,
-//            ENEMY,
-//        }
+using System.Data;
+using System.Net;
+using UnityEngine;
 
-//        UnitController unitController;
-//        UnitFormation unitFormation;
-//        UnitManager unitManager;
+namespace StatePatteren.State
+{
+    public class SynthesisUnitController : MonoBehaviour
+    {
+        public enum UNIT_GROUP
+        {
+            PLAYER,
+            ENEMY,
+        }
 
-//        public SynthesisUnitStats synthesisUnitStats { get; private set; }
+        SynthesisUnitController synthesisUnitController;
+        UnitFormation unitFormation;
+        UnitManager unitManager;
 
-//        private SquadStateMachine stateMachine;
-//        public SquadStateMachine StateMachine => stateMachine;
+        public SynthesisUnitStats synthesisUnitStats { get; private set; }
 
+        private SquadStateMachine stateMachine;
 
-//        UNIT_GROUP unitGroup;
-
-//        public void SetsynthesisUnitStats(SynthesisUnitStats stats)
-//        {
-//            synthesisUnitStats = stats;
-//        }
-
-//        public void SetUnitGroup(UNIT_GROUP group)
-//        {
-//            unitGroup = group;
-//        }
-
-//        public UNIT_GROUP GetUnitGroup()
-//        {
-//            return unitGroup;
-//        }
-
-//        // Start is called once before the first execution of Update after the MonoBehaviour is created
-//        void Start()
-//        {
-//            unitFormation = GameObject.Find("UnitFormation").GetComponent<UnitFormation>();
-//            unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
-//            stateMachine = new SquadStateMachine(this);
-
-//            stateMachine.Initialize(stateMachine.moveState);
-//        }
-
-//        // Update is called once per frame
-//        void Update()
-//        {
-//            stateMachine.Update();
-//            stateMachine.Transition();
-
-//            if (synthesisUnitStats.hp <= 0)
-//            {
-//                Dead();
-//            }
-//        }
-
-//        // ƒ_ƒ[ƒWˆ—
-//        public void TakeDamage(float damage)
-//        {
-//            synthesisUnitStats.hp -= damage;
-//            Debug.Log($"UnitF{damage}‚Ìƒ_ƒ[ƒW‚ğó‚¯‚½");
-//        }
+        public SquadStateMachine StateMachine => stateMachine;
 
 
+        UNIT_GROUP unitGroup;
 
-//        // ‰ñ•œˆ—
-//        public void CareHp(float hp)
-//        {
-//            synthesisUnitStats.hp = Mathf.Max(synthesisUnitStats.hp + hp, synthesisUnitStats.maxHp);
+        public void SetUnitStats(SynthesisUnitStats stats)
+        {
+            synthesisUnitStats = stats;
+        }
 
-//            Debug.Log($"UnitF‘Ì—Í‚ª{hp}‰ñ•œ‚µ‚½");
-//        }
+        public void SetUnitGroup(UNIT_GROUP group)
+        {
+            unitGroup = group;
+        }
 
-//        // Š´õ‰ñ•œˆ—
-//        public void CarevirusPoint(float carePoint, string group)
-//        {
-//            if (group == "Enemy")
-//            {
-//                synthesisUnitStats.enemyVirusPoint -= carePoint;
-//                Debug.Log($"UnitF“GƒEƒCƒ‹ƒX‚ÌŠ´õƒQ[ƒW‚ª{carePoint}Œ¸­‚µ‚½");
-//            }
-//            else
-//            {
-//                synthesisUnitStats.virusPoint -= carePoint;
-//                Debug.Log($"UnitF©ƒEƒCƒ‹ƒX‚ÌŠ´õƒQ[ƒW‚ª{carePoint}Œ¸­‚µ‚½");
-//            }
-//        }
+        public UNIT_GROUP GetUnitGroup()
+        {
+            return unitGroup;
+        }
 
-//        // ‰ó–Åˆ—
-//        void Dead()
-//        {
-//            Debug.Log("€–Sˆ—ŠJn");
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
+            unitFormation = GameObject.Find("UnitFormation").GetComponent<UnitFormation>();
+            unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
+            //stateMachine = new SquadStateMachine(this);
 
-//            if(unitGroup == UNIT_GROUP.PLAYER)
-//            {
-//                unitManager.RemoveUnitList(gameObject, "Player");
-//            }
-//            else
-//            {
-//                unitManager.RemoveUnitList(gameObject, "Enemy");
-//            }
+            stateMachine.Initialize(stateMachine.moveState);
+        }
 
-//            Destroy(gameObject);
-//        }
-//    }
+        // Update is called once per frame
+        void Update()
+        {
+            stateMachine.Update();
+            stateMachine.Transition();
 
-//}
+            if (synthesisUnitStats.hp <= 0)
+            {
+                Dead();
+            }
+        }
+
+        // ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†
+        public void TakeDamage(float damage)
+        {
+            synthesisUnitStats.hp -= damage;
+            Debug.Log($"Unitï¼š{damage}ã®ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ãŸ");
+        }
+
+        // æ„ŸæŸ“ã‚²ãƒ¼ã‚¸å¢—åŠ å‡¦ç†
+        //public void TakeVirusDamage(float addPoint, string group)
+        //{
+        //    if (group == "Enemy")
+        //    {
+        //        synthesisUnitStats.enemyVirusPoint += addPoint;
+        //        Debug.Log($"Unitï¼šæ•µã‚¦ã‚¤ãƒ«ã‚¹ã®æ„ŸæŸ“ã‚²ãƒ¼ã‚¸ãŒ{addPoint}ä¸Šæ˜‡ã—ãŸ");
+        //    }
+        //    else
+        //    {
+        //        synthesisUnitStats.virusPoint += addPoint;
+        //        Debug.Log($"Unitï¼šè‡ªã‚¦ã‚¤ãƒ«ã‚¹ã®æ„ŸæŸ“ã‚²ãƒ¼ã‚¸ãŒ{addPoint}ä¸Šæ˜‡ã—ãŸ");
+        //    }
+        //}
+
+        // å›å¾©å‡¦ç†
+        public void CareHp(float hp)
+        {
+            synthesisUnitStats.hp = Mathf.Max(synthesisUnitStats.hp + hp, synthesisUnitStats.maxHp);
+
+            Debug.Log($"Unitï¼šä½“åŠ›ãŒ{hp}å›å¾©ã—ãŸ");
+        }
+
+        // æ„ŸæŸ“å›å¾©å‡¦ç†
+        //public void CarevirusPoint(float carePoint, string group)
+        //{
+        //    if (group == "Enemy")
+        //    {
+        //        synthesisUnitStats.enemyVirusPoint -= carePoint;
+        //        Debug.Log($"Unitï¼šæ•µã‚¦ã‚¤ãƒ«ã‚¹ã®æ„ŸæŸ“ã‚²ãƒ¼ã‚¸ãŒ{carePoint}æ¸›å°‘ã—ãŸ");
+        //    }
+        //    else
+        //    {
+        //        synthesisUnitStats.virusPoint -= carePoint;
+        //        Debug.Log($"Unitï¼šè‡ªã‚¦ã‚¤ãƒ«ã‚¹ã®æ„ŸæŸ“ã‚²ãƒ¼ã‚¸ãŒ{carePoint}æ¸›å°‘ã—ãŸ");
+        //    }
+        //}
+
+        // å£Šæ»…å‡¦ç†
+        void Dead()
+        {
+            Debug.Log("æ­»äº¡å‡¦ç†é–‹å§‹");
+
+            if (unitGroup == UNIT_GROUP.PLAYER)
+            {
+                unitManager.RemoveUnitList(gameObject, "Player");
+            }
+            else
+            {
+                unitManager.RemoveUnitList(gameObject, "Enemy");
+            }
+
+            Destroy(gameObject);
+        }
+    }
+
+}
