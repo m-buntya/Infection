@@ -280,7 +280,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   changeDirectionInterval: 4
-  unitData: {fileID: 11400000, guid: e9f0eca7a1f97a94cb7e0ef8320279be, type: 2}
 --- !u!114 &-1372196467838446890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,11 +305,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   virusPoint: 0
-  unitData: {fileID: 11400000, guid: e9f0eca7a1f97a94cb7e0ef8320279be, type: 2}
   gaugeBar: {fileID: 4465718779396685229}
   maxGaugeWidth: 0.97
   gaugeOffset: -0.01
-  testAutoInfect: 0
-  testInfectSpeed: 0.1
   playerColor: {r: 0.15686274, g: 0.23321319, b: 1, a: 1}
   enemyColor: {r: 1, g: 0.19215685, b: 0.24744715, a: 1}
+  testAutoInfect: 0
+  testInfectSpeed: 0.1

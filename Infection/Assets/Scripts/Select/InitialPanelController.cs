@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 using System.Collections.Generic;
+using StatePatteren.State;
 public class InitialPanelController :MonoBehaviour
 {
     [Header("戻るボタンで表示するダイアログ")]
@@ -12,13 +13,15 @@ public class InitialPanelController :MonoBehaviour
     public string nextSceneName;
 
     public List<UnitSlotButton> unitSlotButtons;
-    private Dictionary<UnitSlotButton, UnitData> initialSnapshot = new();
+
+    private Dictionary<UnitSlotButton, UnitController> initialSnapshot = new();
+
 
     void Start()
     {
         foreach (var slot in unitSlotButtons)
         {
-            initialSnapshot[slot] = slot.assignedUnit;
+            initialSnapshot[slot] = slot.unitController;
         }
     }
     //戻るボタンを押したときに呼ぶ
@@ -43,21 +46,21 @@ public class InitialPanelController :MonoBehaviour
     }
 
     //ダイアログ内の「はい」ボタンを呼ぶ（シーン移動）
+
     public void ConfirmBackAndLeaveScene()
     {
-        // 🔁 全スロットを初期状態に戻す
         foreach (var slot in unitSlotButtons)
         {
             if (initialSnapshot.ContainsKey(slot))
             {
-                slot.assignedUnit = initialSnapshot[slot];
+                slot.unitController = initialSnapshot[slot];
 
-                // アイコンも反映
                 if (slot.iconImage != null)
                 {
-                    if (slot.assignedUnit != null)
+                    var icon = TryGetUnitIcon(slot.unitController);
+                    if (icon != null)
                     {
-                        slot.iconImage.sprite = slot.assignedUnit.Icon;
+                        slot.iconImage.sprite = icon;
                         slot.iconImage.enabled = true;
                     }
                     else
@@ -69,7 +72,6 @@ public class InitialPanelController :MonoBehaviour
             }
         }
 
-        // 🎬 シーン切り替え
         SceneManager.LoadScene(nextSceneName);
     }
     private bool IsUnitChanged()
@@ -79,11 +81,26 @@ public class InitialPanelController :MonoBehaviour
             if (!initialSnapshot.ContainsKey(slot)) continue;
 
             var initial = initialSnapshot[slot];
-            var current = slot.assignedUnit;
+            var current = slot.unitController;
 
             if (initial != current)
                 return true;
         }
         return false;
     }
+    private Sprite TryGetUnitIcon(UnitController controller)
+    {
+        if (controller == null) return null;
+
+        var stats = controller.unitStats;
+        if (stats != null)
+        {
+            var spriteRenderer = controller.GetComponentInChildren<SpriteRenderer>();
+            if (spriteRenderer != null)
+                return spriteRenderer.sprite;
+        }
+
+        return null;
+    }
+
 }

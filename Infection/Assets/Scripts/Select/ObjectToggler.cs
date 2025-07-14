@@ -12,7 +12,6 @@ public class ObjectToggler : MonoBehaviour
 
     [SerializeField] private ToggleEntry[] entries;
     [SerializeField] private GameObject commonToHide;
-    [SerializeField] private Button[] backButtons;
 
     private void Start()
     {
@@ -23,9 +22,6 @@ public class ObjectToggler : MonoBehaviour
 
         if (commonToHide != null)
             commonToHide.SetActive(true);
-
-        foreach (var backBtn in backButtons)
-            backBtn.onClick.AddListener(BackToCommon);
     }
 
     public void ShowPanelWithUnit(GameObject targetPanel, Sprite unitIcon)

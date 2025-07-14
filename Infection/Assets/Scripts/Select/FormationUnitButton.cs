@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using StatePatteren.State;
 public class FormationUnitButton : MonoBehaviour
 {
-    public UnitData unitData;
+    public UnitController unitcontroller;
     public GameObject redFrame;
     public Button button;
     public FormationPanelManager panelManager;
@@ -15,7 +15,7 @@ public class FormationUnitButton : MonoBehaviour
             button.onClick.AddListener(() =>
             {
                 if (panelManager != null)
-                    panelManager.HighlightUnit(unitData);
+                    panelManager.HighlightUnit(unitcontroller);
             });
         }
 

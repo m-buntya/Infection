@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
-
+using StatePatteren.State;
 public class DeployManager : MonoBehaviour
 {
     [SerializeField] private CostManager costManager;
@@ -9,14 +9,14 @@ public class DeployManager : MonoBehaviour
     [SerializeField] private Vector3 deployPosition = Vector3.zero;
     [SerializeField] private Transform deployPoint;
     [SerializeField] private TMP_Text deployCounterText;
-    [SerializeField] private UnitData unitData;
+    [SerializeField] private UnitController unitController;
 
     private const int MAX_DEPLOYABLE_UNITS = 6;
     private int currentUnitCount = 0;
     private bool isDeployable = true;
 
-    private Dictionary<UnitData, int> deployCounts = new Dictionary<UnitData, int>();
-    private Dictionary<UnitData, float> unitCooldowns = new Dictionary<UnitData, float>();
+    private Dictionary<UnitController, int> deployCounts = new Dictionary<UnitController, int>();
+    private Dictionary<UnitController, float> unitCooldowns = new Dictionary<UnitController, float>();
 
     public static DeployManager Instance { get; private set; }
 
@@ -39,7 +39,7 @@ public class DeployManager : MonoBehaviour
 
     void Update()
     {
-        List<UnitData> keys = new List<UnitData>(unitCooldowns.Keys);
+        List<UnitController> keys = new List<UnitController>(unitCooldowns.Keys);
         foreach (var unit in keys)
         {
             unitCooldowns[unit] -= Time.deltaTime;
@@ -60,43 +60,43 @@ public class DeployManager : MonoBehaviour
         return Camera.main.ViewportToWorldPoint(viewportPos);
     }
 
-    public void TryDeployUnit(UnitData unit)
+    public void TryDeployUnit(UnitController unitController)
     {
         if (!isDeployable) return;
 
-        if (!deployCounts.ContainsKey(unit))
-            deployCounts[unit] = 0;
+        //if (!deployCounts.ContainsKey(unitController))
+        //    deployCounts[unitController] = 0;
 
-        if (deployCounts[unit] >= unit.maxDeployCount)
+        //if (deployCounts[unitController] >= unitController.UnitStats.maxDeployCount)
+        //{
+        //    Debug.Log($"{unitController.unitStats.unitName} の出撃上限に達しています！");
+        //    return;
+        //}
+
+        if (unitCooldowns.ContainsKey(unitController))
         {
-            Debug.Log($"{unit.unitName} の出撃上限に達しています！");
+            Debug.Log($"{unitController.unitStats.unitName} は現在クールタイム中です！（あと {unitCooldowns[unitController]:F1} 秒）");
             return;
         }
 
-        if (unitCooldowns.ContainsKey(unit))
-        {
-            Debug.Log($"{unit.unitName} は現在クールタイム中です！（あと {unitCooldowns[unit]:F1} 秒）");
-            return;
-        }
-
-        if (!costManager.CanAfford(unit.cost))
+        if (!costManager.CanAfford(unitController.unitStats.cost))
         {
             costManager.DisplayInsufficientCostFeedBack();
             return;
         }
 
-        costManager.SpendCost(unit.cost);
+        costManager.SpendCost(unitController.unitStats.cost);
         Vector3 validPosition = GetValidDeployPosition();
-        GameObject unitObj = Instantiate(unit.prefab, validPosition, Quaternion.identity, deployParent);
+        //GameObject unitObj = Instantiate(unitController.unitStats.prefab, validPosition, Quaternion.identity, deployParent);
 
         // ⬇ 感染マネージャーへの登録
        
-        UnitMovement newUnit = unitObj.GetComponent<UnitMovement>();
+        //UnitMovement newUnit = unitObj.GetComponent<UnitMovement>();
 
-        deployCounts[unit]++;
-        unitCooldowns[unit] = unit.cooldownTime;
+        deployCounts[unitController]++;
+        unitCooldowns[unitController] = unitController.unitStats.sortieCoolTime;
 
-        Debug.Log($"{unit.unitName} を出撃！ 次は {unit.cooldownTime} 秒後に再出撃できます。");
+        Debug.Log($"{unitController.unitStats.unitName} を出撃！ 次は {unitController.unitStats.sortieCoolTime} 秒後に再出撃できます。");
     }
 
     public void ResetDeployment()
@@ -109,14 +109,14 @@ public class DeployManager : MonoBehaviour
 
     private void UpdateDeployText()
     {
-        if (deployCounterText != null && unitData != null)
+        if (deployCounterText != null && unitController != null)
         {
-            int remainingDeploys = unitData.maxDeployCount - (deployCounts.ContainsKey(unitData) ? deployCounts[unitData] : 0);
-            deployCounterText.text = $"出撃可能: {remainingDeploys}/{unitData.maxDeployCount}";
+            deployCounterText.text = $"出撃可能: 無制限";
         }
     }
 
-    public int GetDeployedCount(UnitData unit)
+
+    public int GetDeployedCount(UnitController unit)
     {
         return deployCounts.ContainsKey(unit) ? deployCounts[unit] : 0;
     }
