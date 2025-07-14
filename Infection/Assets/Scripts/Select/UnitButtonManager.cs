@@ -1,39 +1,42 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class UnitButtonManager : MonoBehaviour
 {
     [System.Serializable]
     public class UnitButtonEntry
     {
-        public Button button;           // ƒ{ƒ^ƒ“‚»‚Ì‚à‚Ì
-        public UnitData unitData;       // Š„‚è“–‚Ä‚ç‚ê‚½ƒ†ƒjƒbƒgƒf[ƒ^
-        public Image iconImage;         // ƒAƒCƒRƒ“‰æ‘œ•\¦—piÈ—ª‰Âj
+        public Button button;               // ãƒœã‚¿ãƒ³ãã®ã‚‚ã®
+        public GameObject unitObject;      // UnitController ãŒã‚¢ã‚¿ãƒƒãƒã•ã‚ŒãŸ GameObject
+        public Image iconImage; // è¡¨ç¤ºå…ˆã® Image ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
+        public Sprite icon;Â Â Â Â  // è¡¨ç¤ºã™ã‚‹ç”»åƒï¼ˆã‚¢ã‚¤ã‚³ãƒ³ï¼‰
+
     }
 
     [SerializeField] private UnitButtonEntry[] unitButtons;
 
-    public System.Action<UnitData> onUnitSelected; // ƒ†ƒjƒbƒg‚ª‘I‚Î‚ê‚½‚Æ‚«‚Ì’Ê’m
+    public System.Action<GameObject> onUnitSelected; // GameObject ã‚’é€šçŸ¥ï¼ˆUnitControllerã«è§¦ã‚Œãªã„ï¼‰
 
     private void Start()
     {
         foreach (var entry in unitButtons)
         {
-            if (entry.button != null && entry.unitData != null)
+            if (entry.button != null && entry.unitObject != null)
             {
-                var unit = entry.unitData; // ƒNƒ[ƒWƒƒƒLƒƒƒvƒ`ƒƒ‰ñ”ğ
-                entry.button.onClick.AddListener(() => HandleClick(unit));
+                var obj = entry.unitObject; // ã‚¯ãƒ­ãƒ¼ã‚¸ãƒ£ã‚­ãƒ£ãƒ—ãƒãƒ£å›é¿
+                entry.button.onClick.AddListener(() => HandleClick(obj));
 
-                if (entry.iconImage != null && unit.icon != null)
-                    entry.iconImage.sprite = unit.icon;
+
+                if (entry.iconImage != null && entry.icon != null)
+                    entry.iconImage.sprite = entry.icon;
+
             }
         }
     }
 
-    private void HandleClick(UnitData selectedUnit)
+    private void HandleClick(GameObject selectedUnitObject)
     {
-        Debug.Log($"ƒ†ƒjƒbƒg‘I‘ğ: {selectedUnit.unitName}");
-        onUnitSelected?.Invoke(selectedUnit);
+        Debug.Log($"ãƒ¦ãƒ‹ãƒƒãƒˆé¸æŠ: {selectedUnitObject.name}");
+        onUnitSelected?.Invoke(selectedUnitObject);
     }
 }
