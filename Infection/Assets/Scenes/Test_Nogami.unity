@@ -1743,8 +1743,8 @@ MonoBehaviour:
   synthesissystem: {fileID: 1971704856}
   synthesisCanvas: {fileID: 1272549593}
   SynthesisTextBox: {fileID: 1309108159}
-  Unit1: "\u30A2\u30FC\u30C1\u30E3\u30FC"
-  Unit2: "\u30A2\u30BF\u30C3\u30AB\u30FC"
+  targetUnit1: "\u30A2\u30FC\u30C1\u30E3\u30FC"
+  targetUnit2: "\u30A2\u30BF\u30C3\u30AB\u30FC"
 --- !u!1 &374817567
 GameObject:
   m_ObjectHideFlags: 0
@@ -2230,8 +2230,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u3044\u3044\u3048"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7543cd81396441748918637812aad8ce, type: 2}
-  m_sharedMaterial: {fileID: 1154358210571886065, guid: 7543cd81396441748918637812aad8ce, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9f5099c8ac0478b4983d51256b618dc6, type: 2}
+  m_sharedMaterial: {fileID: 8841341786700994624, guid: 9f5099c8ac0478b4983d51256b618dc6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3275,8 +3275,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u306F\u3044"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7543cd81396441748918637812aad8ce, type: 2}
-  m_sharedMaterial: {fileID: 1154358210571886065, guid: 7543cd81396441748918637812aad8ce, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9f5099c8ac0478b4983d51256b618dc6, type: 2}
+  m_sharedMaterial: {fileID: 8841341786700994624, guid: 9f5099c8ac0478b4983d51256b618dc6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5770,8 +5770,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u3007\u3007\u3007\u3068XXX\u304C\u5408\u6210\u53EF\u80FD\u3067\u3059\n\u5408\u6210\u3057\u307E\u3059\u304B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7543cd81396441748918637812aad8ce, type: 2}
-  m_sharedMaterial: {fileID: 1154358210571886065, guid: 7543cd81396441748918637812aad8ce, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9f5099c8ac0478b4983d51256b618dc6, type: 2}
+  m_sharedMaterial: {fileID: 8841341786700994624, guid: 9f5099c8ac0478b4983d51256b618dc6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5863,8 +5863,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 31, y: 82.38}
-  m_SizeDelta: {x: 1312.0383, y: 164.7599}
+  m_AnchoredPosition: {x: -0.000030518, y: 82.38}
+  m_SizeDelta: {x: 631.7708, y: 164.7599}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1342915378
 GameObject:
@@ -8440,10 +8440,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a860f7ffe93223d49b0fe22b1afdc0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitManager: {fileID: 0}
-  targetUnit1: {fileID: 0}
-  targetUnit2: {fileID: 0}
+  SynthesisUnit: {fileID: 567963377511684761, guid: 488cd95e54cad5e4e85b0e4046dfe75c, type: 3}
+  synthesisUnitStatsData: {fileID: 11400000, guid: 0c8cfb2d17dcbae4fb06cd12a71c0900, type: 2}
+  taergetUnitName1: "\u30A2\u30FC\u30C1\u30E3\u30FC"
+  targetUnitName2: "\u30A2\u30BF\u30C3\u30AB\u30FC"
   isSynthes: 0
+  hasDisplay: 0
 --- !u!4 &1971704857
 Transform:
   m_ObjectHideFlags: 0

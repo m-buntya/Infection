@@ -2,7 +2,10 @@ using StatePatteren.State;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.Android.Gradle;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Synthesissystem : MonoBehaviour
 {
@@ -10,6 +13,7 @@ public class Synthesissystem : MonoBehaviour
     GameObject[] unitClones;
 
     public GameObject SynthesisUnit;
+    public SynthesisUnitStatsData synthesisUnitStatsData;
 
     // 合成可能なユニットの参照用
     GameObject targetUnit1;
@@ -23,14 +27,9 @@ public class Synthesissystem : MonoBehaviour
 
     public bool hasDisplay = false;
 
-    // 合成可能な組み合わせ（順不同）
-    private static readonly HashSet<(UnitStats.ROLE, UnitStats.ROLE)> synthesisPatterns = new HashSet<(UnitStats.ROLE, UnitStats.ROLE)>
-    {
-        NormalizePair(UnitStats.ROLE.Attacker, UnitStats.ROLE.Tank),
-    };
 
-    // ロールのペアをソート（順不同でも一致可能に）
-    private static (UnitStats.ROLE, UnitStats.ROLE) NormalizePair(UnitStats.ROLE a, UnitStats.ROLE b)
+    // ロールの順不同比較用ペアを正規化
+    private (UnitStats.ROLE, UnitStats.ROLE) NormalizePair(UnitStats.ROLE a, UnitStats.ROLE b)
     {
         return (a.CompareTo(b) <= 0) ? (a, b) : (b, a);
     }
@@ -73,21 +72,28 @@ public class Synthesissystem : MonoBehaviour
                         var roleB = ucB.unitStats.role;
 
                         var pair = NormalizePair(roleA, roleB);
+                        Debug.Log($"Checking pair: {roleA} and {roleB}, Distance: {distance}");
+
+                        if(synthesisUnitStatsData == null)
+                        {
+                            Debug.LogError("SynthesisUnitStatsData is not assigned.");
+                        }
+
+                        bool exists = synthesisUnitStatsData.SynthesisUnitParameter.Any(entry =>
+                            NormalizePair(entry.combo1, entry.combo2) == pair);
 
                         //組み合わせを判定
-                        if (synthesisPatterns.Contains(pair))
+                        if (exists)
                         {
                             Debug.Log($"合成条件成立: {roleA} と {roleB} 距離: {distance}");
                             targetUnit1 = objA;
                             targetUnit2 = objB;
-
-                            // 対象のユニット名を反映
                             taergetUnitName1 = ucA.unitStats.unitName;
                             targetUnitName2 = ucB.unitStats.unitName;
 
                             isSynthes = true;
                             hasDisplay = true;
-                            return; // 最初に成立したペアで抜ける（1組だけでOKなら）
+                            return;
                         }
                     }
                 }
@@ -97,6 +103,8 @@ public class Synthesissystem : MonoBehaviour
         Debug.Log("合成条件に一致するペアはありませんでした。");
     }
 
+
+
     public void GetSynthesisUnit()
     {
         if (targetUnit1 == null || targetUnit2 == null)
@@ -105,13 +113,36 @@ public class Synthesissystem : MonoBehaviour
             return;
         }
 
-        // 2つのユニットの中間地点に配置
-        //Vector2 spawnPosition = (targetUnit1.transform.position + targetUnit2.transform.position) / 2;
-        Vector2 spawnPosition = new Vector2(0, 0); //テスト用座標
+        var roleA = targetUnit1.GetComponent<UnitController>().unitStats.role;
+        var roleB = targetUnit2.GetComponent<UnitController>().unitStats.role;
+        var normalizedPair = NormalizePair(roleA, roleB);
+
+        var resultStats = synthesisUnitStatsData.SynthesisUnitParameter.FirstOrDefault(entry =>
+            NormalizePair(entry.combo1, entry.combo2) == normalizedPair
+        );
+
+        if (resultStats == null)
+        {
+            Debug.LogWarning("この組み合わせに対応する合成ユニットが定義されていません");
+            return;
+        }
 
         // 合成ユニットの生成
+        //Vector2 spawnPosition = (targetUnit1.transform.position + targetUnit2.transform.position) / 2;// 2つのユニットの中間地点に配置
+        Vector2 spawnPosition = new Vector2(0, 0); //テスト用座標
         GameObject newUnit = Instantiate(SynthesisUnit, spawnPosition, Quaternion.identity);
         Debug.Log($"合成ユニットを生成しました: {newUnit.name}");
+
+        var controller = newUnit.GetComponent<SynthesisUnitController>();
+        if (controller != null)
+        {
+            controller.SetUnitStats(resultStats);
+            controller.SetUnitGroup(SynthesisUnitController.UNIT_GROUP.PLAYER);
+        }
+        else
+        {
+            Debug.LogWarning("SynthesisUnitController が見つかりませんでした");
+        }
 
         // 旧ユニットの削除
         Destroy(targetUnit1);

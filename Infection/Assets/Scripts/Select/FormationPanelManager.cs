@@ -1,5 +1,5 @@
+using StatePatteren.State;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,87 +18,85 @@ public class FormationPanelManager : MonoBehaviour
     public GameObject unitPanel;
     public GameObject virusPanel;
 
-    private UnitData initiallySelectedUnit;
+    public UnitController unitController;
+
+    private UnitController initiallySelectedUnit;
     private UnitSlotButton sourceUnitButton;
-    private UnitData currentlySelectedUnit;
+    private UnitController currentlySelectedUnit;
 
     private void Start()
     {
-        if (decisionButton != null)
-        {
-            decisionButton.onClick.AddListener(() => ConfirmSelection());
-        }
-
+        decisionButton?.onClick.AddListener(() => ConfirmSelection());
         regularConfirmDialogPanel?.SetActive(false);
         virusConfirmDialogPanel?.SetActive(false);
     }
 
-    public void ShowFormationPanel(UnitData initialUnit, UnitSlotButton sourceButton)
+    public void ShowFormationPanel(UnitController unitController, UnitSlotButton sourceButton)
     {
-        initiallySelectedUnit = initialUnit;
+        initiallySelectedUnit = unitController;
         sourceUnitButton = sourceButton;
-        currentlySelectedUnit = initialUnit;
+        currentlySelectedUnit = unitController;
 
-        if (initialUnit.unitType == UnitType.Virus)
-        {
-            unitPanel.SetActive(false);
-            virusPanel.SetActive(true);
-        }
-        else
-        {
-            virusPanel.SetActive(false);
-            unitPanel.SetActive(true);
-        }
+        bool isVirus = unitController.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY;
+        unitPanel.SetActive(!isVirus);
+        virusPanel.SetActive(isVirus);
 
-        HighlightUnit(initialUnit);
+        HighlightUnit(unitController);
     }
 
-    public void HighlightUnit(UnitData selectedUnit)
+    public void HighlightUnit(UnitController selectedUnit)
     {
         currentlySelectedUnit = selectedUnit;
 
         foreach (var btn in formationButtons)
         {
-            btn.SetRedFrameVisible(btn.unitData == selectedUnit);
+            btn.SetRedFrameVisible(btn.unitcontroller == selectedUnit);
         }
 
-        if (selectedUnit.unitType == UnitType.Virus)
+        string formattedText = FormatUnitText(selectedUnit);
+
+        if (selectedUnit.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY)
         {
-            if (virusDescriptionText != null)
-                virusDescriptionText.text = FormatUnitText(selectedUnit);
-            if (regularDescriptionText != null)
-                regularDescriptionText.text = "";
+            virusDescriptionText.text = formattedText;
+            regularDescriptionText.text = "";
         }
         else
         {
-            if (regularDescriptionText != null)
-                regularDescriptionText.text = FormatUnitText(selectedUnit);
-            if (virusDescriptionText != null)
-                virusDescriptionText.text = "";
+            regularDescriptionText.text = formattedText;
+            virusDescriptionText.text = "";
         }
     }
 
-    private string FormatUnitText(UnitData data)
+
+
+    private string FormatUnitText(UnitController unitController)
     {
+        var stats = unitController.unitStats;
+
         return
-            "ユニット名: " + data.unitName + "\n" +
-            "コスト: " + data.cost + "\n" +
-            "攻撃力: " + data.attackPower + "\n\n" +
-            data.unitDescription;
+        $"ユニット名: {stats.unitName}\n" +
+        $"コスト: {stats.cost}\n" +
+        //$"攻撃力: {stats.attackPower}\n\n" +
+        //$"{stats.unitDescription}" +
+        $"";
     }
+
 
     public void ConfirmSelection()
     {
         if (sourceUnitButton != null && currentlySelectedUnit != null)
         {
-            sourceUnitButton.assignedUnit = currentlySelectedUnit;
-            sourceUnitButton.iconImage.sprite = currentlySelectedUnit.Icon;
+
+            sourceUnitButton.unitController = currentlySelectedUnit;
+
+            sourceUnitButton.iconImage.sprite = TryGetUnitIcon(currentlySelectedUnit);
+
         }
 
-        regularConfirmDialogPanel?.SetActive(false);
-        virusConfirmDialogPanel?.SetActive(false);
+        CloseConfirmDialog();
         sourceUnitButton?.toggler?.BackToCommon();
     }
+
 
     public void TryGoBack()
     {
@@ -114,8 +112,7 @@ public class FormationPanelManager : MonoBehaviour
 
     public void ConfirmBackAndExit()
     {
-        regularConfirmDialogPanel?.SetActive(false);
-        virusConfirmDialogPanel?.SetActive(false);
+        CloseConfirmDialog();
         sourceUnitButton?.toggler?.BackToCommon();
     }
 
@@ -127,7 +124,7 @@ public class FormationPanelManager : MonoBehaviour
 
     private void ShowConfirmBackDialog()
     {
-        if (currentlySelectedUnit.unitType == UnitType.Virus)
+        if (currentlySelectedUnit.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY)
         {
             virusConfirmDialogPanel?.SetActive(true);
         }
@@ -136,4 +133,15 @@ public class FormationPanelManager : MonoBehaviour
             regularConfirmDialogPanel?.SetActive(true);
         }
     }
+    private Sprite TryGetUnitIcon(UnitController controller)
+    {
+        if (controller == null) return null;
+
+        var spriteRenderer = controller.GetComponentInChildren<SpriteRenderer>();
+        if (spriteRenderer != null)
+            return spriteRenderer.sprite;
+
+        return null;
+    }
+
 }

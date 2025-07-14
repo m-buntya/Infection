@@ -1013,8 +1013,8 @@ MonoBehaviour:
         m_MethodName: TryDeployUnit
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 2ea6218a1e0a4d546804f0f278b4c86e, type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnitData, Assembly-CSharp
+          m_ObjectArgument: {fileID: -1372196467838446890, guid: 867e976a028857f478f9aa420f504578, type: 3}
+          m_ObjectArgumentAssemblyTypeName: StatePatteren.State.UnitController, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1647,8 +1647,8 @@ MonoBehaviour:
         m_MethodName: TryDeployUnit
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: b1856163b55fd074687b03447652d10f, type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnitData, Assembly-CSharp
+          m_ObjectArgument: {fileID: 2191438368491215067, guid: acbeaecf5d5b3664cbcc3f1f11d7fc5c, type: 3}
+          m_ObjectArgumentAssemblyTypeName: StatePatteren.State.UnitController, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3104,8 +3104,8 @@ MonoBehaviour:
         m_MethodName: TryDeployUnit
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: e9f0eca7a1f97a94cb7e0ef8320279be, type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnitData, Assembly-CSharp
+          m_ObjectArgument: {fileID: 8692106525418995562, guid: c1e9d65f3ceda9549a483c4cb527d83f, type: 3}
+          m_ObjectArgumentAssemblyTypeName: StatePatteren.State.UnitController, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4108,7 +4108,7 @@ MonoBehaviour:
   deployPosition: {x: 7, y: 2, z: 0}
   deployPoint: {fileID: 1762999979}
   deployCounterText: {fileID: 0}
-  unitData: {fileID: 0}
+  unitController: {fileID: 0}
 --- !u!114 &2070969594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4187,8 +4187,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1627260091}
-  - {fileID: 632054221}
   - {fileID: 2070969596}
+  - {fileID: 632054221}
   - {fileID: 69081264}
   - {fileID: 2062502059}
   - {fileID: 1606432838}

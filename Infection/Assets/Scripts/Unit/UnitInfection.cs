@@ -4,8 +4,7 @@ using UnityEngine;
 public class UnitInfection : MonoBehaviour
 {
     public float virusPoint = 0f;
-    public UnitData unitData;
-
+   
     [Header("感染ゲージ")]
     [SerializeField] private Transform gaugeBar;
     [SerializeField] private float maxGaugeWidth = 1f;
@@ -23,14 +22,14 @@ public class UnitInfection : MonoBehaviour
     private Vector3 initialScale;
     private Vector3 initialLocalPosition;
 
-    // ✅ 実行時の所属を個別に管理！
-    private UNITSIDE currentSide;
+    private UnitController unitController;
+    private UnitController.UNIT_GROUP currentSide;
 
     void Start()
     {
-        virusPoint = unitData.initialvirusPoint;
-        currentSide = unitData.defaultSide; // ← 初期所属をコピー！
-
+        unitController = GetComponent<UnitController>();
+        virusPoint = unitController.unitStats.virusPoint;
+        currentSide = unitController.GetUnitGroup();
         InfectionManager.Instance.RegisterUnit(this);
 
         if (gaugeBar != null)
@@ -45,7 +44,7 @@ public class UnitInfection : MonoBehaviour
         var controller = GetComponent<UnitController>();
         if (controller != null)
         {
-            controller.SetUnitGroup(currentSide == UNITSIDE.Player ?
+            controller.SetUnitGroup(currentSide == UnitController.UNIT_GROUP.PLAYER ?
                 UnitController.UNIT_GROUP.PLAYER :
                 UnitController.UNIT_GROUP.ENEMY);
         }
@@ -53,22 +52,22 @@ public class UnitInfection : MonoBehaviour
 
     void Update()
     {
-        if (testAutoInfect && virusPoint < unitData.maxVirusPoint)
+        if (testAutoInfect && virusPoint < unitController.unitStats.virusMaxPoint)
         {
             virusPoint += testInfectSpeed * Time.deltaTime;
-            virusPoint = Mathf.Min(virusPoint, unitData.maxVirusPoint);
+            virusPoint = Mathf.Min(virusPoint, unitController.unitStats.virusMaxPoint);
             UpdateGaugeBar();
         }
     }
 
     public void AddInfection(float amount)
     {
-        virusPoint = Mathf.Min(virusPoint + amount, unitData.maxVirusPoint);
+        virusPoint = Mathf.Min(virusPoint + amount, unitController.unitStats.virusMaxPoint);
         UpdateGaugeBar();
 
-        if (virusPoint >= unitData.maxVirusPoint)
+        if (virusPoint >= unitController.unitStats.virusMaxPoint)
         {
-            Debug.Log($"{unitData.unitName} は感染限界に達し、所属が切り替わります！");
+            Debug.Log($"{unitController.unitStats.unitName} は感染限界に達し、所属が切り替わります！");
             ChangeSide();
         }
     }
@@ -78,14 +77,14 @@ public class UnitInfection : MonoBehaviour
         var before = currentSide;
 
         // 所属を切り替え（unitData は変更しない！）
-        if (currentSide == UNITSIDE.Player)
+        if (currentSide == UnitController.UNIT_GROUP.PLAYER)
         {
-            currentSide = UNITSIDE.Enemy;
+            currentSide = UnitController.UNIT_GROUP.ENEMY;
             GetComponent<UnitController>().SetUnitGroup(UnitController.UNIT_GROUP.ENEMY);
         }
         else
         {
-            currentSide = UNITSIDE.Player;
+            currentSide = UnitController.UNIT_GROUP.PLAYER;
             GetComponent<UnitController>().SetUnitGroup(UnitController.UNIT_GROUP.PLAYER);
         }
 
@@ -94,14 +93,14 @@ public class UnitInfection : MonoBehaviour
         UpdateGaugeBar();
         UpdateGaugeColor();
 
-        Debug.Log($"✅ 所属が切り替わりました{unitData.unitName}：{before} → {currentSide}");
+        Debug.Log($"✅ 所属が切り替わりました{unitController.unitStats.unitName}：{before} → {currentSide}");
     }
 
     void UpdateGaugeBar()
     {
         if (gaugeBar == null) return;
 
-        float ratio = Mathf.Clamp01(virusPoint / unitData.maxVirusPoint);
+        float ratio = Mathf.Clamp01(virusPoint / unitController.unitStats.virusMaxPoint);
         float newWidth = ratio * maxGaugeWidth;
 
         Vector3 newScale = gaugeBar.localScale;
@@ -117,7 +116,7 @@ public class UnitInfection : MonoBehaviour
     {
         if (gaugeRenderer == null) return;
 
-        gaugeRenderer.color = currentSide == UNITSIDE.Player ? playerColor : enemyColor;
+        gaugeRenderer.color = currentSide == UnitController.UNIT_GROUP.PLAYER ? playerColor : enemyColor;
     }
 
     void OnDestroy()

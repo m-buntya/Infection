@@ -1,38 +1,47 @@
 using UnityEngine;
 using UnityEngine.UI;
+using StatePatteren.State;
 
 public class UnitSlotButton : MonoBehaviour
 {
+    public UnitController unitController;
+
     public Button button;
     public Image iconImage;
-    public UnitData assignedUnit;
 
     public ObjectToggler toggler;
     public GameObject targetPanelToShow;
     public FormationPanelManager formationPanelManager;
 
-    public UnitData defaultUnit;
     private void Start()
     {
-        if (assignedUnit != null && iconImage != null)
-            iconImage.sprite = assignedUnit.icon;
+        if (unitController != null && iconImage != null)
+        {
+            Sprite icon = TryGetUnitIcon(unitController);
+            if (icon != null)
+                iconImage.sprite = icon;
+        }
 
         button.onClick.AddListener(() =>
         {
             if (toggler != null && targetPanelToShow != null)
             {
-                toggler.ShowPanelWithUnit(targetPanelToShow, assignedUnit != null ? assignedUnit.icon : null);
+                Sprite icon = TryGetUnitIcon(unitController);
+                toggler.ShowPanelWithUnit(targetPanelToShow, icon);
 
-                // 空ボタンでも仮の初期値（ダミーデータ）を使って編成画面を開く
-                UnitData unitToEdit = assignedUnit ?? GetDefaultUnitForEditing(); // ←ここ大事
-
-                formationPanelManager.ShowFormationPanel(unitToEdit, this);
+                formationPanelManager.ShowFormationPanel(unitController, this);
             }
         });
     }
-    private UnitData GetDefaultUnitForEditing()
+    private Sprite TryGetUnitIcon(UnitController controller)
     {
-        // 仮のダミーユニット or ウイルスなど、1つ用意しておくと安心
-        return defaultUnit; // 事前にインスペクターで設定しておく
+        if (controller == null) return null;
+
+        var spriteRenderer = controller.GetComponentInChildren<SpriteRenderer>();
+        if (spriteRenderer != null)
+            return spriteRenderer.sprite;
+
+        return null;
     }
+
 }
