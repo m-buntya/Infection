@@ -1077,6 +1077,9 @@ MonoBehaviour:
   costManager: {fileID: 680582517}
   deployParent: {fileID: 86822261}
   deployPosition: {x: 7, y: 2, z: 0}
+  deployPoint: {fileID: 0}
+  deployCounterText: {fileID: 0}
+  unitController: {fileID: 0}
 --- !u!114 &680582517
 MonoBehaviour:
   m_ObjectHideFlags: 0
