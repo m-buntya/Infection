@@ -1,3 +1,4 @@
+using System.Data;
 using System.Net;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ namespace StatePatteren.State
         private SquadStateMachine stateMachine;
 
         public SquadStateMachine StateMachine => stateMachine;
+
 
         UNIT_GROUP unitGroup;
 
@@ -45,7 +47,7 @@ namespace StatePatteren.State
             unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
             stateMachine = new SquadStateMachine(this);
 
-            stateMachine.Initialize(stateMachine.moveState);
+            stateMachine.Initialize(stateMachine.readyState);
         }
 
         // Update is called once per frame
@@ -53,16 +55,16 @@ namespace StatePatteren.State
         {
             stateMachine.Update();
             stateMachine.Transition();
-
-            if (unitStats.hp <= 0)
-            {
-                Dead();
-            }
         }
 
         // ダメージ処理
         public void TakeDamage(float damage)
         {
+            if (damage > unitStats.hp)
+            {
+                Dead();
+            }
+
             unitStats.hp -= damage;
             Debug.Log($"Unit：{damage}のダメージを受けた");
         }

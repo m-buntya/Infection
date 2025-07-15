@@ -4,7 +4,7 @@ namespace StatePatteren.State
 {
     public class MoveState : UnitState
     {
-        private UnitController unitController;
+        UnitController unitController;
         MoveSystem moveSystem;
 
         float moveSpeed = 0f;
