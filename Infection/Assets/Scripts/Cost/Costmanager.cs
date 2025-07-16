@@ -5,7 +5,7 @@ public class CostManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text costText;
     [SerializeField] private RectTransform costBar;
-    [SerializeField] private float fullBarWidth = 100f; // バー最大幅
+    [SerializeField] private float fullBarHeigth = 12f; // 最大のyのスケール
     private int currentCost = 0; // 初期コストは0
     private const int MAX_COST = 100;
     private const float AccumulateInterval = 3.0f;
@@ -30,14 +30,15 @@ public class CostManager : MonoBehaviour
         // バー伸縮処理（3秒で最大まで伸びる）
         valueTimer += Time.deltaTime;
         barFillRatio = Mathf.Clamp01(valueTimer / 3f);
-        float barWidth = fullBarWidth * barFillRatio;
-        costBar.sizeDelta = new Vector2(barWidth, costBar.sizeDelta.y);
+        float barHeigth = fullBarHeigth * barFillRatio;
+
+        costBar.transform.localScale = new Vector3(0.5f, barHeigth, 1f); // 高さのみ変更
 
         // 3秒後にリセット
         if (valueTimer >= 3f)
         {
             valueTimer = 0f;
-            costBar.sizeDelta = new Vector2(0f, costBar.sizeDelta.y);
+            costBar.transform.localScale = new Vector3(0.5f,0f,1f);
         }
     }
 
@@ -69,4 +70,5 @@ public class CostManager : MonoBehaviour
     {
         Debug.Log("コストが足りません！");
     }
+
 }
