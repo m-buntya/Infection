@@ -25,17 +25,10 @@ public class UnitUIManager : MonoBehaviour
         UnitParaTexts();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void HideSquadUI()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            if(Input.GetKeyDown(KeyCode.LeftAlt))
-            {
-                SquadUI.gameObject.SetActive(!isActive);
-                isActive = !isActive;
-            }
-        }
+        SquadUI.gameObject.SetActive(!isActive);
+        isActive = !isActive;
     }
 
     // 部隊のステータス表示
