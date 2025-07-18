@@ -15,11 +15,13 @@ public class UnitSlotButton : MonoBehaviour
 
     private void Start()
     {
+
         if (unitController != null && iconImage != null)
         {
             Sprite icon = TryGetUnitIcon(unitController);
             if (icon != null)
                 iconImage.sprite = icon;
+            iconImage.enabled = true;
         }
 
         button.onClick.AddListener(() =>

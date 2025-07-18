@@ -870,9 +870,6 @@ MonoBehaviour:
   - targetToShow: {fileID: 1201749079}
     unitIconDisplay: {fileID: 0}
   commonToHide: {fileID: 1505563464}
-  backButtons:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &129204531
 Transform:
   m_ObjectHideFlags: 0
@@ -900,6 +897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e035ac7b1dbcbd45b5db131444ff9d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placeholderSprite: {fileID: 0}
   unitButtons:
   - button: {fileID: 971544244}
     unitObject: {fileID: 865419655}
@@ -7906,6 +7904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backConfirmDialog: {fileID: 68258708}
   nextSceneName: HomeScene
+  placeholderSprite: {fileID: 0}
   unitSlotButtons:
   - {fileID: 2146208523}
   - {fileID: 2033352149}
