@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class CostManager : MonoBehaviour
@@ -12,6 +13,8 @@ public class CostManager : MonoBehaviour
     private float regenTimer = 0f;
     private float valueTimer = 0f;
     private float barFillRatio = 0f;
+
+    public static CostManager Instance { get; private set; }
 
     void Update()
     {
@@ -70,5 +73,13 @@ public class CostManager : MonoBehaviour
     {
         Debug.Log("コストが足りません！");
     }
-
+    private void Awake()
+    {
+        if (Instance == null)
+        
+            Instance = this;
+            else
+                Destroy(gameObject);
+                    }
+    
 }

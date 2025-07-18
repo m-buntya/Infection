@@ -845,6 +845,7 @@ GameObject:
   - component: {fileID: 129204530}
   - component: {fileID: 129204532}
   - component: {fileID: 129204533}
+  - component: {fileID: 129204534}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -870,9 +871,6 @@ MonoBehaviour:
   - targetToShow: {fileID: 1201749079}
     unitIconDisplay: {fileID: 0}
   commonToHide: {fileID: 1505563464}
-  backButtons:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &129204531
 Transform:
   m_ObjectHideFlags: 0
@@ -900,6 +898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e035ac7b1dbcbd45b5db131444ff9d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placeholderSprite: {fileID: 0}
   unitButtons:
   - button: {fileID: 971544244}
     unitObject: {fileID: 865419655}
@@ -978,6 +977,32 @@ MonoBehaviour:
   unitPanel: {fileID: 1802882621}
   virusPanel: {fileID: 1201749079}
   unitController: {fileID: 0}
+--- !u!114 &129204534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129204529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00bb5e3ad2da5bb4cad3a2ba22ebb897, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitSlotButtons:
+  - {fileID: 2146208523}
+  - {fileID: 2033352149}
+  - {fileID: 1552648033}
+  - {fileID: 1005157719}
+  - {fileID: 1516780615}
+  - {fileID: 1294271592}
+  - {fileID: 1946705371}
+  - {fileID: 1770403701}
+  - {fileID: 1564967640}
+  - {fileID: 2063943678}
+  - {fileID: 1102351785}
+  - {fileID: 19491355}
+  placeholderSprite: {fileID: 0}
 --- !u!1 &138364255 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7213959262906911363, guid: 16b2aa46fe66de046af73c204f3e29ac, type: 3}
@@ -7906,6 +7931,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backConfirmDialog: {fileID: 68258708}
   nextSceneName: HomeScene
+  placeholderSprite: {fileID: 0}
   unitSlotButtons:
   - {fileID: 2146208523}
   - {fileID: 2033352149}

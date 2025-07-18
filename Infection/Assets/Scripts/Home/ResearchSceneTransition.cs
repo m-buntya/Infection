@@ -14,4 +14,8 @@ public class ResearchSceneTransition : MonoBehaviour
     {
         SceneManager.LoadScene("HomeScene");
     }
+    public void OnclickSelectionButton()
+    {
+        SceneManager.LoadScene("UnitFormation");
+    }
 }
