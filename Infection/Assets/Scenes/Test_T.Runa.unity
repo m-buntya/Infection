@@ -1016,6 +1016,7 @@ GameObject:
   - component: {fileID: 625703067}
   - component: {fileID: 625703066}
   - component: {fileID: 625703065}
+  - component: {fileID: 625703068}
   m_Layer: 5
   m_Name: Unit_1
   m_TagString: Untagged
@@ -1087,13 +1088,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2070969593}
-        m_TargetAssemblyTypeName: DeployManager, Assembly-CSharp
-        m_MethodName: TryDeployUnit
-        m_Mode: 2
+      - m_Target: {fileID: 625703068}
+        m_TargetAssemblyTypeName: DeployButtonController, Assembly-CSharp
+        m_MethodName: OnPressed
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: -1372196467838446890, guid: 867e976a028857f478f9aa420f504578, type: 3}
-          m_ObjectArgumentAssemblyTypeName: StatePatteren.State.UnitController, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1137,6 +1138,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625703063}
   m_CullTransparentMesh: 1
+--- !u!114 &625703068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625703063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 768f3827f5f6dcd4bb26fb3ef31f168e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assignedUnit: {fileID: -1372196467838446890, guid: 867e976a028857f478f9aa420f504578, type: 3}
+  costLabelText: {fileID: 683784573}
+  costToConsume: 4
 --- !u!1 &632054220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,6 +1517,7 @@ GameObject:
   - component: {fileID: 780780080}
   - component: {fileID: 780780079}
   - component: {fileID: 780780078}
+  - component: {fileID: 780780081}
   m_Layer: 5
   m_Name: Unit_2
   m_TagString: Untagged
@@ -1572,13 +1589,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2070969593}
-        m_TargetAssemblyTypeName: DeployManager, Assembly-CSharp
-        m_MethodName: TryDeployUnit
-        m_Mode: 2
+      - m_Target: {fileID: 780780081}
+        m_TargetAssemblyTypeName: DeployButtonController, Assembly-CSharp
+        m_MethodName: OnPressed
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 2191438368491215067, guid: acbeaecf5d5b3664cbcc3f1f11d7fc5c, type: 3}
-          m_ObjectArgumentAssemblyTypeName: StatePatteren.State.UnitController, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1622,6 +1639,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 780780076}
   m_CullTransparentMesh: 1
+--- !u!114 &780780081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780780076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 768f3827f5f6dcd4bb26fb3ef31f168e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assignedUnit: {fileID: 2191438368491215067, guid: acbeaecf5d5b3664cbcc3f1f11d7fc5c, type: 3}
+  costLabelText: {fileID: 1928134804}
+  costToConsume: 2
 --- !u!1 &824604384
 GameObject:
   m_ObjectHideFlags: 0
@@ -2811,6 +2843,7 @@ GameObject:
   - component: {fileID: 1515912123}
   - component: {fileID: 1515912122}
   - component: {fileID: 1515912121}
+  - component: {fileID: 1515912124}
   m_Layer: 5
   m_Name: Unit_3
   m_TagString: Untagged
@@ -2882,13 +2915,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2070969593}
-        m_TargetAssemblyTypeName: DeployManager, Assembly-CSharp
-        m_MethodName: TryDeployUnit
-        m_Mode: 2
+      - m_Target: {fileID: 1515912124}
+        m_TargetAssemblyTypeName: DeployButtonController, Assembly-CSharp
+        m_MethodName: OnPressed
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 8692106525418995562, guid: c1e9d65f3ceda9549a483c4cb527d83f, type: 3}
-          m_ObjectArgumentAssemblyTypeName: StatePatteren.State.UnitController, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2932,6 +2965,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1515912119}
   m_CullTransparentMesh: 1
+--- !u!114 &1515912124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515912119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 768f3827f5f6dcd4bb26fb3ef31f168e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assignedUnit: {fileID: 8692106525418995562, guid: c1e9d65f3ceda9549a483c4cb527d83f, type: 3}
+  costLabelText: {fileID: 2052034600}
+  costToConsume: 4
 --- !u!1 &1606432837
 GameObject:
   m_ObjectHideFlags: 0
@@ -3988,11 +4036,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   costManager: {fileID: 2070969594}
-  deployParent: {fileID: 1606432838}
-  deployPosition: {x: 7, y: 2, z: 0}
-  deployPoint: {fileID: 1762999979}
-  deployCounterText: {fileID: 0}
-  unitController: {fileID: 0}
+  targetUnit: {fileID: 0}
 --- !u!114 &2070969594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4007,7 +4051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   costText: {fileID: 1290956515}
   costBar: {fileID: 1620318435}
-  fullBarWidth: 100
+  fullBarHeigth: 12
 --- !u!114 &2070969595
 MonoBehaviour:
   m_ObjectHideFlags: 0

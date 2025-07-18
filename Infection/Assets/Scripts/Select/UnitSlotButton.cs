@@ -12,7 +12,11 @@ public class UnitSlotButton : MonoBehaviour
     public ObjectToggler toggler;
     public GameObject targetPanelToShow;
     public FormationPanelManager formationPanelManager;
-
+    void Awake()
+    {
+        if (iconImage == null)
+            iconImage = GetComponentInChildren<Image>();
+    }
     private void Start()
     {
 
@@ -45,5 +49,18 @@ public class UnitSlotButton : MonoBehaviour
 
         return null;
     }
+    public void SetUnit(UnitController controller, Sprite placeholder)
+    {
+        unitController = controller;
 
+        if (iconImage == null)
+            iconImage = GetComponentInChildren<Image>();
+
+        var icon = TryGetUnitIcon(controller);
+        if (iconImage != null)
+        {
+            iconImage.enabled = true;
+            iconImage.sprite = icon ?? placeholder;
+        }
+    }
 }
