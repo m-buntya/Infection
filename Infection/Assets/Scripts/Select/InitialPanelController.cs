@@ -40,8 +40,7 @@ public class InitialPanelController :MonoBehaviour
     //決定ボタンを押したときに呼ぶ
     public void OnPressConfirm()
     {
-
-        SaveUnitFormation();
+        //UnitFormationStorage.SaveFormation(unitSlotButtons); 
         SceneManager.LoadScene(nextSceneName);
     }
 
