@@ -1,11 +1,15 @@
 using StrategyPatteren.Role;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace StatePatteren.State
 {
     public class CombatState : UnitState
     {
         UnitController unitController;
+        GameObject target;
+        GameObject allyCastle;
+        GameObject enemyCastle;
 
         float atkSpd = 0;
 
@@ -18,6 +22,9 @@ namespace StatePatteren.State
 
         public void Enter()
         {
+            allyCastle = GameObject.Find("Ally_Castle").gameObject;
+            enemyCastle = GameObject.Find("Enemy_Castle").gameObject;
+
             atkSpd = unitController.unitStats.atkSpd;
             time = atkSpd;
         }
@@ -25,6 +32,19 @@ namespace StatePatteren.State
         public void Update()
         {
             ActionTimer();
+
+            GetTargetSystem getTargetSystem = new GetTargetSystem();
+
+            if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)
+            {
+                target = getTargetSystem.GetTarget(unitController.gameObject, "Enemy");
+                CastleTarget(enemyCastle.transform.position);
+            }
+            else if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY)
+            {
+                target = getTargetSystem.GetTarget(unitController.gameObject, "Player");
+                CastleTarget(allyCastle.transform.position);
+            }
         }
 
         public void Exit()
@@ -34,24 +54,7 @@ namespace StatePatteren.State
 
         public void Transition()
         {
-            GetTargetSystem getTargetSystem = new GetTargetSystem();
-
-            if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)
-            {
-                GameObject target = getTargetSystem.GetTarget(unitController.gameObject, "Enemy");
-                if (target == null)
-                {
-                    unitController.StateMachine.TransitionTo(unitController.StateMachine.moveState);
-                }
-            }
-            if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY)
-            {
-                GameObject target = getTargetSystem.GetTarget(unitController.gameObject, "Player");
-                if (target == null)
-                {
-                    unitController.StateMachine.TransitionTo(unitController.StateMachine.moveState);
-                }
-            }
+            unitController.StateMachine.TransitionTo(unitController.StateMachine.moveState);            
         }
 
         // s“®‘¬“x
@@ -70,6 +73,18 @@ namespace StatePatteren.State
         {
             IRoleBehavior behavior = RoleBehaviorFactory.Get(stats.role);
             behavior.Action(unitController);
+        }
+
+        void CastleTarget(Vector3 targetCastle)
+        {
+            if (target == null)
+            {
+                float dist = Vector3.Distance(unitController.transform.position, targetCastle);
+                if (dist > unitController.unitStats.range)
+                {
+                    Transition();
+                }
+            }
         }
     }
 }

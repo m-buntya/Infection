@@ -54,7 +54,6 @@ namespace StatePatteren.State
         void Update()
         {
             stateMachine.Update();
-            stateMachine.Transition();
         }
 
         // ƒ_ƒ[ƒWˆ—
