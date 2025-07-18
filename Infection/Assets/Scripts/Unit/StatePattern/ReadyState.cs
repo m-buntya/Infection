@@ -17,26 +17,37 @@ namespace StatePatteren.State
 
         public void Enter()
         {
-
+            SetDragPreviewAlpha(unitController.gameObject, 0.5f);
         }
 
         public async void Update()
         {
             await WaitEndDrag.WaitDragEndAsync();
             time += Time.deltaTime;
+            if (time >= sortieTime)
+            {
+                Transition();
+            }
         }
 
         public void Exit()
         {
-            
+            SetDragPreviewAlpha(unitController.gameObject, 1.0f);
         }
 
         // TransitionTo‚ðŒÄ‚Ño‚·‚½‚ß‚Ìˆ—
         public void Transition()
         {
-            if(time >= sortieTime)
+            unitController.StateMachine.TransitionTo(unitController.StateMachine.moveState);            
+        }
+
+        private void SetDragPreviewAlpha(GameObject obj, float alpha)
+        {
+            foreach (var sr in obj.GetComponentsInChildren<SpriteRenderer>())
             {
-                unitController.StateMachine.TransitionTo(unitController.StateMachine.moveState);
+                Color c = sr.color;
+                c.a = alpha;
+                sr.color = c;
             }
         }
     }
