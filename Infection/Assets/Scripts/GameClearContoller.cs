@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using StatePatteren.State;
 public class GameClearController : MonoBehaviour
 {
     public int enemyBaseHP = 100;
@@ -65,26 +66,24 @@ public class GameClearController : MonoBehaviour
         //Debug.Log("📏 更新後の味方HPバースケール: " + playerHPBar.localScale.x);
     }
 
-   public void CheckGameClearConditions()
+    public void CheckGameClearConditions()
     {
         if (enemyBaseHP <= 0)
         {
-            TriggerGameClearEffects(GAME_CLEAR_TYPE.ObjectiveVictory);
-            SceneManager.LoadScene("ResultScene");　//敵の拠点が０になったら勝利シーン（仮でHomeScene）に移動！
+            GameResultManager.result_Type = GameResultManager.RESULT_TYPE.GameClear;
+            SceneManager.LoadScene("ResultScene");
         }
         else if (playerBaseHP <= 0)
         {
-            TriggerGameOverEffects(GAME_CLEAR_TYPE.SurvivalVictory);
-            SceneManager.LoadScene("ResultScene"); //味方の拠点が０になったら敗北シーン（仮でHomeScene）に移動！
-        }
-        else if(remainingtime<=0) //カウントダウン終了
-        {
-            Debug.Log("120秒間生存達成！ゲームクリアシーンに移動！");
-            TriggerGameClearEffects(GAME_CLEAR_TYPE.SurvivalVictory);
+            GameResultManager.result_Type = GameResultManager.RESULT_TYPE.GameOver;
             SceneManager.LoadScene("ResultScene");
         }
-       
-     }
+        else if (remainingtime <= 0)
+        {
+            GameResultManager.result_Type = GameResultManager.RESULT_TYPE.GameClear;
+            SceneManager.LoadScene("ResultScene");
+        }
+    }
 
     void TriggerGameClearEffects(GAME_CLEAR_TYPE clearType)
     {
