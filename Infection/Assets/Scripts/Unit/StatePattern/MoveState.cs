@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace StatePatteren.State
 {
@@ -7,8 +8,12 @@ namespace StatePatteren.State
         UnitController unitController;
         MoveSystem moveSystem;
 
+        GameObject target;
+        GameObject allyCastle;
+        GameObject enemyCastle;
+
         float moveSpeed = 0f;
-        Vector3 moveVector = Vector3.zero;
+        Vector3 unitPos = Vector3.zero;
 
         public MoveState(UnitController unitController)
         {
@@ -17,6 +22,9 @@ namespace StatePatteren.State
 
         public void Enter()
         {
+            allyCastle = GameObject.Find("Ally_Castle").gameObject;
+            enemyCastle = GameObject.Find("Enemy_Castle").gameObject;
+
             moveSpeed = unitController.unitStats.spd;
             moveSystem = new MoveSystem();
         }
@@ -25,12 +33,22 @@ namespace StatePatteren.State
         {
             if(unitController.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)
             {
-                moveSystem.Move(unitController.gameObject, "Enemy", moveSpeed, moveVector);
+                unitPos = moveSystem.Move(unitController.gameObject, "Enemy", moveSpeed);
+                TargetInRange(enemyCastle.transform.position);
             }
-            if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY)
+            else if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY)
             {
-                moveSystem.Move(unitController.gameObject, "Player", moveSpeed, moveVector);
+                unitPos = moveSystem.Move(unitController.gameObject, "Player", moveSpeed);
+                TargetInRange(allyCastle.transform.position);
             }
+
+            if (target != null)
+            {
+                TargetInRange(target.transform.position);
+            }
+
+            unitController.transform.position = unitPos;
+            SetTarget();
         }
 
         public void Exit()
@@ -40,31 +58,31 @@ namespace StatePatteren.State
 
         public void Transition()
         {
+            unitController.StateMachine.TransitionTo(unitController.StateMachine.combatState);
+        }
+
+        // çUåÇëŒè€ÇÃéÊìæ
+        void SetTarget()
+        {
             GetTargetSystem getTargetSystem = new GetTargetSystem();
 
             if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)
             {
-                GameObject target = getTargetSystem.GetTarget(unitController.gameObject, "Enemy");
-                if(target != null)
-                {
-                    float distance = Vector2.Distance(unitController.gameObject.transform.position, target.transform.position);
-                    if (distance <= unitController.unitStats.range)
-                    {
-                        unitController.StateMachine.TransitionTo(unitController.StateMachine.combatState);
-                    }
-                }
+                target = getTargetSystem.GetTarget(unitController.gameObject, "Enemy");
             }
-            else
+            else if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY)
             {
-                GameObject target = getTargetSystem.GetTarget(unitController.gameObject, "Player");
-                if (target != null)
-                {
-                    float distance = Vector2.Distance(unitController.gameObject.transform.position, target.transform.position);
-                    if (distance <= unitController.unitStats.range)
-                    {
-                        unitController.StateMachine.TransitionTo(unitController.StateMachine.combatState);
-                    }
-                }
+                target = getTargetSystem.GetTarget(unitController.gameObject, "Player");
+            }
+        }
+
+        // ëŒè€Ç™çUåÇîÕàÕì‡ÇæÇ¡ÇΩÇÁèÛë‘ëJà⁄
+        void TargetInRange(Vector3 target)
+        {
+            float dist = Vector3.Distance(unitController.transform.position, target);
+            if (dist <= unitController.unitStats.range)
+            {
+                Transition();
             }
         }
     }
