@@ -39,8 +39,6 @@ public class UnitParametor
     // 部隊のパラメータをセット
     public void SetUnitPara()
     {
-        //Debug.Log("パラメータをセット");
-
         float correction = unitMemberCnt * 0.01f;      // 部隊の人数 * 1%の補正値
 
         leaderUnit.maxHp    = defaultMaxHp       + defaultMaxHp * correction;
@@ -49,11 +47,6 @@ public class UnitParametor
         leaderUnit.virusPow = defaultVirusPow + defaultVirusPow * correction;
         float slowRate = (float)unitMemberCnt / unitMemberMaxCnt;
         leaderUnit.spd = defaultSpd * (1 - slowRate);
-
-        //Debug.Log(leaderUnit.hp);
-        //Debug.Log(leaderUnit.atk);
-        //Debug.Log(leaderUnit.virusPow);
-        //Debug.Log(leaderUnit.spd);
     }
 }
 
@@ -61,16 +54,17 @@ public class UnitParametor
 public class UnitFormation : MonoBehaviour
 {
     [SerializeField] UnitStatsData unitStatsData;
+    [SerializeField] Squad squadData;
 
     UnitUIManager unitUIManager;
     UnitManager unitManager;
+    CostManager costManager;
 
     public UnitParametor unitPara { get; private set; }     // 部隊のステータス(設定中)
 
     [SerializeField] Slider soldierSlider;
     int unitMemberCnt;
 
-    [SerializeField] UnitStats[] units;              // 各部隊のステータス(設定後)
     [SerializeField] List<GameObject> unitIcon;      // 部隊アイコン
     Dictionary<GameObject, UnitStats> unitStatsDic = new Dictionary<GameObject, UnitStats>();
     [SerializeField] GameObject unitObj;             // 部隊オブジェクト
@@ -78,7 +72,6 @@ public class UnitFormation : MonoBehaviour
     const int UNIT_MAX_CNT = 8;     // 作成できる部隊の上限
     int unitsIndex = 0;             // 作成した部隊数
 
-    [SerializeField] Transform UnitSpawnPoint;
     [SerializeField] Transform EnemySpawnPoint;
 
     void Awake()
@@ -86,8 +79,6 @@ public class UnitFormation : MonoBehaviour
         UnitReset();
 
         unitUIManager = GameObject.Find("UnitUIManager").GetComponent<UnitUIManager>();
-        unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
-
         unitPara = new UnitParametor();
         unitPara.SetLeaderStats(Clone(unitStatsData.UnitParameter[0]));
 
@@ -104,11 +95,7 @@ public class UnitFormation : MonoBehaviour
     // 部隊初期化
     void UnitReset()
     {
-        units = new UnitStats[UNIT_MAX_CNT];
-        for(int i = 0; i < UNIT_MAX_CNT; i++)
-        {
-            UnitComplete(i);
-        }
+        squadData.squadList[0].units = new UnitStats[UNIT_MAX_CNT];
         unitsIndex = 0;
         SerInteractable();
     }
@@ -133,9 +120,7 @@ public class UnitFormation : MonoBehaviour
     {
         if(unitsIndex < UNIT_MAX_CNT)
         {
-            units.SetValue(Clone(unitPara.leaderUnit), unitsIndex);
-            unitStatsDic[unitIcon[unitsIndex]] = units[unitsIndex];
-            UnitComplete(unitsIndex);
+            squadData.squadList[0].units.SetValue(Clone(unitPara.leaderUnit), unitsIndex);
         }
 
         unitsIndex++;
@@ -146,40 +131,6 @@ public class UnitFormation : MonoBehaviour
     public void OnClickRemove()
     {
         UnitReset();
-    }
-
-    // 部隊生成
-    public void UnitGenerate(GameObject create, Vector3 pos)
-    {
-        GameObject unit = Instantiate(unitObj, pos, transform.rotation);
-        UnitController unitController = unit.GetComponent<UnitController>();
-        unitController.SetUnitStats(Clone(unitStatsDic[create]));
-        unitController.SetUnitGroup(UnitController.UNIT_GROUP.PLAYER);
-        unitManager.AddUnitList(unit, "Player");
-    }
-
-    // 敵部隊生成
-    public void OnClickEnemyCreate()
-    {
-        GameObject unit = Instantiate(unitObj, EnemySpawnPoint.position, transform.rotation);
-        UnitController unitController = unit.GetComponent<UnitController>();
-        unitController.SetUnitStats(Clone(units[0]));
-        unitController.SetUnitGroup(UnitController.UNIT_GROUP.ENEMY);
-        unitManager.AddUnitList(unit, "Enemy");
-    }
-
-    // 部隊編成完了表示
-    void UnitComplete(int unitsNum)
-    {
-        TextMeshProUGUI completeText = unitIcon[unitsNum].transform.Find("CompleteText").GetComponent<TextMeshProUGUI>();
-        if (units[unitsNum] != null)
-        {
-            completeText.text = "!";
-        }
-        else
-        {
-            completeText.text = "X";
-        }
     }
 
     // 部隊作成ボタン有効・無効切り替え

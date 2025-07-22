@@ -13,7 +13,7 @@ namespace StatePatteren.State
         }
 
         UnitController unitController;
-        UnitFormation unitFormation;
+        UnitGenerater unitGenerater;
         UnitManager unitManager;
 
         public UnitStats unitStats { get; private set; }
@@ -43,7 +43,7 @@ namespace StatePatteren.State
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            unitFormation = GameObject.Find("UnitFormation").GetComponent<UnitFormation>();
+            unitGenerater = GameObject.Find("UnitGenerater").GetComponent<UnitGenerater>();
             unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
             stateMachine = new SquadStateMachine(this);
 
@@ -86,7 +86,12 @@ namespace StatePatteren.State
         // ‰ñ•œˆ—
         public void CareHp(float hp)
         {
-            unitStats.hp = Mathf.Max(unitStats.hp + hp, unitStats.maxHp);
+            unitStats.hp += hp;
+
+            if(unitStats.hp > unitStats.maxHp)
+            {
+                unitStats.hp = unitStats.maxHp;
+            }
 
             Debug.Log($"UnitF‘Ì—Í‚ª{hp}‰ñ•œ‚µ‚½");
         }
