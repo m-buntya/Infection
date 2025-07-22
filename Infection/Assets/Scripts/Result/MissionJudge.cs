@@ -1,17 +1,21 @@
-using NUnit.Framework;
+ï»¿using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 public class MissionJudge : MonoBehaviour
 {
+    //ãƒŸãƒƒã‚·ãƒ§ãƒ³çŠ¶æ…‹
     [SerializeField] private bool isMission_1 = false;
     [SerializeField] private bool isMission_2 = false;
     [SerializeField] private bool isMission_3 = false;
 
+    //ãƒãƒ¼ã‚¯ã¨ãƒ†ã‚­ã‚¹ãƒˆUI
     [SerializeField] private Image missionMark_1;
     [SerializeField] private Image missionMark_2;
     [SerializeField] private Image missionMark_3;
 
+    
     [SerializeField] private Image missionTextBack_1;
     [SerializeField] private Image missionTextBack_2;
     [SerializeField] private Image missionTextBack_3;
@@ -21,71 +25,110 @@ public class MissionJudge : MonoBehaviour
     [SerializeField] private TextMeshProUGUI missionText_2;
     [SerializeField] private TextMeshProUGUI missionText_3;
 
-    [SerializeField] private string message_1 = "“G•”‘à‘S–ÅI";
-    [SerializeField] private string message_2 = "120•b¶‘¶¬Œ÷I";
-    [SerializeField] private string message_3 = "“G‹’“_‰ó–Å¬Œ÷I";
-
+    [SerializeField] private string message_1 = "æ•µéƒ¨éšŠå…¨æ»…ï¼";
+    [SerializeField] private string message_2 = "120ç§’ç”Ÿå­˜æˆåŠŸï¼";
+    [SerializeField] private string message_3 = "æ•µæ‹ ç‚¹å£Šæ»…æˆåŠŸï¼";
+    
+    //å ±é…¬é–¢é€£
     [SerializeField] private GameObject hideOnTouchObject;
+    [SerializeField] private GameObject rewardObject;
     [SerializeField] private TextMeshProUGUI touchPromtText;
+
+    [SerializeField] private RandomSpriteLineUI firstRewardDisplay;
+    [SerializeField] private RandomSpriteLineUI secondRewardDisplay;
+
     private bool isWaitingForTouch;
 
-    //ŒÄ‚Ño‚µ‚Æ”»’è
+    private bool hasDisplayReward = false;
+
+    //å‘¼ã³å‡ºã—ã¨åˆ¤å®š
     void Start()
     {
         /*isMission_1 = true;
         isMission_2 = true;
         isMission_3 = true;*/
-        missionTextBack_1.gameObject.SetActive(false);
-        missionTextBack_2.gameObject.SetActive(false);
-        missionTextBack_3.gameObject.SetActive(false);
 
         hideOnTouchObject.gameObject.SetActive(true);
-        touchPromtText.gameObject.SetActive(true);
-
+        touchPromtText.gameObject.SetActive(false);
         ActiveClearMark();
+        StartCoroutine(ShowMissionTextSepuentially());
+        rewardObject.gameObject.SetActive(false);
+
     }
-    
-    //’B¬‚µ‚½ƒ~ƒbƒVƒ‡ƒ“‚É‡‚í‚¹‚Äƒ}[ƒNEImageEƒeƒLƒXƒg‚ğo‚·
+
+    //é”æˆã—ãŸãƒŸãƒƒã‚·ãƒ§ãƒ³ã«åˆã‚ã›ã¦ãƒãƒ¼ã‚¯ãƒ»Imageãƒ»ãƒ†ã‚­ã‚¹ãƒˆã‚’å‡ºã™
     private void ActiveClearMark()
     {
-        if (isMission_1 == true)
-        {
-            missionMark_1.gameObject.SetActive(true);
-            missionText_1.gameObject.SetActive(true);
-            missionTextBack_1.gameObject.SetActive(true);
-            missionText_1.text = message_1;
-        }
-        if (isMission_2 == true)
-        {
-            missionMark_2.gameObject.SetActive(true);
-            missionText_2.gameObject.SetActive(true);
-            missionTextBack_2.gameObject.SetActive(true);
-            missionText_2.text = message_2;
-        }
-        if (isMission_3 == true)
-        {
-            missionMark_3.gameObject.SetActive(true);
-            missionText_3.gameObject.SetActive(true);
-            missionTextBack_3.gameObject.SetActive(true);
-            missionText_3.text = message_3;
-        }
-        touchPromtText.gameObject.SetActive(true);
-        touchPromtText.text = "Please Touch";
-        isWaitingForTouch = true;
+
+        if (missionText_1 != null) missionText_1.gameObject.SetActive(false);
+        if (missionText_2 != null) missionText_2.gameObject.SetActive(false);
+        if (missionText_3 != null) missionText_3.gameObject.SetActive(false);
+
+        if (missionMark_1 != null) missionMark_1.gameObject.SetActive(isMission_1);
+        if (missionMark_2 != null) missionMark_2.gameObject.SetActive(isMission_2);
+        if (missionMark_3 != null) missionMark_3.gameObject.SetActive(isMission_3);
+
     }
-    private void Update()
+    void Update()
     {
-        if(isWaitingForTouch && Input.GetMouseButtonDown(0))
+        if (isWaitingForTouch && Input.GetMouseButtonDown(0))
         {
-            if (hideOnTouchObject != null)
+            hideOnTouchObject.SetActive(false);
+            touchPromtText.gameObject.SetActive(false);
+
+            rewardObject.SetActive(true);
+
+            if (!hasDisplayReward)
             {
-                hideOnTouchObject.SetActive(false);
+                //StartCoroutine(RunRewardSequence());
+                hasDisplayReward = true;
             }
-            if (touchPromtText != null)
-            {
-                touchPromtText.gameObject.SetActive(false);
-            }
+
             isWaitingForTouch = false;
         }
     }
+
+
+
+    IEnumerator ShowTextTypeEffect(TextMeshProUGUI targetText, string message, float delay = 0.05f)
+    {
+        targetText.gameObject.SetActive(true);
+        targetText.text = "";
+
+        foreach (char c in message)
+        {
+            targetText.text += c;
+            yield return new WaitForSeconds(delay);
+        }
+    }
+    IEnumerator ShowMissionTextSepuentially()
+    {
+
+        if (isMission_1)
+            yield return StartCoroutine(ShowTextTypeEffect(missionText_1, message_1));
+
+        if (isMission_2)
+            yield return StartCoroutine(ShowTextTypeEffect(missionText_2, message_2));
+
+        if (isMission_3)
+            yield return StartCoroutine(ShowTextTypeEffect(missionText_3, message_3));
+
+        touchPromtText.gameObject.SetActive(true);
+        touchPromtText.text = "Please Touch";
+        isWaitingForTouch = true;
+
+
+    }
+    // å ±é…¬è¡¨ç¤ºã®æµã‚Œ
+    //IEnumerator RunRewardSequence()
+    //{
+    //    if (firstRewardDisplay != null)
+    //        yield return StartCoroutine(rewardDisplay.SpawnSpritesSequentially(0.3f)); // â† ä¾‹ãˆã°0.3ç§’
+
+    //    yield return new WaitForSeconds(0.5f); // å°‘ã—å¾…ã£ã¦ã‹ã‚‰æ¬¡ã¸
+
+    //    if (secondRewardDisplay != null)
+    //        yield return StartCoroutine(rewardDisplay.SpawnSpritesSequentially(0.3f)); // â† ä¾‹ãˆã°0.3ç§’
+    //}
+
 }
