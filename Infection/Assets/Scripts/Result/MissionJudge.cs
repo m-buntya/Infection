@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 public class MissionJudge : MonoBehaviour
 {
     //ミッション状態
@@ -37,6 +38,10 @@ public class MissionJudge : MonoBehaviour
     [SerializeField] private RandomSpriteLineUI firstRewardDisplay;
     [SerializeField] private RandomSpriteLineUI secondRewardDisplay;
 
+    //遷移するシーン名
+    [SerializeField] private string nextSceneName = "ResultScene";
+
+    [SerializeField] private TextMeshProUGUI nextStagePromtText;
     private bool isWaitingForTouch;
 
     private bool hasDisplayReward = false;
@@ -53,6 +58,7 @@ public class MissionJudge : MonoBehaviour
         ActiveClearMark();
         StartCoroutine(ShowMissionTextSepuentially());
         rewardObject.gameObject.SetActive(false);
+        nextStagePromtText.gameObject.SetActive(false);
 
     }
 
@@ -80,11 +86,16 @@ public class MissionJudge : MonoBehaviour
 
             if (!hasDisplayReward)
             {
-                //StartCoroutine(RunRewardSequence());
+                StartCoroutine(RunRewardSequence());
                 hasDisplayReward = true;
             }
-
-            isWaitingForTouch = false;
+            else
+            {
+               
+                StartCoroutine(WaitAndLoadNextScene(0.1f)); // 遷移までの余韻演出付き
+                isWaitingForTouch = false;
+            }
+           
         }
     }
 
@@ -119,16 +130,33 @@ public class MissionJudge : MonoBehaviour
 
 
     }
-    // 報酬表示の流れ
-    //IEnumerator RunRewardSequence()
-    //{
-    //    if (firstRewardDisplay != null)
-    //        yield return StartCoroutine(rewardDisplay.SpawnSpritesSequentially(0.3f)); // ← 例えば0.3秒
+    //報酬表示の流れ
+    IEnumerator RunRewardSequence()
+    {
+        if (firstRewardDisplay != null)
+            yield return StartCoroutine(firstRewardDisplay.SpawnSpritesSequentially(0.3f));
 
-    //    yield return new WaitForSeconds(0.5f); // 少し待ってから次へ
+        yield return new WaitForSeconds(0.5f);
 
-    //    if (secondRewardDisplay != null)
-    //        yield return StartCoroutine(rewardDisplay.SpawnSpritesSequentially(0.3f)); // ← 例えば0.3秒
-    //}
+        if (secondRewardDisplay != null)
+            yield return StartCoroutine(secondRewardDisplay.SpawnSpritesSequentially(0.3f));
+        if (nextStagePromtText != null)
+        {
+            nextStagePromtText.gameObject.SetActive(true);
+            nextStagePromtText.text = "Next Stage Go!!";
+        }
 
+        // 🖱 タップ待ち開始（Update で処理）
+        isWaitingForTouch = true;
+    }
+
+IEnumerator WaitAndLoadNextScene(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+       
+        SceneManager.LoadScene(nextSceneName);
+        isWaitingForTouch = true;
+
+    }
 }
