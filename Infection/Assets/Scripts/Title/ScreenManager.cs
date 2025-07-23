@@ -2,9 +2,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using UnityEngine.EventSystems;
 public class ScreenManager : MonoBehaviour
 {
     [SerializeField] Text text;
+    private void Update()
+    {
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+            {
+                LoadScene();
+            }
+        }
+    }
     //‚µ‚å‚Á‚Ï‚È‹N“®
     void Awake()
     {

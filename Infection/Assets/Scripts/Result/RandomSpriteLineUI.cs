@@ -2,12 +2,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.SceneManagement;
 public class RandomSpriteLineUI : MonoBehaviour
 {
     [SerializeField] private List<Sprite> spriteOptions;
     [SerializeField] private GameObject imagePrefab;
     [SerializeField] private Transform parentTransform;
-
+   
     public void StartSequentialDisplay(float delay = 0.3f)
     {
         StartCoroutine(SpawnSpritesSequentially(delay));
