@@ -12,7 +12,6 @@ namespace StatePatteren.State
             ENEMY,
         }
 
-        UnitController unitController;
         UnitGenerater unitGenerater;
         UnitManager unitManager;
 
@@ -22,8 +21,8 @@ namespace StatePatteren.State
 
         public SquadStateMachine StateMachine => stateMachine;
 
-
         UNIT_GROUP unitGroup;
+        bool isDead => unitStats.hp <= 0;
 
         public void SetUnitStats(UnitStats stats)
         {
@@ -43,6 +42,11 @@ namespace StatePatteren.State
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            if(unitGroup == UNIT_GROUP.PLAYER)
+            {
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);    // 見た目だけ反転
+            }
+
             unitGenerater = GameObject.Find("UnitGenerater").GetComponent<UnitGenerater>();
             unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
             stateMachine = new SquadStateMachine(this);
@@ -59,13 +63,13 @@ namespace StatePatteren.State
         // ダメージ処理
         public void TakeDamage(float damage)
         {
-            if (damage > unitStats.hp)
+            unitStats.hp -= damage;
+            Debug.Log($"Unit：{damage}のダメージを受けた");
+
+            if (isDead)
             {
                 Dead();
             }
-
-            unitStats.hp -= damage;
-            Debug.Log($"Unit：{damage}のダメージを受けた");
         }
 
         // 感染ゲージ増加処理

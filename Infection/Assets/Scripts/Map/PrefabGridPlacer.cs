@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 
 /// 指定範囲内にPrefabを重ならないようにグリッド状に配置するマネージャー
 /// 出典：ChatGPT生成（Unity 2D Grid 配置）
@@ -18,6 +18,8 @@ public class PrefabGridManager : MonoBehaviour
     // プレハブのサイズ
     private Vector2 prefabSize;
 
+    // グリッドのリスト
+    public List<GameObject> prefabList { get; private set; }
 
     /// 初期化時にPrefab配置を実行
     private void Start()
@@ -39,6 +41,7 @@ public class PrefabGridManager : MonoBehaviour
             prefabSize = Vector2.one;
         }
 
+        prefabList = new List<GameObject>();
         PlacePrefabs();
 
     }
@@ -69,6 +72,7 @@ public class PrefabGridManager : MonoBehaviour
                 Vector3 spawnPos = new Vector3(posX, posY, 0f);
                 GameObject instance = Instantiate(prefab, spawnPos, Quaternion.identity, this.transform);
                 instance.name = $"{prefab.name}_{x}_{y}";
+                prefabList.Add(instance);
             }
         }
     }

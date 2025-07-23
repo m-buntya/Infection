@@ -22,7 +22,11 @@ namespace StatePatteren.State
 
         public async void Update()
         {
-            await WaitEndDrag.WaitDragEndAsync();
+            if(unitController.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)
+            {
+                await WaitEndDrag.WaitDragEndAsync();
+            }
+
             time += Time.deltaTime;
             if (time >= sortieTime)
             {
