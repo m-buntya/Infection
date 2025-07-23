@@ -38,7 +38,6 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         dragEndTcs = new TaskCompletionSource<PointerEventData>();
 
-
         dragPreviewObject = Instantiate(unitPrefab);
         SetDragPreviewAlpha(dragPreviewObject, 0.5f);
         lastValidPosition = null;
@@ -104,6 +103,8 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        UnitGenerater ug = GameObject.Find("UnitGenerater").GetComponent<UnitGenerater>();
+
         if (dragPreviewObject != null)
         {
             Destroy(dragPreviewObject);
@@ -117,7 +118,7 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             // 禁止エリア上：保存された有効位置に配置する
             if (lastValidPosition.HasValue)
             {
-                Instantiate(unitPrefab, lastValidPosition.Value, Quaternion.identity);
+                ug.UnitGenerate(gameObject, lastValidPosition.Value);
             }
             return;
         }
@@ -125,13 +126,12 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
         if (hit.collider != null && hit.collider.CompareTag("DropField"))
         {
-            UnitGenerater ug = GameObject.Find("UnitGenerater").GetComponent<UnitGenerater>();
             ug.UnitGenerate(gameObject, hit.collider.transform.position);
         }
         else if (lastValidPosition.HasValue)
         {
             // 範囲外だけど直前まで有効位置にいた
-            Instantiate(unitPrefab, lastValidPosition.Value, Quaternion.identity);
+            ug.UnitGenerate(gameObject, lastValidPosition.Value);
         }
 
         dragEndTcs?.TrySetResult(eventData);

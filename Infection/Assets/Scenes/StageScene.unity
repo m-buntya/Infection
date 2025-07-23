@@ -2725,6 +2725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f96e72061fbe9447963652456731f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitStatsData: {fileID: 11400000, guid: c6f16ae17411eba43b26df74a68354ae, type: 2}
   squadData: {fileID: 11400000, guid: 0ec20a48b9ef45648ae98a53e2430507, type: 2}
   unitIcon:
   - {fileID: 1307369441}

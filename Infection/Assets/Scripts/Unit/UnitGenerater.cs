@@ -1,14 +1,17 @@
 using StatePatteren.State;
 using System.Collections.Generic;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class UnitGenerater : MonoBehaviour
 {
+    [SerializeField] UnitStatsData unitStatsData;
     [SerializeField] Squad squadData;
 
     UnitManager unitManager;
     CostManager costManager;
+    PrefabGridManager prefabGridManager;
 
     [SerializeField] List<GameObject> unitIcon;      // ïîë‡ÉAÉCÉRÉì
     Dictionary<GameObject, UnitStats> unitStatsDic = new Dictionary<GameObject, UnitStats>();
@@ -19,6 +22,9 @@ public class UnitGenerater : MonoBehaviour
     {
         unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
         costManager = GameObject.Find("GameManager").GetComponent<CostManager>();
+        prefabGridManager = GameObject.Find("Enemy_TilePlacer").GetComponent<PrefabGridManager>();
+
+        StartCoroutine(EnemyGenerate());
 
         for (int i = 0; i < squadData.squadList[0].units.Length; i++)
         {
@@ -37,12 +43,34 @@ public class UnitGenerater : MonoBehaviour
         }
         else
         {
-            GameObject unit = Instantiate(unitObj, pos, transform.rotation);
+            GameObject unit = Instantiate(unitObj, pos, Quaternion.identity);
+
             UnitController unitController = unit.GetComponent<UnitController>();
             unitController.SetUnitStats(Clone(unitStatsDic[create]));
             unitController.SetUnitGroup(UnitController.UNIT_GROUP.PLAYER);
+
             unitManager.AddUnitList(unit, "Player");
             costManager.SpendCost(unitController.unitStats.cost);
+        }
+    }
+
+    // ìGïîë‡ê∂ê¨
+    IEnumerator EnemyGenerate()
+    {
+        while (true)
+        {
+            var unit_Idx = Random.Range(0, 4);
+            var grid_Idx = Random.Range(0, prefabGridManager.prefabList.Count);
+
+            GameObject unit = Instantiate(unitObj, prefabGridManager.prefabList[grid_Idx].transform.position, Quaternion.identity);
+
+            UnitController unitController = unit.GetComponent<UnitController>();
+            unitController.SetUnitStats(Clone(unitStatsData.UnitParameter[unit_Idx]));
+            unitController.SetUnitGroup(UnitController.UNIT_GROUP.ENEMY);
+
+            unitManager.AddUnitList(unit, "Enemy");
+
+            yield return new WaitForSeconds(10.0f);
         }        
     }
 
@@ -71,7 +99,7 @@ public class UnitGenerater : MonoBehaviour
             role = original.role,
             lv = original.lv,
             maxLv = original.maxLv,
-            hp = original.hp,
+            hp = original.maxHp,
             maxHp = original.maxHp,
             virusPoint = original.virusPoint,
             virusMaxPoint = original.virusMaxPoint,
