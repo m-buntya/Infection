@@ -11,6 +11,7 @@ public class OptionManager : MonoBehaviour
 
     private bool isInstantiate = false;
 
+    public RectTransform OptionButton;
     //ÇµÇÂÇ¡ÇœÇ»ãNìÆ
     void Awake()
     {
@@ -25,18 +26,22 @@ public class OptionManager : MonoBehaviour
 
         SceneManager.sceneLoaded += SceneCheck;
     }
-
+    
     void Start()
     {
         if (!isInstantiate)
         {
             CreateOptionCanvas();
         }
+        // ó·ÅFOptionButton Ç 100px è„Ç…à⁄ìÆÇ∑ÇÈ
+        RectTransform buttonRect = OptionButton.GetComponent<RectTransform>();
+        Vector2 currentPos = buttonRect.anchoredPosition;
+        buttonRect.anchoredPosition = new Vector2(currentPos.x, currentPos.y + 100);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (optionCanvas = null)
+        if (optionCanvas == null)
         {
             CreateOptionCanvas();
         }
