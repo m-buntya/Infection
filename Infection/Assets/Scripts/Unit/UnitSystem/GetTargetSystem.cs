@@ -16,7 +16,12 @@ public class GetTargetSystem
 
         if(targetGroup == "Player")
         {
-            targets = unitManager.GetPlayerUnits();
+            var targetList = unitManager.GetPlayerUnits();
+            for(int i = 0; i < targetList.Count; i++)
+            {
+                if (targetList[i] == myObj) continue;
+                targets.Add(targetList[i]);
+            }
         }
         if(targetGroup == "Enemy")
         {

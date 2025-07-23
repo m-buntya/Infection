@@ -9942,8 +9942,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitStatsData: {fileID: 11400000, guid: c6f16ae17411eba43b26df74a68354ae, type: 2}
+  squadData: {fileID: 11400000, guid: 0ec20a48b9ef45648ae98a53e2430507, type: 2}
   soldierSlider: {fileID: 1507852577}
-  units: []
   unitIcon:
   - {fileID: 978962668}
   - {fileID: 903850976}

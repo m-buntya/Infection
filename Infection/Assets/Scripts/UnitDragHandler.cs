@@ -125,8 +125,8 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
         if (hit.collider != null && hit.collider.CompareTag("DropField"))
         {
-            UnitFormation u = GameObject.Find("UnitFormation").GetComponent<UnitFormation>();
-            u.UnitGenerate(gameObject, hit.collider.transform.position);
+            UnitGenerater ug = GameObject.Find("UnitGenerater").GetComponent<UnitGenerater>();
+            ug.UnitGenerate(gameObject, hit.collider.transform.position);
         }
         else if (lastValidPosition.HasValue)
         {
