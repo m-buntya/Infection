@@ -3,8 +3,15 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using UnityEngine.EventSystems;
+
+
 public class ScreenManager : MonoBehaviour
 {
+
+    public delegate void OnRepositionRequest(Scene scene);
+    public static event OnRepositionRequest RepositionEvent;
+    [SerializeField] private bool useTapInsteadOfButton = true;
+
     [SerializeField] Text text;
     private void Update()
     {
@@ -26,17 +33,26 @@ public class ScreenManager : MonoBehaviour
     //規定シーン以外では非表示
     public void SceneCheck(Scene scene, LoadSceneMode mode)
     {
-        Scene currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name == "TitleScene" || currentScene.name == "HomeScene" || currentScene.name == "ResultScene")
+        // StartButtonUIの表示切り替え
+        GameObject startButton = GameObject.FindGameObjectWithTag("StartButtonUI");
+        if (scene.name == "TitleScene")
         {
-            gameObject.SetActive(true);
+            if (startButton != null) startButton.SetActive(false);
         }
-        else
+        else if (scene.name == "HomeScene")
         {
-            gameObject.SetActive(false);
+            if (startButton != null) startButton.SetActive(true);
         }
-        Positioning(scene);
+
+        // RepositionUIタグのUIを再配置
+        GameObject[] repositionUIs = GameObject.FindGameObjectsWithTag("RepositionUI");
+        foreach (GameObject ui in repositionUIs)
+        {
+            ui.SetActive(true); // 表示
+            Positioning(scene); // 位置再計算（必要に応じてuiを渡してもOK）
+        }
     }
+
 
     //シーン別のポジショニング
     public void Positioning(Scene scene)

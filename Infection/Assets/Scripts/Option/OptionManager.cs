@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,10 @@ public class OptionManager : MonoBehaviour
     private bool isInstantiate = false;
 
     public RectTransform OptionButton;
+
+    private readonly HashSet<string> repositionScenes = new() { "TitleScene", "HomeScene" };
+
+
     //しょっぱな起動
     void Awake()
     {
@@ -41,6 +46,7 @@ public class OptionManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // Canvasの生成や表示切り替えはそのまま
         if (optionCanvas == null)
         {
             CreateOptionCanvas();
@@ -50,17 +56,18 @@ public class OptionManager : MonoBehaviour
             optionCanvas.gameObject.SetActive(false);
         }
 
-        if (scene.name == "TitleScene" || scene.name == "HomeScene")
+        // UI表示可否の判定
+        if (repositionScenes.Contains(scene.name))
         {
             gameObject.SetActive(true);
+            Positioning(scene); // ←ここで再配置
         }
         else
         {
             gameObject.SetActive(false);
         }
-        Positioning(scene);
-
     }
+
     //規定シーン以外では非表示
     public void SceneCheck(Scene scene, LoadSceneMode mode)
     {
@@ -110,5 +117,14 @@ public class OptionManager : MonoBehaviour
             rt.anchoredPosition = new Vector2(650, 460);
             rt.sizeDelta = new Vector2(200, 140);
         }
+    }
+    void OnEnable()
+    {
+        ScreenManager.RepositionEvent += Positioning;
+    }
+
+    void OnDisable()
+    {
+        ScreenManager.RepositionEvent -= Positioning;
     }
 }
