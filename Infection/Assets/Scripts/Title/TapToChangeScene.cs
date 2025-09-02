@@ -12,21 +12,21 @@ public class TapToChangeScene : MonoBehaviour
     private void Start()
     {
         Scene currentScene = SceneManager.GetActiveScene();
-        if (tapText = null)
+        if (tapText != null)
         {
             if (currentScene.name == "TitleScene")
             {
-                tapText.text = "スタート";
+                tapText.text = "StartGame!";
                 nextSceneName = "HomeScene";
             }
             else if (currentScene.name == "HomeScene")
             {
-                tapText.text = "出撃";
+                tapText.text = "Go!";
                 nextSceneName = "MapScene";
             }
             else if (currentScene.name == "ResultScene")
             {
-                tapText.text = "退出";
+                tapText.text = "Back!";
                 nextSceneName = "HomeScene";
             }
             else
@@ -52,10 +52,10 @@ public class TapToChangeScene : MonoBehaviour
                 return;
             }
 
-            if (!string.IsNullOrEmpty(nextSceneName))
-            {
-                SceneManager.LoadScene(nextSceneName);
-            }
+            //if (!string.IsNullOrEmpty(nextSceneName))
+            //{
+            //    SceneManager.LoadScene(nextSceneName);
+            //}
         }
     }
     private void LoadSceneIfValid()

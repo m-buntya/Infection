@@ -33,7 +33,17 @@ public class ScreenManager : MonoBehaviour
     //規定シーン以外では非表示
     public void SceneCheck(Scene scene, LoadSceneMode mode)
     {
-        // StartButtonUIの表示切り替え
+        // TitleScene専用UIを非表示にする
+        if (scene.name != "TitleScene")
+        {
+            GameObject[] titleUIs = GameObject.FindGameObjectsWithTag("TitleOnlyUI");
+            foreach (GameObject ui in titleUIs)
+            {
+                ui.SetActive(false);
+            }
+        }
+
+        // 既存の再配置処理
         GameObject startButton = GameObject.FindGameObjectWithTag("StartButtonUI");
         if (scene.name == "TitleScene")
         {
@@ -44,12 +54,13 @@ public class ScreenManager : MonoBehaviour
             if (startButton != null) startButton.SetActive(true);
         }
 
-        // RepositionUIタグのUIを再配置
+       
+
         GameObject[] repositionUIs = GameObject.FindGameObjectsWithTag("RepositionUI");
         foreach (GameObject ui in repositionUIs)
         {
-            ui.SetActive(true); // 表示
-            Positioning(scene); // 位置再計算（必要に応じてuiを渡してもOK）
+            ui.SetActive(true);
+            Positioning(scene);
         }
     }
 

@@ -16,7 +16,7 @@ public class OptionManager : MonoBehaviour
 
     private readonly HashSet<string> repositionScenes = new() { "TitleScene", "HomeScene" };
 
-
+    [SerializeField] private GameObject deployButton;
     //しょっぱな起動
     void Awake()
     {
@@ -46,6 +46,12 @@ public class OptionManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // 出撃ボタンの表示制御
+        if (deployButton != null)
+        {
+            deployButton.SetActive(scene.name == "HomeScene");
+        }
+
         // Canvasの生成や表示切り替えはそのまま
         if (optionCanvas == null)
         {
@@ -56,11 +62,11 @@ public class OptionManager : MonoBehaviour
             optionCanvas.gameObject.SetActive(false);
         }
 
-        // UI表示可否の判定
+        // OptionManager 自身の表示制御
         if (repositionScenes.Contains(scene.name))
         {
             gameObject.SetActive(true);
-            Positioning(scene); // ←ここで再配置
+            Positioning(scene);
         }
         else
         {
@@ -72,6 +78,24 @@ public class OptionManager : MonoBehaviour
     public void SceneCheck(Scene scene, LoadSceneMode mode)
     {
         Scene currentScene = SceneManager.GetActiveScene();
+
+        // TitleOnlyUI タグのオブジェクトを非表示にする
+        if (currentScene.name != "TitleScene")
+        {
+            GameObject[] titleUIs = GameObject.FindGameObjectsWithTag("TitleOnlyUI");
+            foreach (GameObject ui in titleUIs)
+            {
+                ui.SetActive(false);
+            }
+        }
+
+        // 出撃ボタンの表示制御
+        if (deployButton != null)
+        {
+            deployButton.SetActive(currentScene.name == "HomeScene");
+        }
+
+        // OptionManager 自身の表示制御
         if (currentScene.name == "TitleScene" || currentScene.name == "HomeScene")
         {
             gameObject.SetActive(true);
@@ -80,6 +104,7 @@ public class OptionManager : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+
         Positioning(scene);
     }
 
