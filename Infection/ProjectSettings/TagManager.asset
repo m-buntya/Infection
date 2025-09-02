@@ -8,6 +8,7 @@ TagManager:
   - Tile
   - RepositionUI
   - StartButtonUI
+  - TitleOnlyUI
   layers:
   - Default
   - TransparentFX

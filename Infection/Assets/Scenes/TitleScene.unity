@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 275960709}
   m_Layer: 5
   m_Name: TopToScreen_text
-  m_TagString: Untagged
+  m_TagString: TitleOnlyUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 433412199}
   m_Layer: 5
   m_Name: Title_Image
-  m_TagString: Untagged
+  m_TagString: TitleOnlyUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -804,7 +804,7 @@ GameObject:
   - component: {fileID: 1180862393}
   m_Layer: 5
   m_Name: Go_Button
-  m_TagString: StartButtonUI
+  m_TagString: TitleOnlyUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1440,7 +1440,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 769, y: -243}
+  m_AnchoredPosition: {x: 769, y: -143}
   m_SizeDelta: {x: 300, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1579883423
@@ -1648,6 +1648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   optionCanvasPrefab: {fileID: 2531960391852718263, guid: 8d169be90d20c6d489a949056d0fb740, type: 3}
   OptionButton: {fileID: 1579883422}
+  deployButton: {fileID: 1180862391}
 --- !u!4 &1684587945
 Transform:
   m_ObjectHideFlags: 0
