@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,10 @@ public class OptionManager : MonoBehaviour
     private bool isInstantiate = false;
 
     public RectTransform OptionButton;
+
+    private readonly HashSet<string> repositionScenes = new() { "TitleScene", "HomeScene" };
+
+    [SerializeField] private GameObject deployButton;
     //しょっぱな起動
     void Awake()
     {
@@ -41,6 +46,13 @@ public class OptionManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // 出撃ボタンの表示制御
+        if (deployButton != null)
+        {
+            deployButton.SetActive(scene.name == "HomeScene");
+        }
+
+        // Canvasの生成や表示切り替えはそのまま
         if (optionCanvas == null)
         {
             CreateOptionCanvas();
@@ -50,21 +62,40 @@ public class OptionManager : MonoBehaviour
             optionCanvas.gameObject.SetActive(false);
         }
 
-        if (scene.name == "TitleScene" || scene.name == "HomeScene")
+        // OptionManager 自身の表示制御
+        if (repositionScenes.Contains(scene.name))
         {
             gameObject.SetActive(true);
+            Positioning(scene);
         }
         else
         {
             gameObject.SetActive(false);
         }
-        Positioning(scene);
-
     }
+
     //規定シーン以外では非表示
     public void SceneCheck(Scene scene, LoadSceneMode mode)
     {
         Scene currentScene = SceneManager.GetActiveScene();
+
+        // TitleOnlyUI タグのオブジェクトを非表示にする
+        if (currentScene.name != "TitleScene")
+        {
+            GameObject[] titleUIs = GameObject.FindGameObjectsWithTag("TitleOnlyUI");
+            foreach (GameObject ui in titleUIs)
+            {
+                ui.SetActive(false);
+            }
+        }
+
+        // 出撃ボタンの表示制御
+        if (deployButton != null)
+        {
+            deployButton.SetActive(currentScene.name == "HomeScene");
+        }
+
+        // OptionManager 自身の表示制御
         if (currentScene.name == "TitleScene" || currentScene.name == "HomeScene")
         {
             gameObject.SetActive(true);
@@ -73,6 +104,7 @@ public class OptionManager : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+
         Positioning(scene);
     }
 
@@ -110,5 +142,14 @@ public class OptionManager : MonoBehaviour
             rt.anchoredPosition = new Vector2(650, 460);
             rt.sizeDelta = new Vector2(200, 140);
         }
+    }
+    void OnEnable()
+    {
+        ScreenManager.RepositionEvent += Positioning;
+    }
+
+    void OnDisable()
+    {
+        ScreenManager.RepositionEvent -= Positioning;
     }
 }
