@@ -1,10 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-using UnityEngine.EventSystems;
 
 
-public class TapToChangeScene : MonoBehaviour
+public class TapToChangeScene:MonoBehaviour
 {
     [SerializeField] private string nextSceneName = "HomeScene"; //遷移先のシーン名
     [SerializeField] private TextMeshProUGUI tapText;
@@ -12,21 +11,21 @@ public class TapToChangeScene : MonoBehaviour
     private void Start()
     {
         Scene currentScene = SceneManager.GetActiveScene();
-        if (tapText != null)
+        if (tapText = null)
         {
             if (currentScene.name == "TitleScene")
             {
-                tapText.text = "StartGame!";
+                tapText.text = "スタート";
                 nextSceneName = "HomeScene";
             }
             else if (currentScene.name == "HomeScene")
             {
-                tapText.text = "Go!";
+                tapText.text = "出撃";
                 nextSceneName = "MapScene";
             }
-            else if (currentScene.name == "ResultScene")
+            else if (currentScene.name == "ResultScene") 
             {
-                tapText.text = "Back!";
+                tapText.text = "退出";
                 nextSceneName = "HomeScene";
             }
             else
@@ -41,29 +40,7 @@ public class TapToChangeScene : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (!EventSystem.current.IsPointerOverGameObject())
-            {
-                LoadSceneIfValid();
-            }
-
-            // UI上のタップなら無視する
-            if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
-            {
-                return;
-            }
-
-            //if (!string.IsNullOrEmpty(nextSceneName))
-            //{
-            //    SceneManager.LoadScene(nextSceneName);
-            //}
-        }
-    }
-    private void LoadSceneIfValid()
-    {
-        if (!string.IsNullOrEmpty(nextSceneName))
-        {
             SceneManager.LoadScene(nextSceneName);
         }
-
     }
 }

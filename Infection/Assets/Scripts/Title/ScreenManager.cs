@@ -3,15 +3,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using UnityEngine.EventSystems;
-
-
 public class ScreenManager : MonoBehaviour
 {
-
-    public delegate void OnRepositionRequest(Scene scene);
-    public static event OnRepositionRequest RepositionEvent;
-    [SerializeField] private bool useTapInsteadOfButton = true;
-
     [SerializeField] Text text;
     private void Update()
     {
@@ -33,37 +26,17 @@ public class ScreenManager : MonoBehaviour
     //規定シーン以外では非表示
     public void SceneCheck(Scene scene, LoadSceneMode mode)
     {
-        // TitleScene専用UIを非表示にする
-        if (scene.name != "TitleScene")
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == "TitleScene" || currentScene.name == "HomeScene" || currentScene.name == "ResultScene")
         {
-            GameObject[] titleUIs = GameObject.FindGameObjectsWithTag("TitleOnlyUI");
-            foreach (GameObject ui in titleUIs)
-            {
-                ui.SetActive(false);
-            }
+            gameObject.SetActive(true);
         }
-
-        // 既存の再配置処理
-        GameObject startButton = GameObject.FindGameObjectWithTag("StartButtonUI");
-        if (scene.name == "TitleScene")
+        else
         {
-            if (startButton != null) startButton.SetActive(false);
+            gameObject.SetActive(false);
         }
-        else if (scene.name == "HomeScene")
-        {
-            if (startButton != null) startButton.SetActive(true);
-        }
-
-       
-
-        GameObject[] repositionUIs = GameObject.FindGameObjectsWithTag("RepositionUI");
-        foreach (GameObject ui in repositionUIs)
-        {
-            ui.SetActive(true);
-            Positioning(scene);
-        }
+        Positioning(scene);
     }
-
 
     //シーン別のポジショニング
     public void Positioning(Scene scene)
