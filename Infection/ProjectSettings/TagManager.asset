@@ -6,6 +6,9 @@ TagManager:
   tags:
   - DropField
   - Tile
+  - RepositionUI
+  - StartButtonUI
+  - TitleOnlyUI
   layers:
   - Default
   - TransparentFX
