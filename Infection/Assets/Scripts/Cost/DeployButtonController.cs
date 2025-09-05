@@ -1,31 +1,35 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using StatePatteren.State;
-public class DeployButtonController:MonoBehaviour
+
+public class DeployButtonController : MonoBehaviour
 {
-    [SerializeField] private UnitController assignedUnit;
+    [SerializeField] private GameObject unitObject; // UnitControllerを含むユニット
     [SerializeField] private TMP_Text costLabelText;
-    [SerializeField] private int costToConsume = 2;
+
+    private UnitCost unitCost;
 
     void Start()
     {
-        if(costLabelText!=null)
+        unitCost = unitObject.GetComponent<UnitCost>();
+
+        if (costLabelText != null && unitCost != null)
         {
-    costLabelText.text=$"{costToConsume}";
+            costLabelText.text = $"{unitCost.DeployCost}";
         }
     }
+
     public void OnPressed()
     {
-        int cost = assignedUnit.unitStats.cost;
-
-        if (!CostManager.Instance.CanAfford(costToConsume))
+        if (unitCost == null)
         {
-            CostManager.Instance.DisplayInsufficientCostFeedBack();
+            Debug.LogWarning("UnitCostが見つかりません！");
             return;
         }
-        CostManager.Instance.SpendCost(costToConsume);
-        Debug.Log($"コスト{costToConsume}を消費しました。");
-        DeployManager.Instance.TryDeployUnit(assignedUnit);
+
+        if (unitCost.TryConsumeCost())
+        {
+            DeployManager.Instance.TryDeployUnit(unitObject.GetComponent<UnitController>());
+        }
     }
 }
