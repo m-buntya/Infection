@@ -9,37 +9,35 @@ namespace StatePatteren.State
         MoveSystem moveSystem;
 
         GameObject target;
-        GameObject allyCastle;
+        GameObject playerCastle;
         GameObject enemyCastle;
 
-        float moveSpeed = 0f;
-        Vector3 unitPos = Vector3.zero;
+        Vector3 unitPos;
 
         public MoveState(UnitController unitController)
         {
             this.unitController = unitController;
+            moveSystem = new MoveSystem(unitController.gameObject);
+            unitPos = this.unitController.transform.position;
         }
 
         public void Enter()
         {
-            allyCastle = GameObject.Find("Ally_Castle").gameObject;
+            playerCastle = GameObject.Find("Ally_Castle").gameObject;
             enemyCastle = GameObject.Find("Enemy_Castle").gameObject;
-
-            moveSpeed = unitController.unitStats.spd;
-            moveSystem = new MoveSystem();
         }
 
         public void Update()
         {
             if(unitController.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)
             {
-                unitPos = moveSystem.Move(unitController.gameObject, "Enemy", moveSpeed);
+                unitPos = moveSystem.Move(unitController.unitStats.spd);
                 TargetInRange(enemyCastle.transform.position);
             }
             else if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY)
             {
-                unitPos = moveSystem.Move(unitController.gameObject, "Player", moveSpeed);
-                TargetInRange(allyCastle.transform.position);
+                unitPos = moveSystem.Move(unitController.unitStats.spd);
+                TargetInRange(playerCastle.transform.position);
             }
 
             if (target != null)
@@ -68,11 +66,11 @@ namespace StatePatteren.State
 
             if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)
             {
-                target = getTargetSystem.GetTarget(unitController.gameObject, "Enemy");
+                target = getTargetSystem.GetTarget(unitController.gameObject, UnitController.UNIT_GROUP.ENEMY);
             }
             else if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY)
             {
-                target = getTargetSystem.GetTarget(unitController.gameObject, "Player");
+                target = getTargetSystem.GetTarget(unitController.gameObject, UnitController.UNIT_GROUP.PLAYER);
             }
         }
 
