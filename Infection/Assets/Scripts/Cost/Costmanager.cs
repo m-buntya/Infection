@@ -7,7 +7,7 @@ public class CostManager : MonoBehaviour
     [SerializeField] private TMP_Text costText;
     [SerializeField] private RectTransform costBar;
     [SerializeField] private float fullBarHeigth = 12f; // 最大のyのスケール
-    private int currentCost = 0; // 初期コストは0
+    private int currentCost = 5; // 初期コストは0
     private const int MAX_COST = 100;
     private const float AccumulateInterval = 3.0f;
     private float regenTimer = 0f;

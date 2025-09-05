@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 1857118075311927068}
   - component: {fileID: 25038171324339956}
   - component: {fileID: 5752403158612051482}
+  - component: {fileID: -2216656510802166628}
+  - component: {fileID: 7877405462508972318}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -167,3 +169,49 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
+--- !u!114 &-2216656510802166628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7387470101939567078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8a00792b789ac44590745c2fcc9d1d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deployCost: 2
+--- !u!114 &7877405462508972318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7387470101939567078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 556ae3360c0c99e46b061698bf335eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitStats:
+    unitCode: 0
+    unitName: 
+    leaderSkill: 0
+    role: 0
+    lv: 0
+    maxLv: 0
+    hp: 0
+    maxHp: 0
+    virusPoint: 0
+    virusMaxPoint: 0
+    enemyVirusPoint: 0
+    enemyVirusMaxPoint: 0
+    atk: 10
+    virusPow: 0
+    atkSpd: 0
+    spd: 0
+    range: 0
+    cost: 0
+    sortieCoolTime: 0
+  attackInterval: 1
