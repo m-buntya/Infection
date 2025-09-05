@@ -103,12 +103,19 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        UnitGenerater ug = GameObject.Find("UnitGenerater").GetComponent<UnitGenerater>();
-
         if (dragPreviewObject != null)
         {
             Destroy(dragPreviewObject);
         }
+        UnitGenerater ug = GameObject.Find("UnitGenerater").GetComponent<UnitGenerater>();
+        UnitCost unitCost = GetComponent<UnitCost>();
+        if (unitCost != null && !unitCost.TryConsumeCost())
+        {
+            dragEndTcs?.TrySetResult(eventData);
+            return; // コスト不足 → 配置キャンセル
+        }
+
+       
 
         Vector3 worldPos = cam.ScreenToWorldPoint(Input.mousePosition);
         worldPos.z = 0f;

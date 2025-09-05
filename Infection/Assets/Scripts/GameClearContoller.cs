@@ -2,6 +2,13 @@
 using UnityEngine.SceneManagement;
 using TMPro;
 using StatePatteren.State;
+
+public enum DamageTestMode
+{
+None,            //どちらも減らさない
+EnemyOnly,       //エネミー拠点のHPバーを２秒ごとに減らす
+    PlayerOnly,      //プレイヤー拠点のHPバーを２秒ごとに減らす
+}
 public class GameClearController : MonoBehaviour
 {
     public int enemyBaseHP = 100;
@@ -12,8 +19,11 @@ public class GameClearController : MonoBehaviour
     public Transform enemyHPBar; // 敵拠点のHPバー (2Dオブジェクト)
     public Transform playerHPBar; // 味方拠点のHPバー (2Dオブジェクト)
     public TMP_Text remainingTimeText; //残り時間テキスト
+    public DamageTestMode damageTestMode=DamageTestMode.None;
 
     private float originalBarScaleX; // 初期のバーの長さ
+
+    private float damageTimer = 0f;
 
     void Start()
     {
@@ -34,6 +44,23 @@ public class GameClearController : MonoBehaviour
     void Update()
     {
         remainingtime -= Time.deltaTime;
+        damageTimer += Time.deltaTime;
+        if (damageTimer >= 2f)
+        {
+            switch (damageTestMode)
+            {
+                case DamageTestMode.EnemyOnly:
+                    ApplyDamageToBase(true, 10); //敵拠点に１０ダメージ
+                    break;
+                case DamageTestMode.PlayerOnly:
+                    ApplyDamageToBase(false, 10); //プレイヤー拠点に１０ダメージ
+                    break;
+                case DamageTestMode.None:
+                    //何もしない
+                    break;
+            }
+            damageTimer = 0f;
+        }
         //Debug.Log("残り時間：" + Mathf.CeilToInt(remainingtime) + "秒");
 
         UpdateRemainingTimeText();
