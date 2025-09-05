@@ -37,12 +37,12 @@ namespace StatePatteren.State
 
             if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)
             {
-                target = getTargetSystem.GetTarget(unitController.gameObject, "Enemy");
+                target = getTargetSystem.GetTarget(unitController.gameObject, UnitController.UNIT_GROUP.ENEMY);
                 CastleTarget(enemyCastle.transform.position);
             }
             else if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY)
             {
-                target = getTargetSystem.GetTarget(unitController.gameObject, "Player");
+                target = getTargetSystem.GetTarget(unitController.gameObject, UnitController.UNIT_GROUP.PLAYER);
                 CastleTarget(allyCastle.transform.position);
             }
         }

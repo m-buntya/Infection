@@ -1,119 +1,199 @@
+using NUnit.Framework.Interfaces;
 using StatePatteren.State;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class MoveSystem
 {
-    enum STEP
+    // 移動先の対象の状態
+    enum MOVE_TARGET
     {
-        GO_BRIDGE,
-        GO_CASTLE,
+        BRIDGE,
+        CASTLE,
+        UNIT,
     }
 
-    STEP step;
-    bool toPoint = false;
-    Vector3 myPos;
+    MOVE_TARGET moveTarget;
 
-    float oldDist = 100.0f;
-    Vector3 nearPos = Vector3.zero;
-    Vector3 nextPos = Vector3.zero;
+    UnitController unit;
+    GetTargetSystem targetSystem;
 
-    Vector3[] point = new Vector3[4];
-    Vector3 allyCastle = Vector3.zero;
-    Vector3 enemyCastle = Vector3.zero;
+    Vector3 targetPos;
+    Vector3 unitPos; // 最終的にユニットに適用する座標
 
-    Vector3 targetDireciton = Vector3.zero;
+    Vector3[][] bridgePoints; // 橋の入口・出口の座標
+    Vector3 enterPoint;
+    Vector3 exitPoint;
 
-    public MoveSystem()
+    Vector3 playerCastle;   // プレイヤーの城の座標
+    Vector3 enemyCastle;    // エネミーの城の座標
+
+    bool isBridgeEnter = false;  // 橋を渡り始めたか
+    bool isBridgeExit = false;   // 橋を渡り切ったか
+
+    public MoveSystem(GameObject unitObj)
     {
-        step = STEP.GO_BRIDGE;
+        targetSystem = new GetTargetSystem();
+        moveTarget = MOVE_TARGET.BRIDGE;
 
-        point[0] = GameObject.Find("BridgePoint_Down_R").transform.position;
-        point[1] = GameObject.Find("BridgePoint_Down_L").transform.position;
-        point[2] = GameObject.Find("BridgePoint_Up_R").transform.position;
-        point[3] = GameObject.Find("BridgePoint_Up_L").transform.position;
+        unit = unitObj.GetComponent<UnitController>();
 
-        allyCastle = GameObject.Find("Ally_Castle").transform.position;
-        enemyCastle = GameObject.Find("Enemy_Castle").transform.position;
+        unitPos = unitObj.transform.position;
+
+        bridgePoints = new Vector3[2][];
+        bridgePoints[0] = new Vector3[2];   // 上の橋
+        bridgePoints[1] = new Vector3[2];   // 下の橋
+
+        bridgePoints[0][0] = GameObject.Find("BridgePoint_Up_L").transform.position;
+        bridgePoints[0][1] = GameObject.Find("BridgePoint_Up_R").transform.position;
+        bridgePoints[1][0] = GameObject.Find("BridgePoint_Down_L").transform.position;
+        bridgePoints[1][1] = GameObject.Find("BridgePoint_Down_R").transform.position;
+        FindNearBridge();
+
+        playerCastle = GameObject.Find("Ally_Castle").transform.position;
+        enemyCastle  = GameObject.Find("Enemy_Castle").transform.position;
     }
 
-    // 移動
-    public Vector3 Move(GameObject myObj, string targetTag, float moveSpeed)
+    public Vector3 Move(float moveSpeed)
     {
-        GetTargetSystem getTarget = new GetTargetSystem();
-        GameObject target = getTarget.GetTarget(myObj, targetTag);
-        myPos = myObj.transform.position;
-        
-        if (target == null)
+        if(HasGoToEnemy() == true)
         {
-            switch (step)
-            {
-                case STEP.GO_BRIDGE:
-                    targetDireciton = ToBridge(myObj);
-                    break;
-                case STEP.GO_CASTLE:
-                    targetDireciton = ToCastle(myObj, targetTag);
-                    break;
-            }
+            moveTarget = MOVE_TARGET.UNIT;
         }
         else
         {
-            targetDireciton = target.transform.position;
+            if (isBridgeExit)
+            {
+                moveTarget = MOVE_TARGET.CASTLE;
+            }
+            else
+            {
+                moveTarget = MOVE_TARGET.BRIDGE;
+            }
         }
 
-        // 移動
-        Vector3 moveVelocity = (targetDireciton - myPos).normalized * moveSpeed * 0.1f * Time.deltaTime;
-        return myPos += moveVelocity;
+        switch(moveTarget)
+        {
+            case MOVE_TARGET.BRIDGE:
+                MoveToBridge();
+                break;
+            case MOVE_TARGET.CASTLE:
+                MoveToCastle();
+                break;
+            case MOVE_TARGET.UNIT:
+                MoveToEnemy();
+                break;
+        }
+
+        unitPos += (targetPos - unitPos).normalized * moveSpeed * 0.1f * Time.deltaTime;
+        return unitPos;
     }
 
-    // 橋まで移動
-    Vector3 ToBridge(GameObject myObj)
+    // 近くの橋を探す
+    void FindNearBridge()
     {
-        // 上下の橋で近い方に向かう
-        if (nearPos == Vector3.zero && nextPos == Vector3.zero)
-        {
-            foreach(var p in point)
-            {
-                var dist = Vector3.Distance(myPos, p);
-                if (dist < oldDist)
-                {
-                    oldDist = dist;
-                    nearPos = p;
+        float minDistance = Vector3.Distance(unitPos, bridgePoints[0][0]);
 
-                    foreach(var np in point)
-                    {
-                        if (nearPos.y == np.y && nearPos != np)
-                        {
-                            nextPos = np;
-                        }
-                    }
+        for (int i = 0; i < bridgePoints.Length; i++)
+        {
+            for(int j = 0; j < bridgePoints[i].Length; j++)
+            {
+                float dist = Vector3.Distance(unitPos, bridgePoints[i][j]);
+                if (dist <= minDistance)
+                {
+                    minDistance = dist;
+                    enterPoint = bridgePoints[i][j];
+                    exitPoint = j == 0 ? bridgePoints[i][j + 1] : bridgePoints[i][j - 1];
+                    Debug.Log($"enterPoint {enterPoint} / exitPoint {exitPoint}");
                 }
             }
         }
-                
-        var pointDist = Vector3.Distance(myPos, nearPos);
-        if(pointDist <= 0.1f || toPoint)
+    }
+
+    // 敵に向かうかどうか
+    bool HasGoToEnemy()
+    {
+        GameObject target = null;
+        var unitForward = Vector2.zero;
+
+        if (unit.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)
         {
-            toPoint = true;
-
-            var nextDist = Vector3.Distance(myPos, nextPos);
-
-            // 橋を渡り切ったら城へ向かうステップに移行
-            if (nextDist <= 0.1f)
-            {
-                step = STEP.GO_CASTLE;
-            }
-
-            return nextPos;
+            target = targetSystem.GetTarget(unit.gameObject, UnitController.UNIT_GROUP.ENEMY);
+            unitForward = -unit.gameObject.transform.right;
         }
         else
         {
-            return nearPos;
+            target = targetSystem.GetTarget(unit.gameObject, UnitController.UNIT_GROUP.PLAYER);
+            unitForward = unit.gameObject.transform.right;
+        }
+
+        if (target == null) return false; // 敵がいなければ false を返す
+
+        var enemyPos = target.transform.position;
+        var targetDis = Vector2.Distance(unitPos, targetPos);
+        var enemyDis = Vector2.Distance(unitPos, enemyPos);
+
+        float dot = Vector2.Dot(unitForward, (enemyPos - unitPos).normalized);
+
+        if (dot < 0 && isBridgeExit)
+        {
+            return false;   // 敵が橋を渡った後、後方にいた場合、falseを返す
+        }
+        else
+        {
+            return enemyDis <= targetDis;
         }
     }
 
-    // 城まで移動
-    Vector3 ToCastle(GameObject myObj, string targetTag)
+    // 橋を渡る
+    void MoveToBridge()
     {
-        return targetTag == "Enemy" ? enemyCastle : allyCastle;
+        if (!isBridgeEnter)
+        {
+            targetPos = enterPoint;
+            if (Vector3.Distance(unitPos, enterPoint) <= 0.1f)
+            {
+                isBridgeEnter = true;
+            }
+        }
+
+        if (!isBridgeExit && isBridgeEnter)
+        {
+            targetPos = exitPoint;
+            if (Vector3.Distance(unitPos, exitPoint) <= 0.1f)
+            {
+                isBridgeExit = true;
+            }
+        }
+    }
+
+    // 城に向かう
+    void MoveToCastle()
+    {
+        if(unit.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)
+        {
+            targetPos = enemyCastle;
+        }
+        else
+        {
+            targetPos = playerCastle;
+        }
+    }
+
+    // 敵(それぞれの)に向かう
+    void MoveToEnemy()
+    {
+        var enemyPos = Vector2.zero;
+
+        if (unit.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)
+        {
+            enemyPos = targetSystem.GetTarget(unit.gameObject, UnitController.UNIT_GROUP.ENEMY).transform.position;
+        }
+        else
+        {
+            enemyPos = targetSystem.GetTarget(unit.gameObject, UnitController.UNIT_GROUP.PLAYER).transform.position;
+        }
+
+        targetPos = enemyPos;
     }
 }
