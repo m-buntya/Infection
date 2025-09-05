@@ -26,7 +26,6 @@ public class VirusChoice : MonoBehaviour
     public VirusStats GetCurrentVirus()
     {
         return virusManager.virusStats;
-        //TODO ŠO•”‚Ö—¬‚¹‚é‚æ‚¤‚É‚·‚éAŠm”Fì‹Æ‚ğ‚·‚é
         /* [SerializeField] VirusChoice virusChoice;
         VirusStats ZZZ;
         ZZZ =@virusChoice.GetCurrentVirus();
