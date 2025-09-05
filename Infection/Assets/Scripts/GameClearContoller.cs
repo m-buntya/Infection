@@ -47,6 +47,8 @@ public class GameClearController : MonoBehaviour
         damageTimer += Time.deltaTime;
         if (damageTimer >= 2f)
         {
+            //Debug.Log("2秒経過、ダメージ処理開始: " + damageTestMode);
+
             switch (damageTestMode)
             {
                 case DamageTestMode.EnemyOnly:
@@ -74,9 +76,14 @@ public class GameClearController : MonoBehaviour
     public void ApplyDamageToBase(bool isEnemy, int damage)
     {
         if (isEnemy)
+        {
             enemyBaseHP = Mathf.Max(enemyBaseHP - damage, 0);
+            //Debug.Log("敵拠点にダメージ適用。残HP: " + enemyBaseHP);
+        }
         else
+        {
             playerBaseHP = Mathf.Max(playerBaseHP - damage, 0);
+        }
 
         UpdateHPBars();
         CheckGameClearConditions();

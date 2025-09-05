@@ -1,127 +1,59 @@
-﻿using StatePatteren.State;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class UnitInfection : MonoBehaviour
 {
-    public float virusPoint = 0f;
-   
-    [Header("感染ゲージ")]
-    [SerializeField] private Transform gaugeBar;
-    [SerializeField] private float maxGaugeWidth = 1f;
-    [SerializeField] private float gaugeOffset = -0.05f;
+    [Header("ゲージバーの設定")]
+    public Transform gaugeTransform;         // ゲージバーの Transform（スプライトオブジェクト）
+    public float maxScaleX = 2f;             // 最大スケール（X方向）
+    public float duration = 5f;              // 最大スケールに達するまでの時間（秒）
+    public Color gaugeColor = Color.green;   // ゲージの色（SpriteRenderer に適用）
 
-    [Header("ゲージ色設定")]
-    [SerializeField] private Color playerColor = Color.green;
-    [SerializeField] private Color enemyColor = Color.red;
-
-    [Header("テスト用自動感染")]
-    [SerializeField] private bool testAutoInfect = false;
-    [SerializeField] private float testInfectSpeed = 10f;
-
-    private SpriteRenderer gaugeRenderer;
-    private Vector3 initialScale;
-    private Vector3 initialLocalPosition;
-
-    private UnitController unitController;
-    private UnitController.UNIT_GROUP currentSide;
+    private float elapsedTime = 0f;
+    private Vector3 initialPosition;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
-        unitController = GetComponent<UnitController>();
-        virusPoint = unitController.unitStats.virusPoint;
-        currentSide = unitController.GetUnitGroup();
-        InfectionManager.Instance.RegisterUnit(this);
-
-        if (gaugeBar != null)
+        if (gaugeTransform == null)
         {
-            gaugeRenderer = gaugeBar.GetComponent<SpriteRenderer>();
-            initialScale = gaugeBar.localScale;
-            initialLocalPosition = gaugeBar.localPosition;
-            UpdateGaugeColor();
+            Debug.LogError("GaugeTransform が設定されていません！");
+            enabled = false;
+            return;
         }
 
-        // 所属に応じてユニットグループを設定（必要な場合）
-        var controller = GetComponent<UnitController>();
-        if (controller != null)
+        // 初期スケールをゼロにして「ゲージなし」状態から開始
+        gaugeTransform.localScale = new Vector3(0f, gaugeTransform.localScale.y, gaugeTransform.localScale.z);
+        initialPosition = gaugeTransform.localPosition;
+
+        // 色を設定
+        spriteRenderer = gaugeTransform.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
         {
-            controller.SetUnitGroup(currentSide == UnitController.UNIT_GROUP.PLAYER ?
-                UnitController.UNIT_GROUP.PLAYER :
-                UnitController.UNIT_GROUP.ENEMY);
+            spriteRenderer.color = gaugeColor;
         }
     }
 
     void Update()
     {
-        if (testAutoInfect && virusPoint < unitController.unitStats.virusMaxPoint)
+        if (elapsedTime < duration)
         {
-            virusPoint += testInfectSpeed * Time.deltaTime;
-            virusPoint = Mathf.Min(virusPoint, unitController.unitStats.virusMaxPoint);
-            UpdateGaugeBar();
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            float newScaleX = Mathf.Lerp(0f, maxScaleX, t);
+
+            // スケール変更
+            gaugeTransform.localScale = new Vector3(newScaleX, gaugeTransform.localScale.y, gaugeTransform.localScale.z);
+
+            // 左端固定（Pivotが中央の場合） → スケールの半分だけ右にずらす
+            float offset = newScaleX * 0.5f;
+            gaugeTransform.localPosition = initialPosition + new Vector3(offset, 0f, 0f);
         }
     }
 
+    // 外部から感染を追加するメソッド（秒数ベース）
     public void AddInfection(float amount)
     {
-        virusPoint = Mathf.Min(virusPoint + amount, unitController.unitStats.virusMaxPoint);
-        UpdateGaugeBar();
-
-        if (virusPoint >= unitController.unitStats.virusMaxPoint)
-        {
-            Debug.Log($"{unitController.unitStats.unitName} は感染限界に達し、所属が切り替わります！");
-            ChangeSide();
-        }
-    }
-
-    void ChangeSide()
-    {
-        var before = currentSide;
-
-        // 所属を切り替え（unitData は変更しない！）
-        if (currentSide == UnitController.UNIT_GROUP.PLAYER)
-        {
-            currentSide = UnitController.UNIT_GROUP.ENEMY;
-            GetComponent<UnitController>().SetUnitGroup(UnitController.UNIT_GROUP.ENEMY);
-        }
-        else
-        {
-            currentSide = UnitController.UNIT_GROUP.PLAYER;
-            GetComponent<UnitController>().SetUnitGroup(UnitController.UNIT_GROUP.PLAYER);
-        }
-
-        // 感染値とゲージをリセット
-        virusPoint = 0f;
-        UpdateGaugeBar();
-        UpdateGaugeColor();
-
-        Debug.Log($"✅ 所属が切り替わりました{unitController.unitStats.unitName}：{before} → {currentSide}");
-    }
-
-    void UpdateGaugeBar()
-    {
-        if (gaugeBar == null) return;
-
-        float ratio = Mathf.Clamp01(virusPoint / unitController.unitStats.virusMaxPoint);
-        float newWidth = ratio * maxGaugeWidth;
-
-        Vector3 newScale = gaugeBar.localScale;
-        newScale.x = newWidth;
-        gaugeBar.localScale = newScale;
-
-        Vector3 newPos = gaugeBar.localPosition;
-        newPos.x = (newWidth - maxGaugeWidth) / 2f + gaugeOffset;
-        gaugeBar.localPosition = newPos;
-    }
-
-    void UpdateGaugeColor()
-    {
-        if (gaugeRenderer == null) return;
-
-        gaugeRenderer.color = currentSide == UnitController.UNIT_GROUP.PLAYER ? playerColor : enemyColor;
-    }
-
-    void OnDestroy()
-    {
-        if (InfectionManager.Instance != null)
-            InfectionManager.Instance.UnregisterUnit(this);
+        elapsedTime += amount;
+        elapsedTime = Mathf.Clamp(elapsedTime, 0f, duration);
     }
 }
