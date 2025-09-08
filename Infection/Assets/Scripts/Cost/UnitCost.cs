@@ -21,7 +21,7 @@ public class UnitCost : MonoBehaviour
         }
 
         CostManager.Instance.SpendCost(deployCost);
-        Debug.Log($"{gameObject.name} の出撃にコスト {deployCost} を消費しました。");
+        //Debug.Log($"{gameObject.name} の出撃にコスト {deployCost} を消費しました。");
         return true;
     }
 }

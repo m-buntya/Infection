@@ -1,0 +1,41 @@
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class SpawnDraggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+{
+    public GameObject draggablePrefab;
+    public RectTransform buttonRect;
+
+    private bool isHolding = false;
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        isHolding = true;
+
+        // コストチェック
+        var unitCost = draggablePrefab.GetComponent<UnitCost>();
+        if (unitCost != null && !unitCost.TryConsumeCost())
+        {
+            isHolding = false; // ドラッグ状態も解除
+            return;
+        }
+
+        Vector3 screenPos = buttonRect.position;
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+        worldPos.z = 0f;
+
+        GameObject obj = Instantiate(draggablePrefab, worldPos, Quaternion.identity);
+        var drag = obj.AddComponent<DraggableSprite>();
+        drag.BeginDragWhileHolding(this);
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        isHolding = false;
+    }
+
+    public bool IsHolding()
+    {
+        return isHolding;
+    }
+}

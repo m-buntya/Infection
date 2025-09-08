@@ -37,7 +37,7 @@ public class InfectionManager : MonoBehaviour
         foreach (var unit in snapshot)
         {
            
-            unit.AddInfection(infectionAmount);
+            //unit.AddInfection(infectionAmount);
         }
     }
 
