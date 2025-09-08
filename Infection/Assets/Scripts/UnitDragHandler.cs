@@ -103,30 +103,35 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        UnitCost unitCost = dragPreviewObject?.GetComponent<UnitCost>();
+
+        Debug.Log($"現在のコスト: {CostManager.Instance?.GetCurrentCost()}");
+        Debug.Log($"UnitCost: {unitCost}");
+
+        if (unitCost != null && !unitCost.TryConsumeCost())
+        {
+            dragEndTcs?.TrySetResult(eventData);
+            Destroy(dragPreviewObject);
+            return; // コスト不足 → 配置キャンセル
+        }
+
         if (dragPreviewObject != null)
         {
             Destroy(dragPreviewObject);
         }
-        UnitGenerater ug = GameObject.Find("UnitGenerater").GetComponent<UnitGenerater>();
-        UnitCost unitCost = GetComponent<UnitCost>();
-        if (unitCost != null && !unitCost.TryConsumeCost())
-        {
-            dragEndTcs?.TrySetResult(eventData);
-            return; // コスト不足 → 配置キャンセル
-        }
 
-       
+        UnitGenerater ug = GameObject.Find("UnitGenerater").GetComponent<UnitGenerater>();
 
         Vector3 worldPos = cam.ScreenToWorldPoint(Input.mousePosition);
         worldPos.z = 0f;
 
         if (IsPointerOverBlockedArea(worldPos))
         {
-            // 禁止エリア上：保存された有効位置に配置する
             if (lastValidPosition.HasValue)
             {
                 ug.UnitGenerate(gameObject, lastValidPosition.Value);
             }
+            dragEndTcs?.TrySetResult(eventData);
             return;
         }
 
@@ -137,12 +142,10 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
         else if (lastValidPosition.HasValue)
         {
-            // 範囲外だけど直前まで有効位置にいた
             ug.UnitGenerate(gameObject, lastValidPosition.Value);
         }
 
         dragEndTcs?.TrySetResult(eventData);
-
     }
 
     private bool IsPointerOverBlockedArea(Vector3 worldPos)

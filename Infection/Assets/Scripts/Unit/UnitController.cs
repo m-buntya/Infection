@@ -1,9 +1,10 @@
-using System.Data;
+ï»¿using System.Data;
 using System.Net;
 using UnityEngine;
 
 namespace StatePatteren.State
 {
+    [RequireComponent(typeof(UnitInfection))]
     public class UnitController : MonoBehaviour
     {
         public enum UNIT_GROUP
@@ -44,12 +45,26 @@ namespace StatePatteren.State
         {
             if(unitGroup == UNIT_GROUP.PLAYER)
             {
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);    // Œ©‚½–Ú‚¾‚¯”½“]
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);    // è¦‹ãŸç›®ã ã‘åè»¢
             }
 
             unitGenerater = GameObject.Find("UnitGenerater").GetComponent<UnitGenerater>();
             unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
             stateMachine = new SquadStateMachine(this);
+            if (unitStats == null)
+            {
+                Debug.LogError("âŒ unitStats ãŒæœªè¨­å®šã§ã™ã€‚SetUnitStats() ãŒå‘¼ã°ã‚Œã¦ã„ã‚‹ã‹ç¢ºèªã—ã¦ãã ã•ã„ã€‚");
+                return;
+            }
+
+            stateMachine = new SquadStateMachine(this);
+
+            if (stateMachine.readyState == null)
+            {
+                Debug.LogError("âŒ readyState ãŒåˆæœŸåŒ–ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚SquadStateMachine ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚’ç¢ºèªã—ã¦ãã ã•ã„ã€‚");
+                return;
+            }
+
 
             stateMachine.Initialize(stateMachine.readyState);
         }
@@ -60,11 +75,11 @@ namespace StatePatteren.State
             stateMachine.Update();
         }
 
-        // ƒ_ƒ[ƒWˆ—
+        // ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†
         public void TakeDamage(float damage)
         {
             unitStats.hp -= damage;
-            Debug.Log($"UnitF{damage}‚Ìƒ_ƒ[ƒW‚ğó‚¯‚½");
+            Debug.Log($"Unitï¼š{damage}ã®ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ãŸ");
 
             if (isDead)
             {
@@ -72,22 +87,22 @@ namespace StatePatteren.State
             }
         }
 
-        // Š´õƒQ[ƒW‘‰Áˆ—
+        // æ„ŸæŸ“ã‚²ãƒ¼ã‚¸å¢—åŠ å‡¦ç†
         public void TakeVirusDamage(float addPoint, string group)
         {
             if (group == "Enemy")
             {
                 unitStats.enemyVirusPoint += addPoint;
-                Debug.Log($"UnitF“GƒEƒCƒ‹ƒX‚ÌŠ´õƒQ[ƒW‚ª{addPoint}ã¸‚µ‚½");
+                Debug.Log($"Unitï¼šæ•µã‚¦ã‚¤ãƒ«ã‚¹ã®æ„ŸæŸ“ã‚²ãƒ¼ã‚¸ãŒ{addPoint}ä¸Šæ˜‡ã—ãŸ");
             }
             else
             {
                 unitStats.virusPoint += addPoint;
-                Debug.Log($"UnitF©ƒEƒCƒ‹ƒX‚ÌŠ´õƒQ[ƒW‚ª{addPoint}ã¸‚µ‚½");
+                Debug.Log($"Unitï¼šè‡ªã‚¦ã‚¤ãƒ«ã‚¹ã®æ„ŸæŸ“ã‚²ãƒ¼ã‚¸ãŒ{addPoint}ä¸Šæ˜‡ã—ãŸ");
             }            
         }
 
-        // ‰ñ•œˆ—
+        // å›å¾©å‡¦ç†
         public void CareHp(float hp)
         {
             unitStats.hp += hp;
@@ -97,28 +112,28 @@ namespace StatePatteren.State
                 unitStats.hp = unitStats.maxHp;
             }
 
-            Debug.Log($"UnitF‘Ì—Í‚ª{hp}‰ñ•œ‚µ‚½");
+            Debug.Log($"Unitï¼šä½“åŠ›ãŒ{hp}å›å¾©ã—ãŸ");
         }
 
-        // Š´õ‰ñ•œˆ—
+        // æ„ŸæŸ“å›å¾©å‡¦ç†
         public void CarevirusPoint(float carePoint, string group)
         {
             if (group == "Enemy")
             {
                 unitStats.enemyVirusPoint -= carePoint;
-                Debug.Log($"UnitF“GƒEƒCƒ‹ƒX‚ÌŠ´õƒQ[ƒW‚ª{carePoint}Œ¸­‚µ‚½");
+                Debug.Log($"Unitï¼šæ•µã‚¦ã‚¤ãƒ«ã‚¹ã®æ„ŸæŸ“ã‚²ãƒ¼ã‚¸ãŒ{carePoint}æ¸›å°‘ã—ãŸ");
             }
             else
             {
                 unitStats.virusPoint -= carePoint;
-                Debug.Log($"UnitF©ƒEƒCƒ‹ƒX‚ÌŠ´õƒQ[ƒW‚ª{carePoint}Œ¸­‚µ‚½");
+                Debug.Log($"Unitï¼šè‡ªã‚¦ã‚¤ãƒ«ã‚¹ã®æ„ŸæŸ“ã‚²ãƒ¼ã‚¸ãŒ{carePoint}æ¸›å°‘ã—ãŸ");
             }
         }
 
-        // ‰ó–Åˆ—
+        // å£Šæ»…å‡¦ç†
         void Dead()
         {
-            Debug.Log("€–Sˆ—ŠJn");
+            Debug.Log("æ­»äº¡å‡¦ç†é–‹å§‹");
 
             if(unitGroup == UNIT_GROUP.PLAYER)
             {
@@ -131,6 +146,23 @@ namespace StatePatteren.State
 
             Destroy(gameObject);
         }
+        void Awake()
+        {
+            if (unitStats == null)
+            {
+                unitStats = new UnitStats
+                {
+                    unitName = "ä»®ãƒ¦ãƒ‹ãƒƒãƒˆ",
+                    hp = 100,
+                    maxHp = 100,
+                    virusPoint = 0,
+                    virusMaxPoint = 100,
+                    // ä»–ã®åˆæœŸå€¤ã‚‚å¿…è¦ã«å¿œã˜ã¦è¨­å®š
+                };
+                Debug.LogWarning("âš  unitStats ãŒæœªè¨­å®šã ã£ãŸãŸã‚ã€ä»®åˆæœŸåŒ–ã•ã‚Œã¾ã—ãŸã€‚");
+            }
+        }
     }
+
 
 }
