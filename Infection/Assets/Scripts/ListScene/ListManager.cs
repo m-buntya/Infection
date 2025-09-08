@@ -9,29 +9,31 @@ public class ListManager : MonoBehaviour
     [SerializeField] UnitStatsData unitStatsData;
     [SerializeField] VirusData VirusData;
 
+    public GameObject listCanvas; //ユニット一覧画面
+    public GameObject detailsCanvas; //キャラ詳細画面のキャンバス
+
     public DisplayArea displayArea;
     public Transform content; //ユニットなどを表示するための領域
     public GameObject displayAreaPrefab; //ユニットを表示するプレハブ
 
-    //TODO キャラ詳細画面を作る
-    //public GameObject listCanvas;
-    //public GameObject detailsCanvas;
-
+    // ページ切り替え用のボタン
     public Button unitPageButton;
     public Button virusPageButton;
 
-    private string pageName = "Unit";
+    [SerializeField] public string pageName = "Unit";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //detailsCanvas.SetActive(false);
+        listCanvas.SetActive(true);
+        detailsCanvas.SetActive(false);
         UpdateDisplay();
         //displayArea = displayAreaPrefab.GetComponent<DisplayArea>();
     }
 
     void Update()
     {
+        //Debug.Log(displayArea.isClick);
         //Debug.Log($"{displayArea.isClick}");
         //if (displayArea.isClick == true)
         //{
@@ -83,10 +85,19 @@ public class ListManager : MonoBehaviour
 
     }
 
+    //リスト画面からホーム画面に戻る
     public void BackButton()
     {
        SceneManager.LoadScene("HomeScene");
     }
+
+    //詳細画面からリスト画面に戻る
+    public void BackDetailsButton()
+    {
+        detailsCanvas.SetActive(false);
+        listCanvas.SetActive(true);
+    }
+
 
     // ユニットページとウイルスページのボタンを押したときの処理
     public void UnitPageButton()

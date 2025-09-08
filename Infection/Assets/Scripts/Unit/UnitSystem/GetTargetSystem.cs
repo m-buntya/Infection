@@ -1,20 +1,25 @@
 using UnityEngine;
 using System.Collections.Generic;
+using StatePatteren.State;
 
 public class GetTargetSystem
 {
     float maxDistance = 10f;        // ŒŸ’m‚·‚éÅ‘å‹——£
     UnitManager unitManager;
 
-    // Å‚à‹ß‚¢‘ÎÛ‚ğ•Ô‚·
-    public GameObject GetTarget(GameObject myObj, string targetGroup)
+    public GetTargetSystem()
     {
         unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
+    }
+
+    // Å‚à‹ß‚¢‘ÎÛ‚ğ•Ô‚·
+    public GameObject GetTarget(GameObject myObj, UnitController.UNIT_GROUP targetGroup)
+    {
         if (unitManager == null) Debug.Log("unitManager‚ªnull‚Å‚·");
 
         List<GameObject> targets = new List<GameObject>();
 
-        if(targetGroup == "Player")
+        if(targetGroup == UnitController.UNIT_GROUP.PLAYER)
         {
             var targetList = unitManager.GetPlayerUnits();
             for(int i = 0; i < targetList.Count; i++)
@@ -23,7 +28,7 @@ public class GetTargetSystem
                 targets.Add(targetList[i]);
             }
         }
-        if(targetGroup == "Enemy")
+        if(targetGroup == UnitController.UNIT_GROUP.ENEMY)
         {
             targets = unitManager.GetEnemyUnits();
         }

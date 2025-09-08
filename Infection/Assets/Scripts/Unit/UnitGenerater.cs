@@ -70,7 +70,8 @@ public class UnitGenerater : MonoBehaviour
 
             unitManager.AddUnitList(unit, "Enemy");
 
-            yield return new WaitForSeconds(10.0f);
+            yield break;
+            //yield return new WaitForSeconds(10.0f);
         }        
     }
 

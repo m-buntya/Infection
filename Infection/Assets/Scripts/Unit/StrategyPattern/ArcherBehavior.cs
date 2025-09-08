@@ -10,9 +10,9 @@ namespace StrategyPatteren.Role
         public void Action(UnitController unit)
         {
             GetTargetSystem getTarget = new GetTargetSystem();
-            string targetTag = unit.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER ? "Enemy" : "Player";
+            var targetGroup = unit.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER ? UnitController.UNIT_GROUP.ENEMY : UnitController.UNIT_GROUP.ENEMY;
 
-            var target = getTarget.GetTarget(unit.gameObject, targetTag);
+            var target = getTarget.GetTarget(unit.gameObject, targetGroup);
             if (target == null) return;
 
             if (ProjectilePool.Instance == null)
