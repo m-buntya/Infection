@@ -8,7 +8,7 @@ namespace StatePatteren.State
     {
         UnitController unitController;
         GameObject target;
-        GameObject allyCastle;
+        GameObject playerCastle;
         GameObject enemyCastle;
 
         float atkSpd = 0;
@@ -20,9 +20,10 @@ namespace StatePatteren.State
             this.unitController = unitController;
         }
 
+
         public void Enter()
         {
-            allyCastle = GameObject.Find("Ally_Castle").gameObject;
+            playerCastle = GameObject.Find("Player_Castle").gameObject;
             enemyCastle = GameObject.Find("Enemy_Castle").gameObject;
 
             atkSpd = unitController.unitStats.atkSpd;
@@ -43,7 +44,7 @@ namespace StatePatteren.State
             else if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY)
             {
                 target = getTargetSystem.GetTarget(unitController.gameObject, UnitController.UNIT_GROUP.PLAYER);
-                CastleTarget(allyCastle.transform.position);
+                CastleTarget(playerCastle.transform.position);
             }
         }
 
