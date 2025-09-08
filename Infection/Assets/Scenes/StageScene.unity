@@ -119,6 +119,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &10238984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 10238986}
+  - component: {fileID: 10238985}
+  m_Layer: 0
+  m_Name: CastleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &10238985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10238984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b868a522794f2d94d8ed692f8cf036a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCastle: {fileID: 1260065271}
+  enemyCastle: {fileID: 210303159}
+--- !u!4 &10238986
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10238984}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.85826, y: 0.88519, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &20344893
 GameObject:
   m_ObjectHideFlags: 0
@@ -3445,7 +3491,7 @@ GameObject:
   - component: {fileID: 1260065273}
   - component: {fileID: 1260065272}
   m_Layer: 0
-  m_Name: Ally_Castle
+  m_Name: Player_Castle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5374,6 +5420,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   costManager: {fileID: 2108905936}
+  deployPoint: {fileID: 0}
+  deployParent: {fileID: 0}
   targetUnit: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -5388,3 +5436,4 @@ SceneRoots:
   - {fileID: 856232962}
   - {fileID: 1527972583}
   - {fileID: 349326965}
+  - {fileID: 10238986}

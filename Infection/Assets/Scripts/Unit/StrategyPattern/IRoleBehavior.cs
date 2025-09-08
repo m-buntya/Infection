@@ -6,7 +6,7 @@ namespace StrategyPatteren.Role
     public interface IRoleBehavior
     {
         // ƒ[ƒ‹–ˆ‚ÌŒÅ—L‚Ì‹““®
-        void Action(UnitController squad);
+        void Action(UnitController unit);
     }
 }
 
