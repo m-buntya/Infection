@@ -17,6 +17,10 @@ PrefabInstance:
       value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: -6785354065269388855, guid: 867e976a028857f478f9aa420f504578, type: 3}
+      propertyPath: allowProgress
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6785354065269388855, guid: 867e976a028857f478f9aa420f504578, type: 3}
       propertyPath: testAutoInfect
       value: 0
       objectReference: {fileID: 0}
@@ -76,6 +80,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: virus
       objectReference: {fileID: 0}
+    - target: {fileID: 4520513790756411374, guid: 867e976a028857f478f9aa420f504578, type: 3}
+      propertyPath: m_TagString
+      value: DeleteZone
+      objectReference: {fileID: 0}
     - target: {fileID: 5239837640967880525, guid: 867e976a028857f478f9aa420f504578, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -90,11 +98,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6201030602887471015, guid: 867e976a028857f478f9aa420f504578, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.125914
+      value: -1.052799
       objectReference: {fileID: 0}
     - target: {fileID: 6201030602887471015, guid: 867e976a028857f478f9aa420f504578, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.63614345
+      value: -1.860704
       objectReference: {fileID: 0}
     - target: {fileID: 6201030602887471015, guid: 867e976a028857f478f9aa420f504578, type: 3}
       propertyPath: m_LocalPosition.z
@@ -127,6 +135,14 @@ PrefabInstance:
     - target: {fileID: 6201030602887471015, guid: 867e976a028857f478f9aa420f504578, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557996179948193681, guid: 867e976a028857f478f9aa420f504578, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.0070855566
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557996179948193681, guid: 867e976a028857f478f9aa420f504578, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.49645722
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -187,9 +203,9 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3.5
+  m_Radius: 4
