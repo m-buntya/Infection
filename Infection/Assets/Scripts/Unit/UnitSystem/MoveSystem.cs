@@ -50,7 +50,7 @@ public class MoveSystem
         bridgePoints[1][1] = GameObject.Find("BridgePoint_Down_R").transform.position;
         FindNearBridge();
 
-        playerCastle = GameObject.Find("Ally_Castle").transform.position;
+        playerCastle = GameObject.Find("Player_Castle").transform.position;
         enemyCastle  = GameObject.Find("Enemy_Castle").transform.position;
     }
 

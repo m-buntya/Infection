@@ -23,7 +23,7 @@ namespace StatePatteren.State
 
         public void Enter()
         {
-            playerCastle = GameObject.Find("Ally_Castle").gameObject;
+            playerCastle = GameObject.Find("Player_Castle").gameObject;
             enemyCastle = GameObject.Find("Enemy_Castle").gameObject;
         }
 
