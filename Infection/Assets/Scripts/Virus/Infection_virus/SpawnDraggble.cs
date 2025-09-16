@@ -5,6 +5,7 @@ public class SpawnDraggable : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 {
     public GameObject draggablePrefab;
     public RectTransform buttonRect;
+    public UnitInfection infectionTarget;
 
     private bool isHolding = false;
 
@@ -12,11 +13,10 @@ public class SpawnDraggable : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     {
         isHolding = true;
 
-        // コストチェック
         var unitCost = draggablePrefab.GetComponent<UnitCost>();
         if (unitCost != null && !unitCost.TryConsumeCost())
         {
-            isHolding = false; // ドラッグ状態も解除
+            isHolding = false;
             return;
         }
 
@@ -25,8 +25,9 @@ public class SpawnDraggable : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         worldPos.z = 0f;
 
         GameObject obj = Instantiate(draggablePrefab, worldPos, Quaternion.identity);
-        var drag = obj.AddComponent<DraggableSprite>();
+        var drag = obj.GetComponent<DraggableSprite>();
         drag.BeginDragWhileHolding(this);
+        drag.infectionTarget = infectionTarget;
     }
 
     public void OnPointerUp(PointerEventData eventData)

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DropField
   - Tile
+  - DeleteZone
   layers:
   - Default
   - TransparentFX
