@@ -1324,7 +1324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768f3827f5f6dcd4bb26fb3ef31f168e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitObject: {fileID: 0}
+  unitObject: {fileID: 7387470101939567078, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
   costLabelText: {fileID: 683784573}
 --- !u!1 &650466453
 GameObject:
@@ -1793,7 +1793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768f3827f5f6dcd4bb26fb3ef31f168e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitObject: {fileID: 0}
+  unitObject: {fileID: 7387470101939567078, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
   costLabelText: {fileID: 1928134804}
 --- !u!1 &824604384
 GameObject:
