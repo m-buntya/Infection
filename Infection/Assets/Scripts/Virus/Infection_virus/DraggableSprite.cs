@@ -21,7 +21,7 @@ public class DraggableSprite : MonoBehaviour
             if (targetObj != null)
             {
                 infectionTarget = targetObj.GetComponent<UnitInfection>();
-                Debug.Log($"感染ターゲットをシーンから取得しました → {infectionTarget.gameObject.name}");
+                //Debug.Log($"感染ターゲットをシーンから取得しました → {infectionTarget.gameObject.name}");
             }
             else
             {
@@ -34,7 +34,7 @@ public class DraggableSprite : MonoBehaviour
     {
         if (!hasDropped)
         {
-            Debug.Log("infectionTarget(Clone) = " + infectionTarget);
+            //Debug.Log("infectionTarget(Clone) = " + infectionTarget);
         }
         if (isDraggingWhileHolding && spawner != null && spawner.IsHolding())
         {
@@ -50,7 +50,7 @@ public class DraggableSprite : MonoBehaviour
 
             if (isInsideDeleteZone)
             {
-                Debug.Log("削除ゾーン内でドロップ → 感染処理開始");
+                //Debug.Log("削除ゾーン内でドロップ → 感染処理開始");
                 if (infectionTarget != null)
                 {
                     infectionTarget.StartProgress();
@@ -61,7 +61,7 @@ public class DraggableSprite : MonoBehaviour
         
             else
             {
-                Debug.Log("削除ゾーン外でドロップ → スプライトを削除");
+                //Debug.Log("削除ゾーン外でドロップ → スプライトを削除");
             }
 
             Destroy(gameObject);
@@ -73,7 +73,7 @@ public class DraggableSprite : MonoBehaviour
         if (other.CompareTag("DeleteZone"))
         {
             isInsideDeleteZone = true;
-            Debug.Log("削除ゾーンに入りました");
+            //Debug.Log("削除ゾーンに入りました");
         }
     }
 
@@ -84,7 +84,7 @@ public class DraggableSprite : MonoBehaviour
         if (other.CompareTag("DeleteZone"))
         {
             isInsideDeleteZone = false;
-            Debug.Log("削除ゾーンから出ました");
+            //Debug.Log("削除ゾーンから出ました");
         }
     }
 }
