@@ -17,6 +17,12 @@ public class UnitInfection : MonoBehaviour
 
     private bool infectionComplete = false;
 
+    [Header("ゲージ位置補正")]
+    public Vector3 positionOffset = Vector3.zero;
+
+    [Header("感染完了時に表示する2Dオブジェクト")]
+    public GameObject infectionCompleteObject;
+
     void Start()
     {
         if (gaugeTransform == null)
@@ -35,16 +41,23 @@ public class UnitInfection : MonoBehaviour
             spriteRenderer.color = gaugeColor;
         }
         //Debug.Log($"Start() 実行 → allowProgress = {allowProgress}, enabled = {enabled}");
+
+        infectionCompleteObject.SetActive(false);
     
 }
 
 public void StartProgress()
     {
         allowProgress = true;
-        enabled = true; // ← これが重要！
+        enabled = true; 
         Debug.Log($"感染進行を開始しました（{gameObject.name}） → allowProgress = {allowProgress}, Scene = {gameObject.scene.name}");
 
         TickInfection(); // 即反映
+    }
+    public void StopProgress()
+    {
+        allowProgress = false;
+        Debug.Log($"感染進行を停止しました（{gameObject.name}）");
     }
 
     void Update()
@@ -80,6 +93,7 @@ public void StartProgress()
 
     private void UpdateGaugeVisual()
     {
+        gaugeTransform.localPosition = initialPosition + positionOffset;
         float t = Mathf.Clamp01(elapsedTime / duration);
         float newScaleX = Mathf.Lerp(0f, maxScaleX, t);
 
@@ -94,7 +108,15 @@ public void StartProgress()
 
     private void OnInfectionComplete()
     {
-        // 感染完了時の演出や通知処理をここに追加
-        Debug.Log("感染完了演出を開始します");
+
+        if (infectionCompleteObject != null)
+        {
+            infectionCompleteObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("感染完了オブジェクトが設定されていません");
+        }
     }
+
 }
