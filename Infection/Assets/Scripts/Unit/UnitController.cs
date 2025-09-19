@@ -162,6 +162,12 @@ namespace StatePatteren.State
                 Debug.LogWarning("⚠ unitStats が未設定だったため、仮初期化されました。");
             }
         }
+        public Sprite GetIconSprite()
+        {
+            var spriteRenderer = GetComponentInChildren<SpriteRenderer>(true); // ← trueで非アクティブも拾える
+            return spriteRenderer?.sprite;
+        }
+
     }
 
 

@@ -40,7 +40,7 @@ public class InitialPanelController :MonoBehaviour
     //決定ボタンを押したときに呼ぶ
     public void OnPressConfirm()
     {
-        //UnitFormationStorage.SaveFormation(unitSlotButtons); 
+        SaveUnitFormation(); // ←これを有効化
         SceneManager.LoadScene(nextSceneName);
     }
 
@@ -101,46 +101,62 @@ public class InitialPanelController :MonoBehaviour
             return null;
         }
 
-        var spriteRenderer = controller.GetComponentInChildren<SpriteRenderer>();
-        if (spriteRenderer == null)
-        {
-            Debug.Log("SpriteRenderer が見つかりません");
-            return null;
-        }
+        if (controller == null) return null;
 
-        return spriteRenderer.sprite;
+        var spriteRenderer = controller.GetComponentInChildren<SpriteRenderer>();
+        return spriteRenderer?.sprite;
+
     }
 
-    private void SaveUnitFormation()
+    public void SaveUnitFormation()
     {
         for (int i = 0; i < unitSlotButtons.Count; i++)
         {
-            var slot = unitSlotButtons[i];
-            var controller = slot.unitController;
+            var controller = unitSlotButtons[i].unitController;
             if (controller != null)
             {
-                PlayerPrefs.SetString($"unit_slot_{i}", controller.unitStats.unitCode.ToString());
+               
+
+                var icon = controller.GetIconSprite();
+                if (icon != null)
+                {
+                    string iconName = icon.name;
+                    PlayerPrefs.SetString($"unit_icon_{i}", iconName); // アイコン名保存
+                }
             }
         }
+
         PlayerPrefs.Save();
     }
     private void LoadUnitFormation()
     {
+        
         for (int i = 0; i < unitSlotButtons.Count; i++)
         {
             var slot = unitSlotButtons[i];
             string code = PlayerPrefs.GetString($"unit_slot_{i}", "");
+            string iconName = PlayerPrefs.GetString($"unit_icon_{i}", "");
+
             if (!string.IsNullOrEmpty(code))
             {
-                var unit = UnitFactory.CreateUnitByCode(code);
-                slot.unitController = unit;
+              
+                var unit = UnitCreator.CreateUnitByCode(code);
 
-                var icon = TryGetUnitIcon(unit);
-                if (slot.iconImage != null)
+                // Resourcesからアイコンを読み込む
+                Sprite icon = null;
+                if (!string.IsNullOrEmpty(iconName))
                 {
-                    slot.iconImage.enabled = true;
-                    slot.iconImage.sprite = icon ?? placeholderSprite; // 仮画像付き
+                   
+                    icon = Resources.Load<Sprite>($"Icons/{iconName}");
+                    if (icon == null)
+                        Debug.LogWarning($"❌ Resources.Load 失敗: Icons/{iconName}");
                 }
+
+                slot.SetUnit(unit, icon ?? placeholderSprite); // ✅ ここで統一
+            }
+            else
+            {
+                slot.SetUnit(null, placeholderSprite); // 空スロットにも対応
             }
         }
     }

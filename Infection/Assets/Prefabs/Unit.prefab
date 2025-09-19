@@ -428,7 +428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitStats:
     unitCode: 0
-    unitName: 
+    unitName: Attacer
     leaderSkill: 0
     role: 0
     lv: 0
@@ -464,6 +464,7 @@ MonoBehaviour:
   maxScaleX: 0.95
   duration: 5
   gaugeColor: {r: 1, g: 0, b: 0.01845169, a: 1}
+  gaugePrefub: {fileID: 1677480584364665718}
   positionOffset: {x: 5, y: 0, z: 0}
   infectionCompleteObject: {fileID: 6676734249169613505}
 --- !u!50 &3324659123230173460

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using StatePatteren.State;
 
@@ -52,15 +52,13 @@ public class UnitSlotButton : MonoBehaviour
     public void SetUnit(UnitController controller, Sprite placeholder)
     {
         unitController = controller;
-
-        if (iconImage == null)
-            iconImage = GetComponentInChildren<Image>();
-
-        var icon = TryGetUnitIcon(controller);
+        var icon = controller?.GetIconSprite();
         if (iconImage != null)
         {
             iconImage.enabled = true;
             iconImage.sprite = icon ?? placeholder;
+
+            Debug.Log($"🖼️ SetUnit: 表示中の画像 = {iconImage.sprite?.name}");
         }
     }
 }
