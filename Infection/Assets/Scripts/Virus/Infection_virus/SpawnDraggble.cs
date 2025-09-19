@@ -27,7 +27,6 @@ public class SpawnDraggable : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         GameObject obj = Instantiate(draggablePrefab, worldPos, Quaternion.identity);
         var drag = obj.GetComponent<DraggableSprite>();
         drag.BeginDragWhileHolding(this);
-        drag.infectionTarget = infectionTarget;
     }
 
     public void OnPointerUp(PointerEventData eventData)

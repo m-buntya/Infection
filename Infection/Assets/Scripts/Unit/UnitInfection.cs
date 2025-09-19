@@ -12,7 +12,7 @@ public class UnitInfection : MonoBehaviour
     private Vector3 initialPosition;
     private SpriteRenderer spriteRenderer;
 
-    [SerializeField]
+    //[SerializeField]
     private bool allowProgress = false;
 
     private bool infectionComplete = false;
@@ -34,9 +34,11 @@ public class UnitInfection : MonoBehaviour
         {
             spriteRenderer.color = gaugeColor;
         }
-    }
+        //Debug.Log($"Start() 実行 → allowProgress = {allowProgress}, enabled = {enabled}");
+    
+}
 
-    public void StartProgress()
+public void StartProgress()
     {
         allowProgress = true;
         enabled = true; // ← これが重要！

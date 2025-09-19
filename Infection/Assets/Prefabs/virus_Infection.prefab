@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e12989ec5a55e14396281ec8d8862c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infectionTarget: {fileID: 6001296562393220036, guid: acbeaecf5d5b3664cbcc3f1f11d7fc5c, type: 3}
+  infectionTarget: {fileID: 0}
 --- !u!50 &-3115202240939931912
 Rigidbody2D:
   serializedVersion: 5

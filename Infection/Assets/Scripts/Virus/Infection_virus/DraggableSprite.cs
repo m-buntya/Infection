@@ -7,19 +7,34 @@ public class DraggableSprite : MonoBehaviour
     private bool isInsideDeleteZone = false;
     private bool hasDropped = false;
 
-    public UnitInfection infectionTarget;
+    UnitInfection infectionTarget;
 
     public void BeginDragWhileHolding(SpawnDraggable source)
     {
         spawner = source;
         isDraggingWhileHolding = true;
+
+        // すでに設定されていなければ、シーン上から探す
+        if (infectionTarget == null)
+        {
+            GameObject targetObj = GameObject.Find("virus(Clone)"); // ← シーン上のオブジェクト名に合わせて変更
+            if (targetObj != null)
+            {
+                infectionTarget = targetObj.GetComponent<UnitInfection>();
+                Debug.Log($"感染ターゲットをシーンから取得しました → {infectionTarget.gameObject.name}");
+            }
+            else
+            {
+                Debug.LogWarning("感染ターゲットがシーン上に見つかりませんでした");
+            }
+        }
     }
 
     void Update()
     {
         if (!hasDropped)
         {
-            Debug.Log("infectionTarget = " + infectionTarget);
+            Debug.Log("infectionTarget(Clone) = " + infectionTarget);
         }
         if (isDraggingWhileHolding && spawner != null && spawner.IsHolding())
         {
@@ -38,7 +53,8 @@ public class DraggableSprite : MonoBehaviour
                 Debug.Log("削除ゾーン内でドロップ → 感染処理開始");
                 if (infectionTarget != null)
                 {
-                    infectionTarget.StartProgress(); 
+                    infectionTarget.StartProgress();
+                    Debug.Log("aaa");
                 }
                 Destroy(gameObject);
             }
