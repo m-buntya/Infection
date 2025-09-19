@@ -40,7 +40,7 @@ public class UnitInfection : MonoBehaviour
         {
             spriteRenderer.color = gaugeColor;
         }
-        //Debug.Log($"Start() 実行 → allowProgress = {allowProgress}, enabled = {enabled}");
+        Debug.Log($"Start() 実行 → allowProgress = {allowProgress}, enabled = {enabled}");
 
         infectionCompleteObject.SetActive(false);
     
