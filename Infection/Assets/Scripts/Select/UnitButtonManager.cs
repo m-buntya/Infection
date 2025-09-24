@@ -42,7 +42,7 @@ public class UnitButtonManager : MonoBehaviour
 
     private void HandleClick(GameObject selectedUnitObject)
     {
-        Debug.Log($"ユニット選択: {selectedUnitObject.name}");
+        //Debug.Log($"ユニット選択: {selectedUnitObject.name}");
 
         // スロット番号をどこかで管理しているならそれを使う（例: selectedSlotIndex）
         //var controller = selectedUnitObject.GetComponent<UnitController>();

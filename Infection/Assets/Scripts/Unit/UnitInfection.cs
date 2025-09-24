@@ -7,6 +7,7 @@ public class UnitInfection : MonoBehaviour
     public float maxScaleX = 0.95f;
     public float duration = 5f;
     public Color gaugeColor = Color.green;
+    public GameObject gaugePrefub;
 
     private float elapsedTime = 0f;
     private Vector3 initialPosition;
@@ -25,6 +26,7 @@ public class UnitInfection : MonoBehaviour
 
     void Start()
     {
+        gaugePrefub.SetActive(false);
         if (gaugeTransform == null)
         {
             Debug.LogError("GaugeTransform が設定されていません！");
@@ -48,6 +50,7 @@ public class UnitInfection : MonoBehaviour
 
 public void StartProgress()
     {
+        gaugePrefub.SetActive(true);
         allowProgress = true;
         enabled = true; 
         Debug.Log($"感染進行を開始しました（{gameObject.name}） → allowProgress = {allowProgress}, Scene = {gameObject.scene.name}");
