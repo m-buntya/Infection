@@ -9,8 +9,12 @@ public static class UnitFormationStorage
         {
             var controller = slots[i].unitController;
             string code = controller != null ? controller.unitStats.unitCode.ToString() : "";
-            Debug.Log($"保存するスロット {i} のコード: {code}");
+            string iconName = slots[i].iconImage?.sprite?.name ?? "";
+
+            Debug.Log($"保存するスロット {i} のコード: {code}, アイコン名: {iconName}");
+
             PlayerPrefs.SetString($"unit_slot_{i}", code);
+            PlayerPrefs.SetString($"unit_icon_{i}", iconName);
         }
         PlayerPrefs.Save();
     }
