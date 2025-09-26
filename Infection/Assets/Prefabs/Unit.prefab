@@ -428,7 +428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitStats:
     unitCode: 0
-    unitName: Attacer
+    unitName: Attakcer
     leaderSkill: 0
     role: 0
     lv: 100

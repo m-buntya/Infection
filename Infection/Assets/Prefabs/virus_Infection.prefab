@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: -3039439754189765608}
   - component: {fileID: -3115202240939931912}
   - component: {fileID: 2815050425851224410}
+  - component: {fileID: -8933456742324109568}
+  - component: {fileID: -6776776990387253320}
+  - component: {fileID: 2956936156628077043}
   m_Layer: 0
   m_Name: virus_Infection
   m_TagString: Untagged
@@ -193,3 +196,68 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
+--- !u!114 &-8933456742324109568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6039882794378326645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68f3f48f1d750f643b34f10d45895d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gaugeTransform: {fileID: 0}
+  maxScaleX: 0.95
+  duration: 5
+  gaugeColor: {r: 0, g: 1, b: 0, a: 1}
+  gaugePrefub: {fileID: 0}
+  positionOffset: {x: 0, y: 0, z: 0}
+  infectionCompleteObject: {fileID: 0}
+--- !u!114 &-6776776990387253320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6039882794378326645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 365a171a063bbf74ba17258df329e0c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2956936156628077043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6039882794378326645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 556ae3360c0c99e46b061698bf335eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitStats:
+    unitCode: 6
+    unitName: Infection_virus
+    leaderSkill: 2
+    role: 4
+    lv: 0
+    maxLv: 0
+    hp: 0
+    maxHp: 0
+    virusPoint: 30
+    virusMaxPoint: 0
+    enemyVirusPoint: 0
+    enemyVirusMaxPoint: 0
+    atk: 0
+    virusPow: 0
+    atkSpd: 0
+    spd: 0
+    range: 0
+    cost: 0
+    sortieCoolTime: 0
+  isEnemyUnit: 0
+  attackInterval: 1

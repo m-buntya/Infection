@@ -1031,6 +1031,7 @@ GameObject:
   - component: {fileID: 315995154}
   - component: {fileID: 315995153}
   - component: {fileID: 315995152}
+  - component: {fileID: 315995155}
   m_Layer: 5
   m_Name: CreateUnit (5)
   m_TagString: Untagged
@@ -1070,7 +1071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10ca26dd85e7274789abd04305811b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 6039882794378326645, guid: cee6408b962bd6943ba1a9d9012bfc52, type: 3}
+  unitPrefab: {fileID: 0}
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1112,6 +1113,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 315995150}
   m_CullTransparentMesh: 1
+--- !u!114 &315995155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315995150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9141432b085032b46a0463eac5abbc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 315995153}
 --- !u!1 &349326961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1630,6 +1644,7 @@ GameObject:
   - component: {fileID: 450238626}
   - component: {fileID: 450238625}
   - component: {fileID: 450238624}
+  - component: {fileID: 450238627}
   m_Layer: 5
   m_Name: CreateUnit (6)
   m_TagString: Untagged
@@ -1669,7 +1684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10ca26dd85e7274789abd04305811b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 7387470101939567078, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
+  unitPrefab: {fileID: 0}
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1711,6 +1726,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 450238622}
   m_CullTransparentMesh: 1
+--- !u!114 &450238627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450238622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9141432b085032b46a0463eac5abbc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 450238625}
 --- !u!1 &489205218
 GameObject:
   m_ObjectHideFlags: 0
@@ -2039,6 +2067,7 @@ GameObject:
   - component: {fileID: 556769273}
   - component: {fileID: 556769272}
   - component: {fileID: 556769271}
+  - component: {fileID: 556769274}
   m_Layer: 5
   m_Name: CreateUnit (1)
   m_TagString: Untagged
@@ -2078,7 +2107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10ca26dd85e7274789abd04305811b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 7387470101939567078, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
+  unitPrefab: {fileID: 0}
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -2120,6 +2149,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 556769269}
   m_CullTransparentMesh: 1
+--- !u!114 &556769274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556769269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9141432b085032b46a0463eac5abbc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 556769272}
 --- !u!1 &566000723
 GameObject:
   m_ObjectHideFlags: 0
@@ -2451,6 +2493,7 @@ GameObject:
   - component: {fileID: 653577465}
   - component: {fileID: 653577464}
   - component: {fileID: 653577463}
+  - component: {fileID: 653577466}
   m_Layer: 5
   m_Name: CreateUnit (3)
   m_TagString: Untagged
@@ -2490,7 +2533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10ca26dd85e7274789abd04305811b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 7387470101939567078, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
+  unitPrefab: {fileID: 0}
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -2532,6 +2575,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 653577461}
   m_CullTransparentMesh: 1
+--- !u!114 &653577466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653577461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9141432b085032b46a0463eac5abbc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 653577464}
 --- !u!1 &706938343
 GameObject:
   m_ObjectHideFlags: 0
@@ -2621,6 +2677,7 @@ GameObject:
   - component: {fileID: 715438845}
   - component: {fileID: 715438848}
   - component: {fileID: 715438849}
+  - component: {fileID: 715438850}
   m_Layer: 5
   m_Name: Createvirus
   m_TagString: Untagged
@@ -2660,7 +2717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10ca26dd85e7274789abd04305811b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 7387470101939567078, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
+  unitPrefab: {fileID: 0}
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -2731,6 +2788,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitObject: {fileID: 6039882794378326645, guid: cee6408b962bd6943ba1a9d9012bfc52, type: 3}
   costLabelText: {fileID: 0}
+--- !u!114 &715438850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715438843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9141432b085032b46a0463eac5abbc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 715438846}
 --- !u!1 &784625884
 GameObject:
   m_ObjectHideFlags: 0
@@ -3581,6 +3651,7 @@ GameObject:
   - component: {fileID: 1077066259}
   - component: {fileID: 1077066258}
   - component: {fileID: 1077066257}
+  - component: {fileID: 1077066260}
   m_Layer: 5
   m_Name: CreateUnit (4)
   m_TagString: Untagged
@@ -3620,7 +3691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10ca26dd85e7274789abd04305811b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 7387470101939567078, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
+  unitPrefab: {fileID: 0}
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -3662,6 +3733,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1077066255}
   m_CullTransparentMesh: 1
+--- !u!114 &1077066260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077066255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9141432b085032b46a0463eac5abbc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 1077066258}
 --- !u!1 &1083147115
 GameObject:
   m_ObjectHideFlags: 0
@@ -4200,6 +4284,7 @@ GameObject:
   - component: {fileID: 1268254090}
   - component: {fileID: 1268254089}
   - component: {fileID: 1268254088}
+  - component: {fileID: 1268254091}
   m_Layer: 5
   m_Name: CreateUnit (2)
   m_TagString: Untagged
@@ -4239,7 +4324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10ca26dd85e7274789abd04305811b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 7387470101939567078, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
+  unitPrefab: {fileID: 0}
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -4281,6 +4366,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1268254086}
   m_CullTransparentMesh: 1
+--- !u!114 &1268254091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268254086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9141432b085032b46a0463eac5abbc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 1268254089}
 --- !u!1 &1307369441
 GameObject:
   m_ObjectHideFlags: 0
@@ -4293,6 +4391,7 @@ GameObject:
   - component: {fileID: 1307369445}
   - component: {fileID: 1307369444}
   - component: {fileID: 1307369443}
+  - component: {fileID: 1307369446}
   m_Layer: 5
   m_Name: CreateUnit
   m_TagString: Untagged
@@ -4332,7 +4431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10ca26dd85e7274789abd04305811b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 7387470101939567078, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
+  unitPrefab: {fileID: 0}
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -4374,6 +4473,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307369441}
   m_CullTransparentMesh: 1
+--- !u!114 &1307369446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307369441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9141432b085032b46a0463eac5abbc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 1307369444}
 --- !u!1 &1313266736
 GameObject:
   m_ObjectHideFlags: 0
@@ -4732,6 +4844,7 @@ GameObject:
   - component: {fileID: 1473877374}
   - component: {fileID: 1473877377}
   - component: {fileID: 1473877378}
+  - component: {fileID: 1473877379}
   m_Layer: 5
   m_Name: Createvirus (2)
   m_TagString: Untagged
@@ -4771,7 +4884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10ca26dd85e7274789abd04305811b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 7387470101939567078, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
+  unitPrefab: {fileID: 0}
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -4842,6 +4955,19 @@ MonoBehaviour:
   draggablePrefab: {fileID: 6039882794378326645, guid: cee6408b962bd6943ba1a9d9012bfc52, type: 3}
   buttonRect: {fileID: 1473877373}
   infectionTarget: {fileID: 7728631143488780850, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
+--- !u!114 &1473877379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473877372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9141432b085032b46a0463eac5abbc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 1473877375}
 --- !u!1 &1477283375
 GameObject:
   m_ObjectHideFlags: 0
@@ -5269,6 +5395,7 @@ GameObject:
   - component: {fileID: 1704316076}
   - component: {fileID: 1704316080}
   - component: {fileID: 1704316079}
+  - component: {fileID: 1704316081}
   m_Layer: 5
   m_Name: Createvirus (3)
   m_TagString: Untagged
@@ -5308,7 +5435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10ca26dd85e7274789abd04305811b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 7387470101939567078, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
+  unitPrefab: {fileID: 0}
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -5379,6 +5506,19 @@ MonoBehaviour:
   draggablePrefab: {fileID: 6039882794378326645, guid: cee6408b962bd6943ba1a9d9012bfc52, type: 3}
   buttonRect: {fileID: 1704316075}
   infectionTarget: {fileID: 7728631143488780850, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
+--- !u!114 &1704316081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704316074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9141432b085032b46a0463eac5abbc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 1704316077}
 --- !u!1 &1779060024
 GameObject:
   m_ObjectHideFlags: 0
@@ -6302,6 +6442,7 @@ GameObject:
   - component: {fileID: 2025828039}
   - component: {fileID: 2025828038}
   - component: {fileID: 2025828037}
+  - component: {fileID: 2025828040}
   m_Layer: 5
   m_Name: CreateUnit (7)
   m_TagString: Untagged
@@ -6341,7 +6482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10ca26dd85e7274789abd04305811b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 7387470101939567078, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
+  unitPrefab: {fileID: 0}
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -6383,6 +6524,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2025828035}
   m_CullTransparentMesh: 1
+--- !u!114 &2025828040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2025828035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9141432b085032b46a0463eac5abbc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 2025828038}
 --- !u!1 &2051358281
 GameObject:
   m_ObjectHideFlags: 0
@@ -6484,6 +6638,7 @@ GameObject:
   - component: {fileID: 2092159167}
   - component: {fileID: 2092159170}
   - component: {fileID: 2092159171}
+  - component: {fileID: 2092159172}
   m_Layer: 5
   m_Name: Createvirus (1)
   m_TagString: Untagged
@@ -6523,7 +6678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10ca26dd85e7274789abd04305811b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 7387470101939567078, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
+  unitPrefab: {fileID: 0}
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -6594,6 +6749,19 @@ MonoBehaviour:
   draggablePrefab: {fileID: 6039882794378326645, guid: cee6408b962bd6943ba1a9d9012bfc52, type: 3}
   buttonRect: {fileID: 2092159166}
   infectionTarget: {fileID: 7728631143488780850, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
+--- !u!114 &2092159172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092159165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9141432b085032b46a0463eac5abbc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 2092159168}
 --- !u!1 &2108905935
 GameObject:
   m_ObjectHideFlags: 0
@@ -6606,6 +6774,7 @@ GameObject:
   - component: {fileID: 2108905936}
   - component: {fileID: 2108905938}
   - component: {fileID: 2108905939}
+  - component: {fileID: 2108905940}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6675,6 +6844,45 @@ MonoBehaviour:
   obj2: {fileID: 1477283376}
   switchButton: {fileID: 1323259861}
   animDuration: 0
+--- !u!114 &2108905940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108905935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d191260dd59034ebd44365a9c09018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotUIs:
+  - {fileID: 1307369446}
+  - {fileID: 556769274}
+  - {fileID: 1268254091}
+  - {fileID: 653577466}
+  - {fileID: 1077066260}
+  - {fileID: 315995155}
+  - {fileID: 450238627}
+  - {fileID: 2025828040}
+  - {fileID: 715438850}
+  - {fileID: 2092159172}
+  - {fileID: 1473877379}
+  - {fileID: 1704316081}
+  unitParent: {fileID: 267418860}
+  dragHandlers:
+  - {fileID: 1307369443}
+  - {fileID: 556769271}
+  - {fileID: 1268254088}
+  - {fileID: 653577463}
+  - {fileID: 1077066257}
+  - {fileID: 315995152}
+  - {fileID: 450238624}
+  - {fileID: 2025828037}
+  - {fileID: 715438845}
+  - {fileID: 2092159167}
+  - {fileID: 1473877374}
+  - {fileID: 1704316076}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
