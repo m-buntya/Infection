@@ -97,17 +97,19 @@ public class OptionManager : MonoBehaviour
         optionCanvas.gameObject.SetActive(true);
     }
 
+    //シーン別のポジショニング
     private void Positioning(Scene scene)
     {
-        RectTransform rt = GetComponent<RectTransform>();
+        //RectTransform rt = GetComponent<RectTransform>();
+        RectTransform rt = OptionButton;
         if (scene.name == "TitleScene")
         {
-            rt.anchoredPosition = new Vector2(800, -430);
+            rt.anchoredPosition = new Vector2(734, -268);
             rt.sizeDelta = new Vector2(300, 200);
         }
         else if (scene.name == "HomeScene")
         {
-            rt.anchoredPosition = new Vector2(650, 460);
+            rt.anchoredPosition = new Vector2(1023, -152);
             rt.sizeDelta = new Vector2(200, 140);
         }
     }

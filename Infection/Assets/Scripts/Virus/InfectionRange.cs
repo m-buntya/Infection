@@ -12,7 +12,7 @@ public class InfectionRange : MonoBehaviour
     //初動処理（機能停止）
     private void Awake()
     {
-        this.enabled = false;
+        //this.enabled = false;
     }
 
     //グループ取得並びに範囲検知から持続的にウイルス感染拡大
