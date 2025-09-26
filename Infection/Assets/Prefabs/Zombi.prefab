@@ -104,6 +104,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8117029692756202307, guid: 867e976a028857f478f9aa420f504578, type: 3}
+      propertyPath: unitStats.lv
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 8117029692756202307, guid: 867e976a028857f478f9aa420f504578, type: 3}
+      propertyPath: unitStats.cost
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8117029692756202307, guid: 867e976a028857f478f9aa420f504578, type: 3}
+      propertyPath: unitStats.unitCode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8117029692756202307, guid: 867e976a028857f478f9aa420f504578, type: 3}
+      propertyPath: unitStats.unitName
+      value: Zombi
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
