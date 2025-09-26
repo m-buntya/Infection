@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: -6785354065269388855}
   - component: {fileID: -3211602140536115617}
   - component: {fileID: 5321081659909701848}
+  - component: {fileID: 8117029692756202307}
   m_Layer: 0
   m_Name: monster
   m_TagString: Untagged
@@ -310,6 +311,9 @@ MonoBehaviour:
   maxScaleX: 0.95
   duration: 5
   gaugeColor: {r: 1, g: 0, b: 0.025919914, a: 1}
+  gaugePrefub: {fileID: 0}
+  positionOffset: {x: 0, y: 0, z: 0}
+  infectionCompleteObject: {fileID: 0}
 --- !u!114 &-3211602140536115617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,3 +363,37 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 8.025
+--- !u!114 &8117029692756202307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4520513790756411374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 556ae3360c0c99e46b061698bf335eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitStats:
+    unitCode: 3
+    unitName: monster
+    leaderSkill: 1
+    role: 0
+    lv: 50
+    maxLv: 0
+    hp: 0
+    maxHp: 0
+    virusPoint: 0
+    virusMaxPoint: 0
+    enemyVirusPoint: 0
+    enemyVirusMaxPoint: 0
+    atk: 20
+    virusPow: 0
+    atkSpd: 0
+    spd: 0
+    range: 0
+    cost: 5
+    sortieCoolTime: 0
+  isEnemyUnit: 0
+  attackInterval: 1

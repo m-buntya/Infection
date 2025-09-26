@@ -71,17 +71,33 @@ public class FormationPanelManager : MonoBehaviour
 
     private string FormatUnitText(UnitController unitController)
     {
-        var stats = unitController.unitStats;
+        var attackBase = unitController.GetComponent<UnitAttackBace>();
+        if (attackBase == null || attackBase.unitStats == null)
+            return "ステータス情報が取得できません";
+
+        var stats = attackBase.unitStats;
 
         return
-        $"ユニット名: {stats.unitName}\n" +
-        $"コスト: {stats.cost}\n" +
-        //$"攻撃力: {stats.attackPower}\n\n" +
-        //$"{stats.unitDescription}" +
-        $"";
+            $"ユニット名: {stats.unitName}\n" +
+            $"レベル: {stats.lv}\n" +
+            $"ロール: {ConvertRoleToJapanese(stats.role)}\n" +
+            $"攻撃力: {stats.atk}\n" +
+            $"コスト: {stats.cost}";
     }
-
-
+    private string ConvertRoleToJapanese(UnitStats.ROLE role)
+    {
+        switch (role)
+        {
+            case UnitStats.ROLE.Attacker: return "アタッカー";
+            case UnitStats.ROLE.Tank: return "タンク";
+            case UnitStats.ROLE.Healer: return "ヒーラー";
+            case UnitStats.ROLE.Baffer: return "バッファー";
+            case UnitStats.ROLE.Debaffer: return "デバッファー";
+            case UnitStats.ROLE.Archer: return "アーチャー";
+            case UnitStats.ROLE.Wizard: return "魔法使い";
+            default: return "不明";
+        }
+    }
     public void ConfirmSelection()
     {
         if (sourceUnitButton != null && currentlySelectedUnit != null)

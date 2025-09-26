@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using System.Collections.Generic;
 using StatePatteren.State;
 public class UnitSlotSceneInitializer : MonoBehaviour
@@ -8,29 +8,31 @@ public class UnitSlotSceneInitializer : MonoBehaviour
 
     void Start()
     {
-        //Debug.Log("UnitSlotSceneInitializer ãNìÆ");
-
         var codes = UnitFormationStorage.LoadFormation(unitSlotButtons.Count);
 
         for (int i = 0; i < unitSlotButtons.Count; i++)
         {
             var slot = unitSlotButtons[i];
             string code = codes[i];
-            //Debug.Log($"ÉXÉçÉbÉg {i} ÇÃÉRÅ[Éh: {code}");
+            string iconName = PlayerPrefs.GetString($"unit_icon_{i}", "");
+
+            UnitController unit = null;
+            Sprite icon = null;
 
             if (!string.IsNullOrEmpty(code))
             {
-                var unit = UnitFactory.CreateUnitByCode(code);
-                //Debug.Log($"ê∂ê¨Ç≥ÇÍÇΩÉÜÉjÉbÉg: {unit?.name}");
-
-                slot.SetUnit(unit, placeholderSprite);
+                unit = UnitFactory.CreateUnitByCode(code);
             }
-            else
+
+            if (!string.IsNullOrEmpty(iconName))
             {
-                slot.SetUnit(null, placeholderSprite);
+                icon = Resources.Load<Sprite>($"Icons/{iconName}");
+                if (icon == null)
+                    Debug.LogWarning($"‚ùå Resources.Load Â§±Êïó: Icons/{iconName}");
             }
-        }
 
+            slot.SetUnit(unit, icon ?? placeholderSprite);
+        }
     }
     private Sprite TryGetUnitIcon(UnitController controller)
     {
