@@ -6674,7 +6674,7 @@ MonoBehaviour:
   obj1: {fileID: 267418860}
   obj2: {fileID: 1477283376}
   switchButton: {fileID: 1323259861}
-  animDuration: 0.5
+  animDuration: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
