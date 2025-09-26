@@ -85,7 +85,7 @@ public class StageSelectionController : MonoBehaviour
     {
         if (selectedStageData != null)
         {
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("StageScene");
         }
         else
         {
@@ -99,9 +99,10 @@ public class StageSelectionController : MonoBehaviour
             stageInfoPanel.SetActive(false);
     }
 
-    // 戻るボタンを押したときエリアシーンからマップシーンに戻る処理
+    // 戻るボタンを押したときエリアシーンからホームシーンに戻る処理
     private void OnAreaBackButtonClicked()
     { 
-            SceneManager.LoadScene("MapScene"); 
+            SceneManager.LoadScene("HomeScene"); 
+
     }
 }

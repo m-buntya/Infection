@@ -38,9 +38,19 @@ public class TapToChangeScene:MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    SceneManager.LoadScene(nextSceneName);
+        //}
+    }
+
+    public void OnTapScreen()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name == "TitleScene")
         {
             SceneManager.LoadScene(nextSceneName);
         }
     }
+
 }
