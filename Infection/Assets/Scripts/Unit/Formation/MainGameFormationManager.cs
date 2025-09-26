@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class MainGameFormationManager : MonoBehaviour
 {
@@ -12,22 +13,39 @@ public class MainGameFormationManager : MonoBehaviour
     [Header("ドラッグ可能なユニットボタン")]
     public List<UnitDragHandler> dragHandlers;
 
-    void Start()
+    IEnumerator Start()
     {
+        yield return null; // 1フレーム待機（必要なら）
+
         var formation = UnitFormationManager.GetFormation();
-        for(int i = 0; i < formation.slotDataList.Count; i++)
+        for (int i = 0; i < formation.slotDataList.Count; i++)
         {
             var data = formation.slotDataList[i];
             var unit = UnitCreator.CreateUnitByCode(data.unitCode);
-            if (unit != null && i < dragHandlers.Count)
+
+            Debug.Log($"[LOG] スロット {i}: unitCode = {data.unitCode}, unit = {(unit != null ? unit.name : "null")}");
+
+            if (i < dragHandlers.Count)
             {
-                dragHandlers[i].unitPrefab = unit.gameObject;
-                Debug.Log($"ユニット{data.unitCode}をスロット{i}に設定");
+                if (dragHandlers[i] == null)
+                {
+                    Debug.LogWarning($"[WARN] dragHandlers[{i}] が null です");
+                }
+                else
+                {
+                    dragHandlers[i].unitPrefab = unit?.gameObject;
+                    Debug.Log($"[LOG] dragHandlers[{i}].unitPrefab に {unit?.name ?? "null"} を設定しました");
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"[WARN] dragHandlers.Count = {dragHandlers.Count} に対して i = {i} が範囲外です");
             }
         }
 
         LoadFormationFromManager();
     }
+
 
     void LoadFormationFromManager()
     {
@@ -52,7 +70,8 @@ public class MainGameFormationManager : MonoBehaviour
                 instance.transform.position = GetSpawnPosition(i); // 任意の配置ロジック
             }
 
-            Debug.Log($"🧪 メインゲーム復元: スロット {i}, ユニット = {data.unitCode}, アイコン = {data.iconName}");
+            //Debug.Log($"🧪 メインゲーム復元: スロット {i}, ユニット = {data.unitCode}, アイコン = {data.iconName}");
+            Debug.Log($"[確認] スロット {i} の unitCode = '{data.unitCode}'");
         }
     }
 

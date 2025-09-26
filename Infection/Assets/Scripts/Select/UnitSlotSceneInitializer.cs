@@ -27,8 +27,8 @@ public class UnitSlotSceneInitializer : MonoBehaviour
             if (!string.IsNullOrEmpty(iconName))
             {
                 icon = Resources.Load<Sprite>($"Icons/{iconName}");
-                if (icon == null)
-                    Debug.LogWarning($"❌ Resources.Load 失敗: Icons/{iconName}");
+                if (icon == null) ;
+                    //Debug.LogWarning($"❌ Resources.Load 失敗: Icons/{iconName}");
             }
 
             slot.SetUnit(unit, icon ?? placeholderSprite);

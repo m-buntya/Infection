@@ -1,4 +1,3 @@
-// UnitCreator.cs に保存
 using StatePatteren.State;
 using UnityEngine;
 
@@ -6,15 +5,36 @@ public static class UnitCreator
 {
     public static UnitController CreateUnitByCode(string code)
     {
-        var prefab = Resources.Load<GameObject>($"Units/{code}");
+        string prefabName = GetPrefabNameByCode(code);
+        if (string.IsNullOrEmpty(prefabName))
+        {
+            Debug.LogWarning($"[UnitCreator] unitCode '{code}' に対応するプレハブ名が見つかりません");
+            return null;
+        }
+
+        var prefab = Resources.Load<GameObject>($"Units/{prefabName}");
         if (prefab == null)
         {
-            Debug.LogWarning($"ユニットPrefabが見つかりません: {code}");
+            Debug.LogWarning($"[UnitCreator] プレハブが見つかりません: Units/{prefabName}");
             return null;
         }
 
         var instance = GameObject.Instantiate(prefab);
-        var controller = instance.GetComponent<UnitController>();
-        return controller;
+        return instance.GetComponent<UnitController>();
     }
+
+    public static string GetPrefabNameByCode(string unitCode)
+    {
+        switch (unitCode)
+        {
+            case "Unit": return "Unit";
+            case "Zombie": return "Zombi";
+            case "virus": return "virus";
+            case "virus_Infection": return "virus_Infection";
+            case "White_Line_0": return "White_Line_0";
+            case "monster": return "monster";
+            default: return null;
+        }
+    }
+
 }

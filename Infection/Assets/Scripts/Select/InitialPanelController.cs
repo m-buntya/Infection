@@ -40,12 +40,12 @@ public class InitialPanelController :MonoBehaviour
     //決定ボタンを押したときに呼ぶ
     public void OnPressConfirm()
     {
-        Debug.Log("🟢 OnPressConfirm が呼ばれました");
+        //Debug.Log("🟢 OnPressConfirm が呼ばれました");
 
         try
         {
             UnitFormationManager.SaveFormation(unitSlotButtons);
-            Debug.Log($"🚪 シーン移動先: {nextSceneName}");
+            //Debug.Log($"🚪 シーン移動先: {nextSceneName}");
             SceneManager.LoadScene(nextSceneName);
         }
         catch (System.Exception ex)
