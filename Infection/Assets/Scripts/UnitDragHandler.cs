@@ -162,7 +162,7 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             dragEndTcs?.TrySetResult(eventData);
             return;
         }
-
+        
         RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
         if (hit.collider != null && hit.collider.CompareTag("DropField"))
         {

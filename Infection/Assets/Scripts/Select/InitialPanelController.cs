@@ -22,7 +22,7 @@ public class InitialPanelController :MonoBehaviour
 
     void Start()
     {
-        LoadUnitFormation();
+        LoadUnitFormationFromManager();
         foreach (var slot in unitSlotButtons)
         {
             initialSnapshot[slot] = slot.unitController;
@@ -40,9 +40,18 @@ public class InitialPanelController :MonoBehaviour
     //決定ボタンを押したときに呼ぶ
     public void OnPressConfirm()
     {
-       
-        SaveUnitFormation(); // ←これを有効化
-        SceneManager.LoadScene(nextSceneName);
+        //Debug.Log("🟢 OnPressConfirm が呼ばれました");
+
+        try
+        {
+            UnitFormationManager.SaveFormation(unitSlotButtons);
+            //Debug.Log($"🚪 シーン移動先: {nextSceneName}");
+            SceneManager.LoadScene(nextSceneName);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"❌ SaveFormation 中にエラー発生: {ex.Message}\n{ex.StackTrace}");
+        }
     }
 
     //ダイアログ内の「いいえ」ボタンを呼ぶ（ダイアログを閉じる）
@@ -136,37 +145,31 @@ public class InitialPanelController :MonoBehaviour
 
         PlayerPrefs.Save();
     }
-    private void LoadUnitFormation()
+   private void LoadUnitFormationFromManager()
+{
+    var formation = UnitFormationManager.GetFormation();
+
+    for (int i = 0; i < unitSlotButtons.Count; i++)
     {
-        for (int i = 0; i < unitSlotButtons.Count; i++)
+        var slot = unitSlotButtons[i];
+
+        if (i < formation.slotDataList.Count)
         {
-            string code = PlayerPrefs.GetString($"unit_slot_{i}", "");
-            string iconName = PlayerPrefs.GetString($"unit_icon_{i}", "");
-            Debug.Log($"🧪 スロット {i}: code = {code}, iconName = {iconName}");
+            var data = formation.slotDataList[i];
+            var unit = UnitCreator.CreateUnitByCode(data.unitCode);
+            var icon = !string.IsNullOrEmpty(data.iconName)
+                ? Resources.Load<Sprite>($"Icons/{data.iconName}")
+                : placeholderSprite;
+
+            slot.SetUnit(unit, icon ?? placeholderSprite, data.unitCode);
+
+            //Debug.Log($"🧩 スロット {i} 復元: unitCode = {data.unitCode}, iconName = {data.iconName}");
         }
-
-
-        for (int i = 0; i < unitSlotButtons.Count; i++)
+        else
         {
-            var slot = unitSlotButtons[i];
-            string code = PlayerPrefs.GetString($"unit_slot_{i}", "");
-            string iconName = PlayerPrefs.GetString($"unit_icon_{i}", "");
-
-
-
-            if (!string.IsNullOrEmpty(code))
-            {
-                var unit = UnitCreator.CreateUnitByCode(code);
-                Sprite icon = !string.IsNullOrEmpty(iconName)
-                    ? Resources.Load<Sprite>($"Icons/{iconName}")
-                    : null;
-
-                slot.SetUnit(unit, icon ?? placeholderSprite, code); // ✅ code を渡す
-            }
-            else
-            {
-                slot.SetUnit(null, placeholderSprite); // 空スロットにも対応
-            }
+            slot.SetUnit(null, placeholderSprite);
+            //Debug.Log($"🧩 スロット {i} は空です");
         }
     }
+}
 }
