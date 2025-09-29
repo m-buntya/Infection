@@ -19,6 +19,9 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     [Header("禁止エリアのLayer")]
     [SerializeField] private LayerMask blockAreaLayer;
 
+    // グレーアウト用UIオブジェクト
+    [SerializeField] GameObject GrayOutObj;
+
     private GameObject dragPreviewObject;
     private Camera cam;
 
@@ -26,16 +29,41 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public static TaskCompletionSource<PointerEventData> dragEndTcs;
 
+    bool isDrag = false;
+
     // 最後に合法だった位置を記録
     private Vector3? lastValidPosition = null;
 
     private void Start()
     {
         cam = Camera.main;
+        isDrag = false;
+    }
+
+    // ドラッグ可能か
+    public void SetIsDrag(bool set)
+    {
+        isDrag = set;
+        GrayOut();
+    }
+
+    // グレーアウト処理
+    void GrayOut()
+    {
+        if(isDrag)
+        {
+            GrayOutObj.SetActive(false);
+        }
+        else
+        {
+            GrayOutObj.SetActive(true);
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (!isDrag) return;
+
         dragEndTcs = new TaskCompletionSource<PointerEventData>();
 
         dragPreviewObject = Instantiate(unitPrefab);
