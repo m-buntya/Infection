@@ -71,6 +71,6 @@ public class UnitSlotButton : MonoBehaviour
         {
             Debug.LogWarning("❌ iconImage が取得できませんでした");
         }
-        Debug.Log($"🧪 SetUnit 呼び出し: icon = {icon?.name}, enabled = {iconImage.enabled}, sprite = {iconImage.sprite?.name}");
+        //Debug.Log($"🧪 SetUnit 呼び出し: icon = {icon?.name}, enabled = {iconImage.enabled}, sprite = {iconImage.sprite?.name}");
     }
 }

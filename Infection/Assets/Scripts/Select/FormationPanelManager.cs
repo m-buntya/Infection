@@ -23,6 +23,8 @@ public class FormationPanelManager : MonoBehaviour
     private UnitController initiallySelectedUnit;
     private UnitSlotButton sourceUnitButton;
     private UnitController currentlySelectedUnit;
+    private FormationUnitButton currentlySelectedButton;
+
 
     private void Start()
     {
@@ -41,7 +43,7 @@ public class FormationPanelManager : MonoBehaviour
         unitPanel.SetActive(!isVirus);
         virusPanel.SetActive(isVirus);
 
-        HighlightUnit(unitController);
+        HighlightUnit(unitController); 
     }
 
     public void HighlightUnit(UnitController selectedUnit)
@@ -54,7 +56,6 @@ public class FormationPanelManager : MonoBehaviour
         }
 
         string formattedText = FormatUnitText(selectedUnit);
-
         if (selectedUnit.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY)
         {
             virusDescriptionText.text = formattedText;
@@ -66,6 +67,7 @@ public class FormationPanelManager : MonoBehaviour
             virusDescriptionText.text = "";
         }
     }
+
 
 
 
