@@ -11,18 +11,19 @@ public static class ImageStorageManager
     public static Sprite LoadIcon(int slotIndex, Sprite fallback)
     {
         string iconName = PlayerPrefs.GetString($"unit_icon_{slotIndex}", "");
-        Debug.Log($"🧪 LoadIcon: slot {slotIndex}, iconName = {iconName}");
+        //Debug.Log($"🧪 LoadIcon: slot {slotIndex}, iconName = {iconName}");
 
         if (!string.IsNullOrEmpty(iconName))
         {
-            Sprite icon = Resources.Load<Sprite>($"Icons/{iconName}");
+            // ✅ パスを "Sprites/" に変更
+            Sprite icon = Resources.Load<Sprite>($"Sprites/{iconName}");
             if (icon != null)
             {
-                Debug.Log($"✅ Resources.Load 成功: Icons/{iconName}");
+                Debug.Log($"✅ Resources.Load 成功: Sprites/{iconName}");
                 return icon;
             }
 
-            Debug.LogWarning($"❌ Resources.Load 失敗: Icons/{iconName}");
+            Debug.LogWarning($"❌ Resources.Load 失敗: Sprites/{iconName}");
         }
         else
         {
@@ -31,7 +32,6 @@ public static class ImageStorageManager
 
         return fallback;
     }
-
     public static void ClearIcon(int slotIndex)
     {
         PlayerPrefs.DeleteKey($"unit_icon_{slotIndex}");
