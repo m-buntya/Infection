@@ -54,9 +54,6 @@ public class UnitSlotButton : MonoBehaviour
     }
     public void SetUnit(UnitController controller, Sprite icon, string code = "")
     {
-        if (iconImage == null)
-            iconImage = GetComponentInChildren<Image>(); // ✅ 保険として再取得
-
         unitController = controller;
         unitCode = code;
         iconName = icon != null ? icon.name : "";
@@ -65,12 +62,24 @@ public class UnitSlotButton : MonoBehaviour
         {
             iconImage.enabled = true;
             iconImage.sprite = icon;
-            //Debug.Log($"🖼️ SetUnit: 表示中の画像 = {iconImage.sprite?.name}");
         }
-        else
-        {
-            Debug.LogWarning("❌ iconImage が取得できませんでした");
-        }
-        //Debug.Log($"🧪 SetUnit 呼び出し: icon = {icon?.name}, enabled = {iconImage.enabled}, sprite = {iconImage.sprite?.name}");
+      
+    string unitName = controller?.unitStats?.unitName ?? "null";
+        string iconLabel = icon != null ? icon.name : "null";
+        //Debug.Log($"🧩 SetUnit: unitCode = {unitCode}, unitName = {unitName}, iconName = {iconLabel}");
+
     }
+    //public void RestoreIconFromName()
+    //{
+    //    if (!string.IsNullOrEmpty(iconName))
+    //    {
+    //        var icon = Resources.Load<Sprite>($"Icons/{iconName}");
+    //        if (iconImage != null)
+    //        {
+    //            iconImage.sprite = icon ?? placeholderSprite;
+    //            iconImage.enabled = icon != null;
+    //        }
+    //    }
+    //}
+
 }
