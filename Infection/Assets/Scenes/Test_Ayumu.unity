@@ -9954,7 +9954,6 @@ MonoBehaviour:
   - {fileID: 1483928338}
   - {fileID: 1018204960}
   unitObj: {fileID: 7387470101939567078, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
-  UnitSpawnPoint: {fileID: 0}
   EnemySpawnPoint: {fileID: 0}
 --- !u!4 &2020192914
 Transform:

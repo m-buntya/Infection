@@ -33,25 +33,40 @@ public class UnitGenerater : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        CostCheck();
+    }
+
+    // コストが足りているか
+    public void CostCheck()
+    {
+        foreach(GameObject unitIcon in unitIcon)
+        {
+            UnitDragHandler ud = unitIcon.GetComponent<UnitDragHandler>();
+
+            if (costManager.CanAfford(unitStatsDic[unitIcon].cost))
+            {
+                ud.SetIsDrag(true);
+            }
+            else
+            {
+                ud.SetIsDrag(false);
+            }
+        }
+    }
+
     // 部隊生成
     public void UnitGenerate(GameObject create, Vector3 pos)
     {
-        if (!costManager.CanAfford(unitStatsDic[create].cost))
-        {
-            Debug.Log("コストが足りません");
-            return;
-        }
-        else
-        {
-            GameObject unit = Instantiate(unitObj, pos, Quaternion.identity);
+        GameObject unit = Instantiate(unitObj, pos, Quaternion.identity);
 
-            UnitController unitController = unit.GetComponent<UnitController>();
-            unitController.SetUnitStats(Clone(unitStatsDic[create]));
-            unitController.SetUnitGroup(UnitController.UNIT_GROUP.PLAYER);
+        UnitController unitController = unit.GetComponent<UnitController>();
+        unitController.SetUnitStats(Clone(unitStatsDic[create]));
+        unitController.SetUnitGroup(UnitController.UNIT_GROUP.PLAYER);
 
-            unitManager.AddUnitList(unit, "Player");
-            costManager.SpendCost(unitController.unitStats.cost);
-        }
+        unitManager.AddUnitList(unit, "Player");
+        costManager.SpendCost(unitController.unitStats.cost);
     }
 
     // 敵部隊生成
