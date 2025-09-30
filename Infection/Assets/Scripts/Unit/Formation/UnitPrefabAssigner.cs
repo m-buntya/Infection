@@ -8,27 +8,30 @@ public class UnitPrefabAssigner : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("[Assigner] Start 実行");
+
         var formation = UnitFormationManager.GetFormation();
         if (formation == null)
         {
-            Debug.LogError("[UnitPrefabAssigner] formation が null");
+            Debug.LogError("[Assigner] formation が null");
             return;
         }
 
         for (int i = 0; i < dragHandlers.Count && i < formation.slotDataList.Count; i++)
         {
             var data = formation.slotDataList[i];
-            string prefabPath = $"Units/{data.unitCode}"; // 例: Units/warrior
+            string path = $"Units/{data.unitCode}";
+            var prefab = Resources.Load<GameObject>(path);
 
-            GameObject prefab = Resources.Load<GameObject>(prefabPath);
             if (prefab == null)
             {
-                Debug.LogWarning($"[UnitPrefabAssigner] プレハブ読み込み失敗: {prefabPath}");
+                Debug.LogWarning($"[Assigner] プレハブ読み込み失敗: {path}");
                 continue;
             }
 
             dragHandlers[i].unitPrefab = prefab;
-            Debug.Log($"[UnitPrefabAssigner] unitPrefab セット: slot[{i}] = {prefab.name}");
+            Debug.Log($"[Assigner] 割り当て成功: slot[{i}] = {prefab.name}");
         }
     }
+
 }

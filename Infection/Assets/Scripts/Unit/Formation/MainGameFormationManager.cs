@@ -47,7 +47,7 @@ public class MainGameFormationManager : MonoBehaviour
             }
 
             // 🔍 デバッグログで確認
-            Debug.Log($"🧩 読み込み: slot[{i}] unitCode = {data.unitCode}, iconName = {data.iconName}, icon = {(icon != null ? icon.name : "null")}");
+            //Debug.Log($"🧩 読み込み: slot[{i}] unitCode = {data.unitCode}, iconName = {data.iconName}, icon = {(icon != null ? icon.name : "null")}");
         }
     }
 
