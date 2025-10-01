@@ -15,35 +15,40 @@ public class MainGameFormationManager : MonoBehaviour
 
     IEnumerator Start()
     {
-        yield return null; // 1フレーム待機（必要なら）
+        yield return null;
 
         var formation = UnitFormationManager.GetFormation();
+        if (formation == null)
+        {
+            Debug.LogError("[MainGame] formation が null です");
+            yield break;
+        }
+
         for (int i = 0; i < formation.slotDataList.Count; i++)
         {
             var data = formation.slotDataList[i];
+
+            
+            var icon = Resources.Load<Sprite>($"Sprites/{data.iconName}");
+
             var unit = UnitCreator.CreateUnitByCode(data.unitCode);
 
-            Debug.Log($"[LOG] スロット {i}: unitCode = {data.unitCode}, unit = {(unit != null ? unit.name : "null")}");
+            // UIに反映
+            if (i < slotUIs.Count)
+            {
+                slotUIs[i].SetUnit(unit, icon);
+            }
 
-            if (i < dragHandlers.Count)
+            // ゲーム空間に配置
+            if (unit != null)
             {
-                if (dragHandlers[i] == null)
-                {
-                    Debug.LogWarning($"[WARN] dragHandlers[{i}] が null です");
-                }
-                else
-                {
-                    dragHandlers[i].unitPrefab = unit?.gameObject;
-                    Debug.Log($"[LOG] dragHandlers[{i}].unitPrefab に {unit?.name ?? "null"} を設定しました");
-                }
+                var instance = Instantiate(unit.gameObject, unitParent);
+                instance.transform.position = GetSpawnPosition(i);
             }
-            else
-            {
-                Debug.LogWarning($"[WARN] dragHandlers.Count = {dragHandlers.Count} に対して i = {i} が範囲外です");
-            }
+
+            // 🔍 デバッグログで確認
+            //Debug.Log($"🧩 読み込み: slot[{i}] unitCode = {data.unitCode}, iconName = {data.iconName}, icon = {(icon != null ? icon.name : "null")}");
         }
-
-        LoadFormationFromManager();
     }
 
 

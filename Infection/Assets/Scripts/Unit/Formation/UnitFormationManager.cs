@@ -8,40 +8,39 @@ public static class UnitFormationManager
     public static void SaveFormation(List<UnitSlotButton> buttons)
     {
         currentFormation.slotDataList.Clear();
-        //Debug.Log($"📦 SaveFormation 開始: {buttons.Count} スロット");
 
-        foreach (var button in buttons)
+        for (int i = 0; i < buttons.Count; i++)
         {
-            //Debug.Log($"🔍 スロット: unitCode = {button.unitCode}, icon = {button.iconImage?.sprite?.name}");
+            var button = buttons[i];
+            string iconName = button.iconImage?.sprite?.name ?? "";
+
+            //Debug.Log($"🔍 スロット {i}: unitCode = {button.unitCode}, icon = {iconName}");
 
             var data = new UnitSlotData
             {
                 unitCode = button.unitCode,
-                iconName = button.iconImage?.sprite?.name ?? ""
+                iconName = iconName
             };
             currentFormation.slotDataList.Add(data);
+
+            // 🔽 PlayerPrefs に保存（画像名）
+            PlayerPrefs.SetString($"unit_icon_{i}", iconName);
+            PlayerPrefs.SetString($"unit_code_{i}", button.unitCode);
         }
 
-        //Debug.Log($"📦 SaveFormation 完了: {currentFormation.slotDataList.Count} 件保存");
+        PlayerPrefs.Save(); // 🔽 明示的に保存
+        Debug.Log($"📦 SaveFormation 完了: {currentFormation.slotDataList.Count} 件保存");
+    }
+
+    public static void SetFormation(UnitFormationData formation)
+    {
+        currentFormation = formation;
     }
 
     public static UnitFormationData GetFormation()
     {
-        //Debug.Log("📤 GetFormation 呼び出し");
-
-        if (currentFormation == null)
-        {
-            Debug.LogWarning("⚠️ currentFormation が null");
-        }
-
-        //Debug.Log($"📤 slotDataList 件数: {currentFormation.slotDataList.Count}");
-
-        for (int i = 0; i < currentFormation.slotDataList.Count; i++)
-        {
-            var data = currentFormation.slotDataList[i];
-            //Debug.Log($"🔁 復元スロット {i}: {data.unitCode}, {data.iconName}");
-        }
-
         return currentFormation;
     }
+
+
 }

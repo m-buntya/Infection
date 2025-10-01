@@ -40,12 +40,10 @@ public class InitialPanelController :MonoBehaviour
     //決定ボタンを押したときに呼ぶ
     public void OnPressConfirm()
     {
-        //Debug.Log("🟢 OnPressConfirm が呼ばれました");
-
         try
         {
+            SaveUnitFormation(); // 🔽 これを追加！
             UnitFormationManager.SaveFormation(unitSlotButtons);
-            //Debug.Log($"🚪 シーン移動先: {nextSceneName}");
             SceneManager.LoadScene(nextSceneName);
         }
         catch (System.Exception ex)
@@ -127,49 +125,52 @@ public class InitialPanelController :MonoBehaviour
 
             if (controller != null)
             {
-                // ユニットコードの保存（UnitSlotButton側で保持）
                 string code = slot.unitCode;
                 PlayerPrefs.SetString($"unit_slot_{i}", code);
 
-                // アイコン画像の保存（Sprite.nameを保存）
                 var icon = slot.iconImage?.sprite;
-                ImageStorageManager.SaveIconName(i, icon); 
+                ImageStorageManager.SaveIconName(i, icon);
+
+                // 🔍 ログ追加
+                string unitName = controller.unitStats?.unitName ?? "null";
+                string iconLabel = icon != null ? icon.name : "null";
+                //Debug.Log($"💾 保存: slot[{i}] unitCode = {code}, unitName = {unitName}, icon = {iconLabel}");
             }
             else
             {
-                // 空スロットなら削除
                 PlayerPrefs.DeleteKey($"unit_slot_{i}");
                 ImageStorageManager.ClearIcon(i);
+
+                // 🔍 空スロットログ
+                //Debug.Log($"💾 保存: slot[{i}] は空です（削除）");
             }
         }
 
         PlayerPrefs.Save();
     }
-   private void LoadUnitFormationFromManager()
-{
-    var formation = UnitFormationManager.GetFormation();
-
-    for (int i = 0; i < unitSlotButtons.Count; i++)
+    private void LoadUnitFormationFromManager()
     {
-        var slot = unitSlotButtons[i];
+        var formation = UnitFormationManager.GetFormation();
 
-        if (i < formation.slotDataList.Count)
+        for (int i = 0; i < unitSlotButtons.Count; i++)
         {
-            var data = formation.slotDataList[i];
-            var unit = UnitCreator.CreateUnitByCode(data.unitCode);
-            var icon = !string.IsNullOrEmpty(data.iconName)
-                ? Resources.Load<Sprite>($"Icons/{data.iconName}")
-                : placeholderSprite;
+            var slot = unitSlotButtons[i];
 
-            slot.SetUnit(unit, icon ?? placeholderSprite, data.unitCode);
+            if (i < formation.slotDataList.Count)
+            {
+                var data = formation.slotDataList[i];
+                var unit = UnitCreator.CreateUnitByCode(data.unitCode);
 
-            //Debug.Log($"🧩 スロット {i} 復元: unitCode = {data.unitCode}, iconName = {data.iconName}");
-        }
-        else
-        {
-            slot.SetUnit(null, placeholderSprite);
-            //Debug.Log($"🧩 スロット {i} は空です");
+                // ✅ ここで LoadIcon を使う
+                var icon = ImageStorageManager.LoadIcon(i, placeholderSprite);
+
+                // ✅ SetUnit に渡すのは LoadIcon の結果
+                slot.SetUnit(unit, icon, data.unitCode);
+            }
+            else
+            {
+                slot.SetUnit(null, placeholderSprite);
+            }
         }
     }
-}
 }

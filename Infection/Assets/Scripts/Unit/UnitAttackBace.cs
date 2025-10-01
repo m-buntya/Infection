@@ -1,11 +1,12 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class UnitAttackBace:MonoBehaviour
 {
-    public UnitStats unitStats; //ƒ†ƒjƒbƒg‚ÌƒXƒe[ƒ^ƒX
-    public bool isEnemyUnit = false; //‚±‚Ìƒ†ƒjƒbƒg‚ª“G‚©‚Ç‚¤‚©
+    public UnitStats unitStats; //ãƒ¦ãƒ‹ãƒƒãƒˆã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+    public bool isEnemyUnit = false; //ã“ã®ãƒ¦ãƒ‹ãƒƒãƒˆãŒæ•µã‹ã©ã†ã‹
     public float attackInterval= 1f;
     private float attackTimer = 0f;
+
 
     private void Update()
     {
@@ -21,14 +22,14 @@ public class UnitAttackBace:MonoBehaviour
             int damage = Mathf.RoundToInt(unitStats.atk);
             if (isEnemyUnit && other.CompareTag("PlayerBace"))
             {
-                gameClearController.ApplyDamageToBase(false, damage); //ƒvƒŒƒCƒ„[‹’“_‚Éƒ_ƒ[ƒW
-                Debug.Log($"{unitStats.unitName}i“Gj‚ªƒvƒŒƒCƒ„[‹’“_‚É{damage}ƒ_ƒ[ƒW‚ğ—^‚¦‚½");
+                gameClearController.ApplyDamageToBase(false, damage); //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ‹ ç‚¹ã«ãƒ€ãƒ¡ãƒ¼ã‚¸
+                Debug.Log($"{unitStats.unitName}ï¼ˆæ•µï¼‰ãŒãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ‹ ç‚¹ã«{damage}ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆãŸ");
                 attackTimer = 0f;
             }
-            else if (!isEnemyUnit && other.CompareTag("EnemyBace"))@//“G‹’“_‚Éƒ_ƒ[ƒW
+            else if (!isEnemyUnit && other.CompareTag("EnemyBace"))ã€€//æ•µæ‹ ç‚¹ã«ãƒ€ãƒ¡ãƒ¼ã‚¸
             {
                 gameClearController.ApplyDamageToBase(true, damage);
-                Debug.Log($"{unitStats.unitName}i–¡•ûj‚ª“G‹’“_‚É{damage}ƒ_ƒ[ƒW‚ğ—^‚¦‚½");
+                Debug.Log($"{unitStats.unitName}ï¼ˆå‘³æ–¹ï¼‰ãŒæ•µæ‹ ç‚¹ã«{damage}ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆãŸ");
                 attackTimer = 0f;
             }
             }
