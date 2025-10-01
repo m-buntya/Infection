@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using StatePatteren.State;
@@ -12,7 +12,11 @@ public class FormationUnitButton : MonoBehaviour
 
     public UnitController unitcontroller;
 
-    [Header("ï\é¶ópUI")]
+    public UnitAttackBace attackBace;
+
+    private UnitStats currentlySelectedStats;
+
+    [Header("Ë°®Á§∫Áî®UI")]
     public TextMeshProUGUI roleText;
     public TextMeshProUGUI soldierCntText;
     public TextMeshProUGUI hpText;
@@ -23,8 +27,9 @@ public class FormationUnitButton : MonoBehaviour
     public TextMeshProUGUI rangeText;
     public TextMeshProUGUI costText;
     public TextMeshProUGUI unitNameText;
+    public TextMeshProUGUI unitCodeText;
 
-    [Header("ï∫émêîÅiäOïîÇ©ÇÁê›íËÅj")]
+    [Header("ÂÖµÂ£´Êï∞ÔºàÂ§ñÈÉ®„Åã„ÇâË®≠ÂÆöÔºâ")]
     public int soldierCnt = 0;
 
     private void Start()
@@ -44,6 +49,8 @@ public class FormationUnitButton : MonoBehaviour
                 {
                     var stats = attackBace.unitStats;
 
+                    
+
                     roleText.text = stats.role.ToString();
                     soldierCntText.text = soldierCnt.ToString();
                     hpText.text = stats.maxHp.ToString("F1");
@@ -54,13 +61,24 @@ public class FormationUnitButton : MonoBehaviour
                     rangeText.text = stats.range.ToString();
                     costText.text = stats.cost.ToString();
                     unitNameText.text = stats.unitName;
+                    unitCodeText.text = stats.unitCode.ToString();
+
+                    var icon = unitPrefub.GetComponentInChildren<SpriteRenderer>()?.sprite;
+                    var slotButton = panelManager.GetCurrentSlotButton();
+                    if (slotButton != null)
+                    {
+                        slotButton.SetUnit(unitcontroller, icon, stats.unitCode.ToString(), stats.unitName);
+                        Debug.Log($"üì¶ FormationUnitButton: unitCode = {stats.unitCode}, unitName = {stats.unitName}, iconName = {icon?.name}");
+                        Debug.Log($"üîç unitcontroller = {unitcontroller.name}, instanceID = {unitcontroller.GetInstanceID()}");
+                    }
                 }
                 else
                 {
-                    Debug.LogWarning("UnitAttackBace Ç‹ÇΩÇÕ unitStats Ç™ null Ç≈Ç∑");
+                    Debug.LogWarning("UnitAttackBace „Åæ„Åü„ÅØ unitStats „Åå null „Åß„Åô");
                 }
             });
         }
+        attackBace = unitPrefub.GetComponent<UnitAttackBace>();
 
         SetRedFrameVisible(false);
     }

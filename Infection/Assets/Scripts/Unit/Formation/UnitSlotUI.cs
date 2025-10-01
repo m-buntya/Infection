@@ -10,7 +10,7 @@ public class UnitSlotUI : MonoBehaviour
     {
         string unitName = unit?.unitStats?.unitName ?? "null";
         string iconLabel = icon != null ? icon.name : "null";
-        Debug.Log($"🧩 UI反映: unit = {unitName}, icon = {iconLabel}");
+        //Debug.Log($"🧩 UI反映: unit = {unitName}, icon = {iconLabel}");
 
         if (iconImage != null)
         {

@@ -15,6 +15,8 @@ public class UnitSlotButton : MonoBehaviour
 
     public string unitCode; // ✅ ユニット識別コード（保存用）
     public string iconName; // 保存用
+
+    public string unitName;
     void Awake()
     {
         if (iconImage == null)
@@ -52,10 +54,11 @@ public class UnitSlotButton : MonoBehaviour
 
         return null;
     }
-    public void SetUnit(UnitController controller, Sprite icon, string code = "")
+    public void SetUnit(UnitController controller, Sprite icon, string code = "", string name = "")
     {
         unitController = controller;
         unitCode = code;
+        unitName = name;
         iconName = icon != null ? icon.name : "";
 
         if (iconImage != null)
@@ -63,11 +66,8 @@ public class UnitSlotButton : MonoBehaviour
             iconImage.enabled = true;
             iconImage.sprite = icon;
         }
-      
-    string unitName = controller?.unitStats?.unitName ?? "null";
-        string iconLabel = icon != null ? icon.name : "null";
-        //Debug.Log($"🧩 SetUnit: unitCode = {unitCode}, unitName = {unitName}, iconName = {iconLabel}");
 
+        Debug.Log($"🧩 SetUnit 呼び出し: unitCode = {unitCode}, unitName = {unitName}, iconName = {iconName}");
     }
     //public void RestoreIconFromName()
     //{

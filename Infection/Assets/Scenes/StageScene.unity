@@ -7397,6 +7397,7 @@ GameObject:
   - component: {fileID: 2108905940}
   - component: {fileID: 2108905941}
   - component: {fileID: 2108905942}
+  - component: {fileID: 2108905943}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7532,6 +7533,31 @@ MonoBehaviour:
   castleManager: {fileID: 10238985}
   playerCastle: {fileID: 1260065271}
   enemyCastle: {fileID: 210303159}
+--- !u!114 &2108905943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108905935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96bee648eaa6aec4c975c4fa05175fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragHandlers:
+  - {fileID: 1307369443}
+  - {fileID: 556769271}
+  - {fileID: 1268254088}
+  - {fileID: 653577463}
+  - {fileID: 1077066257}
+  - {fileID: 315995152}
+  - {fileID: 450238624}
+  - {fileID: 2025828037}
+  - {fileID: 715438845}
+  - {fileID: 2092159167}
+  - {fileID: 1473877374}
+  - {fileID: 1704316076}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

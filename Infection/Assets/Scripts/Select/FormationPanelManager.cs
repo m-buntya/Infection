@@ -105,8 +105,30 @@ public class FormationPanelManager : MonoBehaviour
         if (sourceUnitButton != null && currentlySelectedUnit != null)
         {
             var icon = TryGetUnitIcon(currentlySelectedUnit);
-            var code = currentlySelectedUnit.unitStats.unitCode.ToString(); 
-            sourceUnitButton.SetUnit(currentlySelectedUnit, icon, code);
+            var stats = currentlySelectedUnit.unitStats;
+            if (stats != null)
+            {
+                Debug.Log($"🧬 unitStats 内容: unitCode = {stats.unitCode}, unitName = '{stats.unitName}', atk = {stats.atk}");
+            }
+            else
+            {
+                Debug.LogWarning("⚠️ unitStats が null です");
+            }
+
+            if (stats != null)
+            {
+                var code = stats.unitCode.ToString();
+                var name = stats.unitName;
+
+                Debug.Log($"🧠 ConfirmSelection: unitCode = {code}, unitName = {name}, iconName = {icon?.name}");
+                Debug.Log($"🔍 currentlySelectedUnit = {currentlySelectedUnit.name}, instanceID = {currentlySelectedUnit.GetInstanceID()}");
+
+                sourceUnitButton.SetUnit(currentlySelectedUnit, icon, code, name);
+            }
+            else
+            {
+                Debug.LogWarning("⚠️ ConfirmSelection: unitStats が null です");
+            }
         }
 
         CloseConfirmDialog();
@@ -157,6 +179,10 @@ public class FormationPanelManager : MonoBehaviour
             return spriteRenderer.sprite;
 
         return null;
+    }
+    public UnitSlotButton GetCurrentSlotButton()
+    {
+        return sourceUnitButton;
     }
 
 }
