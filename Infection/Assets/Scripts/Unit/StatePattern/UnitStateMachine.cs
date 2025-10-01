@@ -27,7 +27,7 @@ namespace StatePatteren.State
 
         public void TransitionTo(UnitState nextState)
         {
-            //Debug.Log($"{CurrenState}‚©‚ç{nextState}‚ÖˆÚs‚µ‚Ü‚·");
+            Debug.Log($"{CurrenState}‚©‚ç{nextState}‚ÖˆÚs‚µ‚Ü‚·");
 
             CurrenState.Exit();
             CurrenState = nextState;

@@ -13,9 +13,6 @@ public static class WaitEndDrag
 
 public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    CostManager costManager;
-    UnitGenerater unitGenerator;
-
     [Header("配置するユニットプレハブ")]
     public GameObject unitPrefab;
 
@@ -41,31 +38,12 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         cam = Camera.main;
         isDrag = false;
-        costManager = GameObject.Find("GameManager").GetComponent<CostManager>();
-        unitGenerator = GameObject.Find("UnitGenerater").GetComponent<UnitGenerater>(); 
     }
 
-    void Update()
+    // ドラッグ可能か
+    public void SetIsDrag(bool set)
     {
-        CostCheck();
-    }
-
-    // コストが足りているか
-    public void CostCheck()
-    {
-        if(unitGenerator.GetStats(gameObject).cost <= 0)
-        {
-            isDrag = false;
-        }
-        else if (costManager.CanAfford(unitGenerator.GetStats(gameObject).cost))
-        {
-            isDrag = true;
-        }
-        else
-        {
-            isDrag = false;
-        }
-
+        isDrag = set;
         GrayOut();
     }
 
@@ -153,18 +131,18 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //UnitCost unitCost = dragPreviewObject?.GetComponent<UnitCost>();
+        UnitCost unitCost = dragPreviewObject?.GetComponent<UnitCost>();
 
-        //Debug.Log($"現在のコスト: {CostManager.Instance?.GetCurrentCost()}");
-        //Debug.Log($"UnitCost: {unitCost}");
+        Debug.Log($"現在のコスト: {CostManager.Instance?.GetCurrentCost()}");
+        Debug.Log($"UnitCost: {unitCost}");
 
-        //if (unitCost != null && !unitCost.TryConsumeCost())
-        //{
-        //    dragEndTcs?.TrySetResult(eventData);
-        //    Destroy(dragPreviewObject);
-        //    return; // コスト不足 → 配置キャンセル
-        //}
-        if (!isDrag) return;
+        if (unitCost != null && !unitCost.TryConsumeCost())
+        {
+            dragEndTcs?.TrySetResult(eventData);
+            Destroy(dragPreviewObject);
+            return; // コスト不足 → 配置キャンセル
+        }
+
         if (dragPreviewObject != null)
         {
             Destroy(dragPreviewObject);
