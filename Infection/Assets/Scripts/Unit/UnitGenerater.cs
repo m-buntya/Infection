@@ -10,7 +10,7 @@ public class UnitGenerater : MonoBehaviour
     [SerializeField] Squad squadData;
 
     UnitManager unitManager;
-    [SerializeField] CostManager costManager;
+    CostManager costManager;
     PrefabGridManager prefabGridManager;
 
     [SerializeField] List<GameObject> unitIcon;      // 部隊アイコン
@@ -21,6 +21,7 @@ public class UnitGenerater : MonoBehaviour
     void Start()
     {
         unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
+        costManager = GameObject.Find("GameManager").GetComponent<CostManager>();
         prefabGridManager = GameObject.Find("Enemy_TilePlacer").GetComponent<PrefabGridManager>();
 
         StartCoroutine(EnemyGenerate());
@@ -29,29 +30,6 @@ public class UnitGenerater : MonoBehaviour
         {
             unitStatsDic[unitIcon[i]] = squadData.squadList[0].units[i];
             UnitComplete(i);
-        }
-    }
-
-    void Update()
-    {
-        CostCheck();
-    }
-
-    // コストが足りているか
-    public void CostCheck()
-    {
-        foreach(GameObject unitIcon in unitIcon)
-        {
-            UnitDragHandler ud = unitIcon.GetComponent<UnitDragHandler>();
-
-            if (costManager.CanAfford(unitStatsDic[unitIcon].cost))
-            {
-                ud.SetIsDrag(true);
-            }
-            else
-            {
-                ud.SetIsDrag(false);
-            }
         }
     }
 
@@ -101,6 +79,16 @@ public class UnitGenerater : MonoBehaviour
         {
             completeText.text = "X";
         }
+    }
+
+    public List<GameObject> GetUnitIcon()
+    {
+        return unitIcon;
+    }
+
+    public UnitStats GetStats(GameObject unitIcon)
+    {
+        return unitStatsDic[unitIcon];
     }
 
     // UnitStats を new で複製する関数を作る

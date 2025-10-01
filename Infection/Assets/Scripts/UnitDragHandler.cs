@@ -13,7 +13,7 @@ public static class WaitEndDrag
 
 public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    [SerializeField] CostManager costManager;
+    CostManager costManager;
     UnitGenerater unitGenerator;
 
     [Header("配置するユニットプレハブ")]
@@ -41,6 +41,7 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         cam = Camera.main;
         isDrag = false;
+        costManager = GameObject.Find("GameManager").GetComponent<CostManager>();
         unitGenerator = GameObject.Find("UnitGenerater").GetComponent<UnitGenerater>(); 
     }
 
@@ -52,7 +53,7 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // コストが足りているか
     public void CostCheck()
     {
-        if (unitGenerator.GetStats(gameObject).cost <= 0)
+        if(unitGenerator.GetStats(gameObject).cost <= 0)
         {
             isDrag = false;
         }
