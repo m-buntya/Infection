@@ -1,4 +1,4 @@
-using StatePatteren.State;
+ï»¿using StatePatteren.State;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -75,46 +75,65 @@ public class FormationPanelManager : MonoBehaviour
     {
         var attackBase = unitController.GetComponent<UnitAttackBace>();
         if (attackBase == null || attackBase.unitStats == null)
-            return "ƒXƒe[ƒ^ƒXî•ñ‚ªæ“¾‚Å‚«‚Ü‚¹‚ñ";
+            return "ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æƒ…å ±ãŒå–å¾—ã§ãã¾ã›ã‚“";
 
         var stats = attackBase.unitStats;
 
         return
-            $"ƒ†ƒjƒbƒg–¼: {stats.unitName}\n" +
-            $"ƒŒƒxƒ‹: {stats.lv}\n" +
-            $"ƒ[ƒ‹: {ConvertRoleToJapanese(stats.role)}\n" +
-            $"UŒ‚—Í: {stats.atk}\n" +
-            $"ƒRƒXƒg: {stats.cost}";
+            $"ãƒ¦ãƒ‹ãƒƒãƒˆå: {stats.unitName}\n" +
+            $"ãƒ¬ãƒ™ãƒ«: {stats.lv}\n" +
+            $"ãƒ­ãƒ¼ãƒ«: {ConvertRoleToJapanese(stats.role)}\n" +
+            $"æ”»æ’ƒåŠ›: {stats.atk}\n" +
+            $"ã‚³ã‚¹ãƒˆ: {stats.cost}";
     }
     private string ConvertRoleToJapanese(UnitStats.ROLE role)
     {
         switch (role)
         {
-            case UnitStats.ROLE.Attacker: return "ƒAƒ^ƒbƒJ[";
-            case UnitStats.ROLE.Tank: return "ƒ^ƒ“ƒN";
-            case UnitStats.ROLE.Healer: return "ƒq[ƒ‰[";
-            case UnitStats.ROLE.Baffer: return "ƒoƒbƒtƒ@[";
-            case UnitStats.ROLE.Debaffer: return "ƒfƒoƒbƒtƒ@[";
-            case UnitStats.ROLE.Archer: return "ƒA[ƒ`ƒƒ[";
-            case UnitStats.ROLE.Wizard: return "–‚–@g‚¢";
-            default: return "•s–¾";
+            case UnitStats.ROLE.Attacker: return "ã‚¢ã‚¿ãƒƒã‚«ãƒ¼";
+            case UnitStats.ROLE.Tank: return "ã‚¿ãƒ³ã‚¯";
+            case UnitStats.ROLE.Healer: return "ãƒ’ãƒ¼ãƒ©ãƒ¼";
+            case UnitStats.ROLE.Baffer: return "ãƒãƒƒãƒ•ã‚¡ãƒ¼";
+            case UnitStats.ROLE.Debaffer: return "ãƒ‡ãƒãƒƒãƒ•ã‚¡ãƒ¼";
+            case UnitStats.ROLE.Archer: return "ã‚¢ãƒ¼ãƒãƒ£ãƒ¼";
+            case UnitStats.ROLE.Wizard: return "é­”æ³•ä½¿ã„";
+            default: return "ä¸æ˜";
         }
     }
     public void ConfirmSelection()
     {
         if (sourceUnitButton != null && currentlySelectedUnit != null)
         {
+            var icon = TryGetUnitIcon(currentlySelectedUnit);
+            var stats = currentlySelectedUnit.unitStats;
+            if (stats != null)
+            {
+                Debug.Log($"ğŸ§¬ unitStats å†…å®¹: unitCode = {stats.unitCode}, unitName = '{stats.unitName}', atk = {stats.atk}");
+            }
+            else
+            {
+                Debug.LogWarning("âš ï¸ unitStats ãŒ null ã§ã™");
+            }
 
-            sourceUnitButton.unitController = currentlySelectedUnit;
+            if (stats != null)
+            {
+                var code = stats.unitCode.ToString();
+                var name = stats.unitName;
 
-            sourceUnitButton.iconImage.sprite = TryGetUnitIcon(currentlySelectedUnit);
+                Debug.Log($"ğŸ§  ConfirmSelection: unitCode = {code}, unitName = {name}, iconName = {icon?.name}");
+                Debug.Log($"ğŸ” currentlySelectedUnit = {currentlySelectedUnit.name}, instanceID = {currentlySelectedUnit.GetInstanceID()}");
 
+                sourceUnitButton.SetUnit(currentlySelectedUnit, icon, code, name);
+            }
+            else
+            {
+                Debug.LogWarning("âš ï¸ ConfirmSelection: unitStats ãŒ null ã§ã™");
+            }
         }
 
         CloseConfirmDialog();
         sourceUnitButton?.toggler?.BackToCommon();
     }
-
 
     public void TryGoBack()
     {
@@ -160,6 +179,10 @@ public class FormationPanelManager : MonoBehaviour
             return spriteRenderer.sprite;
 
         return null;
+    }
+    public UnitSlotButton GetCurrentSlotButton()
+    {
+        return sourceUnitButton;
     }
 
 }

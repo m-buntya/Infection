@@ -1,42 +1,86 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using StatePatteren.State;
+
 public class FormationUnitButton : MonoBehaviour
 {
-    public UnitController unitcontroller;
+    public GameObject unitPrefub;
     public GameObject redFrame;
     public Button button;
     public FormationPanelManager panelManager;
-    public GameObject unitPrefub;
-    private UnitStats unitStats;
+
+    public UnitController unitcontroller;
+
+    public UnitAttackBace attackBace;
+
+    private UnitStats currentlySelectedStats;
+
+    [Header("Ë°®Á§∫Áî®UI")]
+    public TextMeshProUGUI roleText;
+    public TextMeshProUGUI soldierCntText;
+    public TextMeshProUGUI hpText;
+    public TextMeshProUGUI atkText;
+    public TextMeshProUGUI virusPowText;
+    public TextMeshProUGUI atkSpdText;
+    public TextMeshProUGUI spdText;
+    public TextMeshProUGUI rangeText;
+    public TextMeshProUGUI costText;
+    public TextMeshProUGUI unitNameText;
+    public TextMeshProUGUI unitCodeText;
+
+    [Header("ÂÖµÂ£´Êï∞ÔºàÂ§ñÈÉ®„Åã„ÇâË®≠ÂÆöÔºâ")]
+    public int soldierCnt = 0;
+
     private void Start()
     {
-        if (unitPrefub != null)
-        {
-
-            unitcontroller = unitPrefub.GetComponent<UnitController>(); 
-                }
         if (button != null)
         {
             button.onClick.AddListener(() =>
             {
                 if (panelManager != null)
-                    panelManager.HighlightUnit(unitcontroller);
-
-
-                if (unitcontroller != null && unitcontroller.unitStats != null)
                 {
-                    var stats = unitcontroller.unitStats;
-                    //Debug.Log($"ëIëÇ≥ÇÍÇΩÉÜÉjÉbÉg: {stats.unitName}, ÉçÅ[Éã: {stats.role}, ÉåÉxÉã: {stats.lv}");
+                    var controller = unitPrefub.GetComponent<UnitController>();
+                    panelManager.HighlightUnit(controller);
+                }
+
+                var attackBace = unitPrefub.GetComponent<UnitAttackBace>();
+                if (attackBace != null && attackBace.unitStats != null)
+                {
+                    var stats = attackBace.unitStats;
+
+                    
+
+                    roleText.text = stats.role.ToString();
+                    soldierCntText.text = soldierCnt.ToString();
+                    hpText.text = stats.maxHp.ToString("F1");
+                    atkText.text = stats.atk.ToString("F1");
+                    virusPowText.text = stats.virusPow.ToString("F1");
+                    atkSpdText.text = stats.atkSpd.ToString("F1");
+                    spdText.text = stats.spd.ToString("F1");
+                    rangeText.text = stats.range.ToString();
+                    costText.text = stats.cost.ToString();
+                    unitNameText.text = stats.unitName;
+                    unitCodeText.text = stats.unitCode.ToString();
+
+                    var icon = unitPrefub.GetComponentInChildren<SpriteRenderer>()?.sprite;
+                    var slotButton = panelManager.GetCurrentSlotButton();
+                    if (slotButton != null)
+                    {
+                        slotButton.SetUnit(unitcontroller, icon, stats.unitCode.ToString(), stats.unitName);
+                        Debug.Log($"üì¶ FormationUnitButton: unitCode = {stats.unitCode}, unitName = {stats.unitName}, iconName = {icon?.name}");
+                        Debug.Log($"üîç unitcontroller = {unitcontroller.name}, instanceID = {unitcontroller.GetInstanceID()}");
+                    }
                 }
                 else
                 {
-                    Debug.LogWarning("unitcontroller Ç‹ÇΩÇÕ unitStats Ç™ null Ç≈Ç∑");
+                    Debug.LogWarning("UnitAttackBace „Åæ„Åü„ÅØ unitStats „Åå null „Åß„Åô");
                 }
             });
         }
+        attackBace = unitPrefub.GetComponent<UnitAttackBace>();
 
-        SetRedFrameVisible(false); // èâä˙èÛë‘Ç≈ê‘ògîÒï\é¶
+        SetRedFrameVisible(false);
     }
 
     public void SetRedFrameVisible(bool visible)
