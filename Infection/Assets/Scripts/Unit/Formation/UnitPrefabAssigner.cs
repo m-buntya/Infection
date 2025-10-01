@@ -1,36 +1,50 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitPrefabAssigner : MonoBehaviour
 {
-    [Header("ƒhƒ‰ƒbƒOƒnƒ“ƒhƒ‰[ˆê——")]
+    [Header("ãƒ‰ãƒ©ãƒƒã‚°ãƒãƒ³ãƒ‰ãƒ©ãƒ¼ä¸€è¦§")]
     public List<UnitDragHandler> dragHandlers;
 
     void Start()
     {
-        Debug.Log("[Assigner] Start Às");
+        //Debug.Log("[Assigner] Start å®Ÿè¡Œ");
 
         var formation = UnitFormationManager.GetFormation();
         if (formation == null)
         {
-            Debug.LogError("[Assigner] formation ‚ª null");
+            Debug.LogError("[Assigner] formation ãŒ null");
             return;
         }
 
         for (int i = 0; i < dragHandlers.Count && i < formation.slotDataList.Count; i++)
         {
             var data = formation.slotDataList[i];
+            //Debug.Log($"[Assigner] slot[{i}] unitCode = '{data.unitCode}'");
+
+            if (string.IsNullOrEmpty(data.unitCode))
+            {
+                Debug.LogWarning($"[Assigner] unitCode ãŒæœªè¨­å®šã§ã™: slot[{i}]");
+                continue;
+            }
+
+
             string path = $"Units/{data.unitCode}";
             var prefab = Resources.Load<GameObject>(path);
+            //Debug.Log(prefab != null
+            //    //? $"âœ… èª­ã¿è¾¼ã¿æˆåŠŸ: {path}"
+            //    //: $"âš ï¸ èª­ã¿è¾¼ã¿å¤±æ•—: {path}"
+            //    );
+
 
             if (prefab == null)
             {
-                Debug.LogWarning($"[Assigner] ƒvƒŒƒnƒu“Ç‚İ‚İ¸”s: {path}");
+                Debug.LogWarning($"[Assigner] ãƒ—ãƒ¬ãƒãƒ–èª­ã¿è¾¼ã¿å¤±æ•—: {path}");
                 continue;
             }
 
             dragHandlers[i].unitPrefab = prefab;
-            Debug.Log($"[Assigner] Š„‚è“–‚Ä¬Œ÷: slot[{i}] = {prefab.name}");
+            Debug.Log($"[Assigner] å‰²ã‚Šå½“ã¦æˆåŠŸ: slot[{i}] = {prefab.name}");
         }
     }
 

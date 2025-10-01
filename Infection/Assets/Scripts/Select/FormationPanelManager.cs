@@ -25,12 +25,37 @@ public class FormationPanelManager : MonoBehaviour
     private UnitController currentlySelectedUnit;
     private FormationUnitButton currentlySelectedButton;
 
+    private Transform hiddenUnitRoot;
 
+    public Transform HiddenUnitRoot => hiddenUnitRoot;
+
+    private void Awake()
+    {
+        var rootObj = GameObject.Find("HiddenUnitRoot");
+        if (rootObj == null)
+        {
+            rootObj = new GameObject("HiddenUnitRoot");
+            rootObj.SetActive(false); // ✅ 初期状態で非表示
+        }
+        hiddenUnitRoot = rootObj.transform;
+    }
+
+    private void OnEnable()
+    {
+        foreach(var btn in formationButtons)
+        {
+            if (btn.unitcontroller != null)
+            {
+                btn.unitcontroller.gameObject.SetActive(false);
+            }
+        }
+    }
     private void Start()
     {
         decisionButton?.onClick.AddListener(() => ConfirmSelection());
         regularConfirmDialogPanel?.SetActive(false);
         virusConfirmDialogPanel?.SetActive(false);
+
     }
 
     public void ShowFormationPanel(UnitController unitController, UnitSlotButton sourceButton)
@@ -52,7 +77,10 @@ public class FormationPanelManager : MonoBehaviour
 
         foreach (var btn in formationButtons)
         {
-            btn.SetRedFrameVisible(btn.unitcontroller == selectedUnit);
+            bool isSame = btn.unitcontroller != null &&
+                          btn.unitcontroller.GetInstanceID() == selectedUnit.GetInstanceID();
+
+            btn.SetRedFrameVisible(isSame);
         }
 
         string formattedText = FormatUnitText(selectedUnit);
@@ -108,7 +136,7 @@ public class FormationPanelManager : MonoBehaviour
             var stats = currentlySelectedUnit.unitStats;
             if (stats != null)
             {
-                Debug.Log($"🧬 unitStats 内容: unitCode = {stats.unitCode}, unitName = '{stats.unitName}', atk = {stats.atk}");
+                //Debug.Log($"🧬 unitStats 内容: unitCode = {stats.unitCode}, unitName = '{stats.unitName}', atk = {stats.atk}");
             }
             else
             {
@@ -120,8 +148,11 @@ public class FormationPanelManager : MonoBehaviour
                 var code = stats.unitCode.ToString();
                 var name = stats.unitName;
 
-                Debug.Log($"🧠 ConfirmSelection: unitCode = {code}, unitName = {name}, iconName = {icon?.name}");
-                Debug.Log($"🔍 currentlySelectedUnit = {currentlySelectedUnit.name}, instanceID = {currentlySelectedUnit.GetInstanceID()}");
+                //Debug.Log($"🧠 ConfirmSelection: unitCode = {code}, unitName = {name}, iconName = {icon?.name}");
+                //Debug.Log($"🔍 currentlySelectedUnit = {currentlySelectedUnit.name}, instanceID = {currentlySelectedUnit.GetInstanceID()}");
+
+                UnitFormationManager.SetSlotData(sourceUnitButton.slotIndex, code, icon?.name);
+
 
                 sourceUnitButton.SetUnit(currentlySelectedUnit, icon, code, name);
             }
@@ -133,6 +164,7 @@ public class FormationPanelManager : MonoBehaviour
 
         CloseConfirmDialog();
         sourceUnitButton?.toggler?.BackToCommon();
+
     }
 
     public void TryGoBack()
@@ -184,5 +216,7 @@ public class FormationPanelManager : MonoBehaviour
     {
         return sourceUnitButton;
     }
+
+   
 
 }

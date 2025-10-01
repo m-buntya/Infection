@@ -17,6 +17,9 @@ public class UnitSlotButton : MonoBehaviour
     public string iconName; // 保存用
 
     public string unitName;
+
+    public int slotIndex;
+
     void Awake()
     {
         if (iconImage == null)
@@ -67,7 +70,7 @@ public class UnitSlotButton : MonoBehaviour
             iconImage.sprite = icon;
         }
 
-        Debug.Log($"🧩 SetUnit 呼び出し: unitCode = {unitCode}, unitName = {unitName}, iconName = {iconName}");
+        //Debug.Log($"🧩 SetUnit 呼び出し: unitCode = {unitCode}, unitName = {unitName}, iconName = {iconName}");
     }
     //public void RestoreIconFromName()
     //{
