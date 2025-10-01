@@ -46,11 +46,6 @@ namespace StatePatteren.State
                 target = getTargetSystem.GetTarget(unitController.gameObject, UnitController.UNIT_GROUP.PLAYER);
                 CastleTarget(playerCastle.transform.position);
             }
-
-            if(target == null)
-            {
-                Transition();
-            }
         }
 
         public void Exit()
@@ -60,7 +55,7 @@ namespace StatePatteren.State
 
         public void Transition()
         {
-            unitController.StateMachine.TransitionTo(unitController.StateMachine.moveState);
+            unitController.StateMachine.TransitionTo(unitController.StateMachine.moveState);            
         }
 
         // çsìÆë¨ìx
