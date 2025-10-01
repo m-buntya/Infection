@@ -104,7 +104,7 @@ public class MoveSystem
                     minDistance = dist;
                     enterPoint = bridgePoints[i][j];
                     exitPoint = j == 0 ? bridgePoints[i][j + 1] : bridgePoints[i][j - 1];
-                    Debug.Log($"enterPoint {enterPoint} / exitPoint {exitPoint}");
+                    //Debug.Log($"enterPoint {enterPoint} / exitPoint {exitPoint}");
                 }
             }
         }

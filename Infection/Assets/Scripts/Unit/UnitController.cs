@@ -65,6 +65,7 @@ namespace StatePatteren.State
                 return;
             }
 
+            unitStats.hp = unitStats.maxHp;
 
             stateMachine.Initialize(stateMachine.readyState);
         }
@@ -146,6 +147,7 @@ namespace StatePatteren.State
 
             Destroy(gameObject);
         }
+
         void Awake()
         {
             if (unitStats == null)
@@ -162,6 +164,7 @@ namespace StatePatteren.State
                 Debug.LogWarning("⚠ unitStats が未設定だったため、仮初期化されました。");
             }
         }
+
         public Sprite GetIconSprite()
         {
             var spriteRenderer = GetComponentInChildren<SpriteRenderer>(true); // ← trueで非アクティブも拾える

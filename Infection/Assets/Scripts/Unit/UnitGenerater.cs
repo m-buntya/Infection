@@ -33,29 +33,6 @@ public class UnitGenerater : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        CostCheck();
-    }
-
-    // ƒRƒXƒg‚ª‘«‚è‚Ä‚¢‚é‚©
-    public void CostCheck()
-    {
-        foreach(GameObject unitIcon in unitIcon)
-        {
-            UnitDragHandler ud = unitIcon.GetComponent<UnitDragHandler>();
-
-            if (costManager.CanAfford(unitStatsDic[unitIcon].cost))
-            {
-                ud.SetIsDrag(true);
-            }
-            else
-            {
-                ud.SetIsDrag(false);
-            }
-        }
-    }
-
     // •”‘à¶¬
     public void UnitGenerate(GameObject create, Vector3 pos)
     {
@@ -102,6 +79,16 @@ public class UnitGenerater : MonoBehaviour
         {
             completeText.text = "X";
         }
+    }
+
+    public List<GameObject> GetUnitIcon()
+    {
+        return unitIcon;
+    }
+
+    public UnitStats GetStats(GameObject unitIcon)
+    {
+        return unitStatsDic[unitIcon];
     }
 
     // UnitStats ‚ğ new ‚Å•¡»‚·‚éŠÖ”‚ğì‚é
