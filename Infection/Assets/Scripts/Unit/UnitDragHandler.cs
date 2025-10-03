@@ -13,7 +13,7 @@ public static class WaitEndDrag
 
 public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    CostManager costManager;
+    [SerializeField] CostManager costManager;
     UnitGenerater unitGenerator;
 
     [Header("配置するユニットプレハブ")]
@@ -41,7 +41,6 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         cam = Camera.main;
         isDrag = false;
-        costManager = GameObject.Find("GameManager").GetComponent<CostManager>();
         unitGenerator = GameObject.Find("UnitGenerater").GetComponent<UnitGenerater>(); 
     }
 
@@ -93,7 +92,6 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         lastValidPosition = null;
 
         _ = WaitEndDrag.WaitDragEndAsync();
-
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -153,17 +151,7 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //UnitCost unitCost = dragPreviewObject?.GetComponent<UnitCost>();
-
-        //Debug.Log($"現在のコスト: {CostManager.Instance?.GetCurrentCost()}");
-        //Debug.Log($"UnitCost: {unitCost}");
-
-        //if (unitCost != null && !unitCost.TryConsumeCost())
-        //{
-        //    dragEndTcs?.TrySetResult(eventData);
-        //    Destroy(dragPreviewObject);
-        //    return; // コスト不足 → 配置キャンセル
-        //}
+        
         if (!isDrag) return;
         if (dragPreviewObject != null)
         {

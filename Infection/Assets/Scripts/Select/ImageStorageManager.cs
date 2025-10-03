@@ -19,11 +19,11 @@ public static class ImageStorageManager
             Sprite icon = Resources.Load<Sprite>($"Sprites/{iconName}");
             if (icon != null)
             {
-                //Debug.Log($"✅ Resources.Load 成功: Sprites/{iconName}");
+                Debug.Log($"✅ Resources.Load 成功: Sprites/{iconName}");
                 return icon;
             }
 
-            //Debug.LogWarning($"❌ Resources.Load 失敗: Sprites/{iconName}");
+            Debug.LogWarning($"❌ Resources.Load 失敗: Sprites/{iconName}");
         }
         else
         {

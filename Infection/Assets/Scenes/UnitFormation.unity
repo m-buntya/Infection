@@ -496,7 +496,6 @@ MonoBehaviour:
   unitCode: 
   iconName: 
   unitName: 
-  slotIndex: 0
 --- !u!114 &19491356 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5781848758249327143, guid: d0fd1b480fe47d245b1e74b0f586c753, type: 3}
@@ -9253,7 +9252,6 @@ MonoBehaviour:
   unitCode: 
   iconName: 
   unitName: 
-  slotIndex: 0
 --- !u!1 &1017410129 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2201435012271776715, guid: 47746d04d8b5ae845990ba0198817c25, type: 3}
@@ -10511,7 +10509,6 @@ MonoBehaviour:
   unitCode: 
   iconName: 
   unitName: 
-  slotIndex: 0
 --- !u!1 &1103168048
 GameObject:
   m_ObjectHideFlags: 0
@@ -11916,7 +11913,6 @@ MonoBehaviour:
   unitCode: 
   iconName: 
   unitName: 
-  slotIndex: 0
 --- !u!1 &1309739009
 GameObject:
   m_ObjectHideFlags: 0
@@ -13799,7 +13795,6 @@ MonoBehaviour:
   unitCode: 
   iconName: White_Line_
   unitName: 
-  slotIndex: 0
 --- !u!1 &1518596015 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5538504100651041708, guid: 32a4719e512465c45a19833d4ed0740e, type: 3}
@@ -14193,7 +14188,6 @@ MonoBehaviour:
   unitCode: 
   iconName: 
   unitName: 
-  slotIndex: 0
 --- !u!1 &1554895734 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1885110803835166992, guid: d0de4be2cc63fa149a4b9fb429cc2ac8, type: 3}
@@ -14236,7 +14230,6 @@ MonoBehaviour:
   unitCode: 
   iconName: 
   unitName: 
-  slotIndex: 0
 --- !u!1 &1575121638
 GameObject:
   m_ObjectHideFlags: 0
@@ -15296,7 +15289,6 @@ MonoBehaviour:
   unitCode: 
   iconName: 
   unitName: 
-  slotIndex: 0
 --- !u!114 &1770403702 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6986575797614404551, guid: e92818649345b004c9df6a2a3def5f42, type: 3}
@@ -15596,37 +15588,6 @@ Transform:
   m_Children:
   - {fileID: 2017302883}
   m_Father: {fileID: 1505563465}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1792249765
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1792249766}
-  m_Layer: 0
-  m_Name: HiddenUnitRoot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1792249766
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792249765}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 957.01843, y: 538.28796, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1802882621
 GameObject:
@@ -16583,7 +16544,6 @@ MonoBehaviour:
   unitCode: 
   iconName: 
   unitName: 
-  slotIndex: 0
 --- !u!1 &1947639029
 GameObject:
   m_ObjectHideFlags: 0
@@ -17970,7 +17930,6 @@ MonoBehaviour:
   unitCode: 
   iconName: 
   unitName: 
-  slotIndex: 0
 --- !u!1 &2034938793
 GameObject:
   m_ObjectHideFlags: 0
@@ -18302,7 +18261,6 @@ MonoBehaviour:
   unitCode: 
   iconName: 
   unitName: 
-  slotIndex: 0
 --- !u!1 &2067611055 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7213959262906911363, guid: 16b2aa46fe66de046af73c204f3e29ac, type: 3}
@@ -19459,4 +19417,3 @@ SceneRoots:
   - {fileID: 1802882622}
   - {fileID: 1201749080}
   - {fileID: 138824117}
-  - {fileID: 1792249766}

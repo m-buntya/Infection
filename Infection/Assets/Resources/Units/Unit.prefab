@@ -439,7 +439,7 @@ MonoBehaviour:
     virusMaxPoint: 0
     enemyVirusPoint: 0
     enemyVirusMaxPoint: 0
-    atk: 35
+    atk: 10
     virusPow: 0
     atkSpd: 0
     spd: 0

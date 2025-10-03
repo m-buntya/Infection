@@ -1,5 +1,4 @@
 using StatePatteren.State;
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class UnitCreator
@@ -9,7 +8,7 @@ public static class UnitCreator
         string prefabName = GetPrefabNameByCode(code);
         if (string.IsNullOrEmpty(prefabName))
         {
-            //Debug.LogWarning($"[UnitCreator] unitCode '{code}' に対応するプレハブ名が見つかりません");
+            Debug.LogWarning($"[UnitCreator] unitCode '{code}' に対応するプレハブ名が見つかりません");
             return null;
         }
 
@@ -24,21 +23,18 @@ public static class UnitCreator
         return instance.GetComponent<UnitController>();
     }
 
-    private static readonly Dictionary<string, string> prefabMap = new()
-{
-    { "3", "monster" },
-    { "0", "Unit" },
-    { "2", "virus" },
-    { "6", "virus_Infection" },
-    { "1", "Zombi" },
-    { "Zombie", "Zombi" },
-    { "virus", "virus" },
-    // 他にも追加可能
-};
-
     public static string GetPrefabNameByCode(string unitCode)
     {
-        return prefabMap.TryGetValue(unitCode, out var name) ? name : null;
+        switch (unitCode)
+        {
+            case "Unit": return "Unit";
+            case "Zombie": return "Zombi";
+            case "virus": return "virus";
+            case "virus_Infection": return "virus_Infection";
+            case "White_Line_0": return "White_Line_0";
+            case "monster": return "monster";
+            default: return null;
+        }
     }
 
 }
