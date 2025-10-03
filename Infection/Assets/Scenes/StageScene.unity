@@ -2076,7 +2076,7 @@ PrefabInstance:
     - target: {fileID: 2085914841147018217, guid: efb287376e1114c46a0da9705c1ac278, type: 3}
       propertyPath: unitPrefab
       value: 
-      objectReference: {fileID: 7387470101939567078, guid: 2fd52b6a9bf887b47b8b0d6f08941b18, type: 3}
+      objectReference: {fileID: 7387470101939567078, guid: 9616138bef620734faf05cce18a93105, type: 3}
     - target: {fileID: 2085914841147018217, guid: efb287376e1114c46a0da9705c1ac278, type: 3}
       propertyPath: costManager
       value: 
