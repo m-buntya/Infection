@@ -87,7 +87,7 @@ public class DisplayArea : MonoBehaviour
             detailsArea.levelText.text = "Lv.\n" + currentUnitStats.lv.ToString();
             detailsArea.roleText.text = currentUnitStats.role.ToString();
             detailsArea.leaderSkillText.text = currentUnitStats.leaderSkill.ToString();
-            detailsArea.hpText.text = "HP:" + currentUnitStats.hp.ToString();
+            detailsArea.hpText.text = "HP:" + currentUnitStats.maxHp.ToString();
             detailsArea.viursPointText.text = "ä¥êıÉQÅ[ÉW:" + currentUnitStats.virusPoint.ToString();
             detailsArea.atkText.text = "çUåÇóÕ:" + currentUnitStats.atk.ToString();
             detailsArea.viursPowText.text = "ä¥êıóÕ:" + currentUnitStats.virusPow.ToString();
