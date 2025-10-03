@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class FormationPanelManager : MonoBehaviour
 {
     public List<FormationUnitButton> formationButtons;
-    public List<UnitSlotButton> slotButtons;
-    public List<UnitDragHandler> dragHandlers;
 
     public Text regularDescriptionText;
     public Text virusDescriptionText;
@@ -30,8 +28,6 @@ public class FormationPanelManager : MonoBehaviour
     private Transform hiddenUnitRoot;
 
     public Transform HiddenUnitRoot => hiddenUnitRoot;
-
-    public Button sortieButton; //出撃ボタン
 
     private void Awake()
     {
@@ -168,9 +164,7 @@ public class FormationPanelManager : MonoBehaviour
 
         CloseConfirmDialog();
         sourceUnitButton?.toggler?.BackToCommon();
-        UpdateSprtieButtonState();
-        UpdateDragAvailability();
-        Debug.Log("bbb");
+
     }
 
     public void TryGoBack()
@@ -223,29 +217,6 @@ public class FormationPanelManager : MonoBehaviour
         return sourceUnitButton;
     }
 
-   public void UpdateSprtieButtonState()
-    {
-        bool hasUnit = false;
+   
 
-        foreach(var slot in slotButtons)
-        {
-            if (slot.unitController != null)
-            {
-                hasUnit = true;
-                break;
-            }
-        }
-        sortieButton.interactable = hasUnit;
-    }
-
-    public void UpdateDragAvailability()
-    {
-        Debug.Log("aaa");
-        for(int i = 0; i < dragHandlers.Count; i++)
-        {
-            bool hasUnit = i < slotButtons.Count && slotButtons[i].unitController != null;
-            dragHandlers[i].SetIsDrag(hasUnit);
-
-        }
-    }
 }
