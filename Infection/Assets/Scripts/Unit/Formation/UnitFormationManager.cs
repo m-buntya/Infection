@@ -53,7 +53,7 @@ public static class UnitFormationManager
     {
         if (currentFormation == null || currentFormation.slotDataList == null || index >= currentFormation.slotDataList.Count)
         {
-            Debug.LogWarning($"[FormationManager] 保存失敗: index {index} が無効です");
+            //Debug.LogWarning($"[FormationManager] 保存失敗: index {index} が無効です");
             return;
         }
 
