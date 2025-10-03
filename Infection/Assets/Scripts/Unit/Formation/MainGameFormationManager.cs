@@ -28,24 +28,31 @@ public class MainGameFormationManager : MonoBehaviour
         for (int i = 0; i < formation.slotDataList.Count; i++)
         {
             var data = formation.slotDataList[i];
-            //Debug.Log($"[MainGame] slot[{i}] unitCode = {data.unitCode}, iconName = {data.iconName}");
 
             // アイコン読み込み
             var icon = Resources.Load<Sprite>($"Sprites/{data.iconName}");
 
-            // UIに反映（UnitControllerは渡さない）
             if (i < slotUIs.Count)
             {
                 slotUIs[i].SetUnit(data.unitCode, icon);
             }
 
-            // ドラッグハンドラーにプレハブを設定
             if (i < dragHandlers.Count)
             {
+                var handler = dragHandlers[i];
+
+                // unitCode が空ならドラッグ不可
+                if (string.IsNullOrEmpty(data.unitCode))
+                {
+                    handler.gameObject.SetActive(false); // ✅ 完全に非表示にする
+                    continue;
+                }
+
                 string prefabName = UnitCreator.GetPrefabNameByCode(data.unitCode);
                 if (string.IsNullOrEmpty(prefabName))
                 {
                     Debug.LogWarning($"[MainGame] unitCode '{data.unitCode}' に対応するプレハブ名が不明です");
+                    handler.gameObject.SetActive(false); // ✅ プレハブ不明でも非表示
                     continue;
                 }
 
@@ -53,11 +60,12 @@ public class MainGameFormationManager : MonoBehaviour
                 if (prefab == null)
                 {
                     Debug.LogWarning($"[MainGame] プレハブが見つかりません: Units/{prefabName}");
+                    handler.gameObject.SetActive(false); // ✅ プレハブ未取得でも非表示
                     continue;
                 }
 
-                dragHandlers[i].unitPrefab = prefab;
-                //Debug.Log($"[MainGame] dragHandler[{i}] に unitPrefab を設定: {prefab.name}");
+                handler.unitPrefab = prefab;
+                handler.gameObject.SetActive(true); // ✅ 有効なユニットなら表示
             }
         }
     }
