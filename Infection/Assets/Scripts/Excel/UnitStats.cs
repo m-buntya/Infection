@@ -20,7 +20,7 @@ public class UnitStats
         Baffer,                 // バッファー
         Debaffer,               // デバッファー
         Archer,                 // アーチャー
-        Wizard                  // 魔法使い
+        Wizard,                 // 魔法使い
     }
 
     public int unitCode;                // ユニット番号
