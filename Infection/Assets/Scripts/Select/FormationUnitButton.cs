@@ -34,55 +34,51 @@ public class FormationUnitButton : MonoBehaviour
 
     private void Start()
     {
-        if (button != null)
+        var hiddenRoot = panelManager.HiddenUnitRoot; // ✅ FormationPanelManager から取得
+
+        var instance = Instantiate(unitPrefub, hiddenRoot); // ✅ 非表示の親に入れる
+        instance.SetActive(false); // ✅ 念のため個別にも非表示
+
+        unitcontroller = instance.GetComponent<UnitController>();
+        attackBace = instance.GetComponent<UnitAttackBace>();
+
+        var statsFromPrefab = unitPrefub.GetComponent<UnitAttackBace>()?.unitStats;
+        if (statsFromPrefab == null)
         {
-            button.onClick.AddListener(() =>
-            {
-                if (panelManager != null)
-                {
-                    var controller = unitPrefub.GetComponent<UnitController>();
-                    panelManager.HighlightUnit(controller);
-                }
-
-                var attackBace = unitPrefub.GetComponent<UnitAttackBace>();
-                if (attackBace != null && attackBace.unitStats != null)
-                {
-                    var stats = attackBace.unitStats;
-
-                    
-
-                    roleText.text = stats.role.ToString();
-                    soldierCntText.text = soldierCnt.ToString();
-                    hpText.text = stats.maxHp.ToString("F1");
-                    atkText.text = stats.atk.ToString("F1");
-                    virusPowText.text = stats.virusPow.ToString("F1");
-                    atkSpdText.text = stats.atkSpd.ToString("F1");
-                    spdText.text = stats.spd.ToString("F1");
-                    rangeText.text = stats.range.ToString();
-                    costText.text = stats.cost.ToString();
-                    unitNameText.text = stats.unitName;
-                    unitCodeText.text = stats.unitCode.ToString();
-
-                    var icon = unitPrefub.GetComponentInChildren<SpriteRenderer>()?.sprite;
-                    var slotButton = panelManager.GetCurrentSlotButton();
-                    if (slotButton != null)
-                    {
-                        slotButton.SetUnit(unitcontroller, icon, stats.unitCode.ToString(), stats.unitName);
-                        Debug.Log($"📦 FormationUnitButton: unitCode = {stats.unitCode}, unitName = {stats.unitName}, iconName = {icon?.name}");
-                        Debug.Log($"🔍 unitcontroller = {unitcontroller.name}, instanceID = {unitcontroller.GetInstanceID()}");
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("UnitAttackBace または unitStats が null です");
-                }
-            });
+            Debug.LogError("❌ プレファブに unitStats が設定されていません");
+            return;
         }
-        attackBace = unitPrefub.GetComponent<UnitAttackBace>();
 
+        unitcontroller.SetUnitStats(statsFromPrefab);
         SetRedFrameVisible(false);
-    }
 
+        button.onClick.AddListener(() =>
+        {
+            panelManager.HighlightUnit(unitcontroller);
+            UpdateUnitUI(statsFromPrefab);
+
+            var icon = unitcontroller.GetIconSprite();
+            var slotButton = panelManager.GetCurrentSlotButton();
+            if (slotButton != null)
+            {
+                slotButton.SetUnit(unitcontroller, icon, statsFromPrefab.unitCode.ToString(), statsFromPrefab.unitName);
+            }
+        });
+    }
+    private void UpdateUnitUI(UnitStats stats)
+    {
+        roleText.text = stats.role.ToString();
+        soldierCntText.text = soldierCnt.ToString();
+        hpText.text = stats.maxHp.ToString("F1");
+        atkText.text = stats.atk.ToString("F1");
+        virusPowText.text = stats.virusPow.ToString("F1");
+        atkSpdText.text = stats.atkSpd.ToString("F1");
+        spdText.text = stats.spd.ToString("F1");
+        rangeText.text = stats.range.ToString();
+        costText.text = stats.cost.ToString();
+        unitNameText.text = stats.unitName;
+        unitCodeText.text = stats.unitCode.ToString();
+    }
     public void SetRedFrameVisible(bool visible)
     {
         if (redFrame != null)
