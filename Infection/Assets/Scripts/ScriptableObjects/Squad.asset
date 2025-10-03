@@ -20,16 +20,16 @@ MonoBehaviour:
       role: 0
       lv: 1
       maxLv: 50
-      hp: 21
-      maxHp: 21
+      hp: 15
+      maxHp: 15
       virusPoint: 0
       virusMaxPoint: 100
       enemyVirusPoint: 0
       enemyVirusMaxPoint: 100
-      atk: 14
-      virusPow: 21
+      atk: 10
+      virusPow: 15
       atkSpd: 3
-      spd: 6
+      spd: 10
       range: 2
       cost: 3
       sortieCoolTime: 10

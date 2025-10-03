@@ -10,7 +10,7 @@ public class UnitGenerater : MonoBehaviour
     [SerializeField] Squad squadData;
 
     UnitManager unitManager;
-    CostManager costManager;
+    [SerializeField] CostManager costManager;
     PrefabGridManager prefabGridManager;
 
     [SerializeField] List<GameObject> unitIcon;      // •”‘àƒAƒCƒRƒ“
@@ -21,7 +21,6 @@ public class UnitGenerater : MonoBehaviour
     void Start()
     {
         unitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
-        costManager = GameObject.Find("GameManager").GetComponent<CostManager>();
         prefabGridManager = GameObject.Find("Enemy_TilePlacer").GetComponent<PrefabGridManager>();
 
         StartCoroutine(EnemyGenerate());
