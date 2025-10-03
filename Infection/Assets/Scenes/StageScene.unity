@@ -1982,7 +1982,9 @@ MonoBehaviour:
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
-  GrayOutObj: {fileID: 0}
+  grayOutObj: {fileID: 0}
+  coolTimeObj: {fileID: 0}
+  coolTimeText: {fileID: 0}
 --- !u!114 &715438846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3942,7 +3944,9 @@ MonoBehaviour:
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
-  GrayOutObj: {fileID: 0}
+  grayOutObj: {fileID: 0}
+  coolTimeObj: {fileID: 0}
+  coolTimeText: {fileID: 0}
 --- !u!114 &1473877375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4505,7 +4509,9 @@ MonoBehaviour:
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
-  GrayOutObj: {fileID: 0}
+  grayOutObj: {fileID: 0}
+  coolTimeObj: {fileID: 0}
+  coolTimeText: {fileID: 0}
 --- !u!114 &1704316077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5618,7 +5624,9 @@ MonoBehaviour:
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
-  GrayOutObj: {fileID: 0}
+  grayOutObj: {fileID: 0}
+  coolTimeObj: {fileID: 0}
+  coolTimeText: {fileID: 0}
 --- !u!114 &2092159168
 MonoBehaviour:
   m_ObjectHideFlags: 0
