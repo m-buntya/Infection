@@ -288,6 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitStatsData: {fileID: 0}
   unitPrefub: {fileID: 4520513790756411374, guid: 4d9753e693710f84fa1160f4b8cbc676, type: 3}
   redFrame: {fileID: 2067611055}
   button: {fileID: 10094205}
@@ -305,6 +306,7 @@ MonoBehaviour:
   costText: {fileID: 1187967113}
   unitNameText: {fileID: 1137573696}
   unitCodeText: {fileID: 1530414359}
+  soldierSlider: {fileID: 1331638019}
   soldierCnt: 0
 --- !u!1 &11444715
 GameObject:
@@ -385,11 +387,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11444715}
   m_CullTransparentMesh: 1
---- !u!1 &15595051 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 417518228156257031, guid: 32a4719e512465c45a19833d4ed0740e, type: 3}
-  m_PrefabInstance: {fileID: 223755610}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &18340382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,6 +1083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitStatsData: {fileID: 0}
   unitPrefub: {fileID: 5485771749992652259, guid: ce447c88bd4c3844b97f0c637976eba6, type: 3}
   redFrame: {fileID: 138364255}
   button: {fileID: 88918119}
@@ -1103,6 +1101,7 @@ MonoBehaviour:
   costText: {fileID: 1982903295}
   unitNameText: {fileID: 942487950}
   unitCodeText: {fileID: 755686712}
+  soldierSlider: {fileID: 0}
   soldierCnt: 0
 --- !u!114 &88918119 stripped
 MonoBehaviour:
@@ -1293,8 +1292,6 @@ GameObject:
   - component: {fileID: 129204532}
   - component: {fileID: 129204533}
   - component: {fileID: 129204534}
-  - component: {fileID: 129204536}
-  - component: {fileID: 129204535}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1453,57 +1450,6 @@ MonoBehaviour:
   - {fileID: 1102351785}
   - {fileID: 19491355}
   placeholderSprite: {fileID: 0}
---- !u!114 &129204535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 129204529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7340cf06d6eb704eadf42a3dbb941ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitStatsData: {fileID: 11400000, guid: c6f16ae17411eba43b26df74a68354ae, type: 2}
-  squadData: {fileID: 11400000, guid: 0ec20a48b9ef45648ae98a53e2430507, type: 2}
-  soldierSlider: {fileID: 1331638019}
-  unitIcon:
-  - {fileID: 130679548}
-  - {fileID: 15595051}
-  - {fileID: 842557060}
-  - {fileID: 838132998}
-  - {fileID: 1852534003}
-  unitObj: {fileID: 7387470101939567078, guid: 9616138bef620734faf05cce18a93105, type: 3}
-  EnemySpawnPoint: {fileID: 0}
---- !u!114 &129204536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 129204529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55786dc71982bce48bc48e37b2c0033e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitFormation: {fileID: 129204535}
-  SquadUI: {fileID: 193400218}
-  roleText: {fileID: 2034938795}
-  soldierCntText: {fileID: 737378290}
-  hpText: {fileID: 1999838275}
-  atkText: {fileID: 287261941}
-  virusPowText: {fileID: 588945094}
-  atkSpdText: {fileID: 307259082}
-  spdText: {fileID: 1056039265}
-  rangeText: {fileID: 1476413169}
-  costText: {fileID: 1187967113}
---- !u!1 &130679548 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8458374447184771619, guid: 50b69618da34e644b95375e88c5122a6, type: 3}
-  m_PrefabInstance: {fileID: 1470867131}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &138364255 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7213959262906911363, guid: 16b2aa46fe66de046af73c204f3e29ac, type: 3}
@@ -1885,6 +1831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitStatsData: {fileID: 0}
   unitPrefub: {fileID: 5392146104975821629, guid: 9ba3b6f3f02d8494f853f7a4e6e0eb32, type: 3}
   redFrame: {fileID: 1003733895}
   button: {fileID: 172153291}
@@ -1902,6 +1849,7 @@ MonoBehaviour:
   costText: {fileID: 1982903295}
   unitNameText: {fileID: 942487950}
   unitCodeText: {fileID: 755686712}
+  soldierSlider: {fileID: 0}
   soldierCnt: 0
 --- !u!1 &177372576
 GameObject:
@@ -4659,6 +4607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitStatsData: {fileID: 0}
   unitPrefub: {fileID: 6039882794378326645, guid: 3be2bacc28e576543932f8e58de3bbc0, type: 3}
   redFrame: {fileID: 2079179159}
   button: {fileID: 496508613}
@@ -4676,6 +4625,7 @@ MonoBehaviour:
   costText: {fileID: 1982903295}
   unitNameText: {fileID: 942487950}
   unitCodeText: {fileID: 755686712}
+  soldierSlider: {fileID: 0}
   soldierCnt: 0
 --- !u!114 &496508613 stripped
 MonoBehaviour:
@@ -4889,6 +4839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitStatsData: {fileID: 0}
   unitPrefub: {fileID: 5485771749992652259, guid: ce447c88bd4c3844b97f0c637976eba6, type: 3}
   redFrame: {fileID: 2104212921}
   button: {fileID: 577399917}
@@ -4906,6 +4857,7 @@ MonoBehaviour:
   costText: {fileID: 1187967113}
   unitNameText: {fileID: 1137573696}
   unitCodeText: {fileID: 1530414359}
+  soldierSlider: {fileID: 1331638019}
   soldierCnt: 0
 --- !u!114 &577399917 stripped
 MonoBehaviour:
@@ -4940,6 +4892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitStatsData: {fileID: 0}
   unitPrefub: {fileID: 3091858684701047378, guid: 3a158ba479bc7b64cba323d556aacc59, type: 3}
   redFrame: {fileID: 360644503}
   button: {fileID: 582912612}
@@ -4957,6 +4910,7 @@ MonoBehaviour:
   costText: {fileID: 1982903295}
   unitNameText: {fileID: 942487950}
   unitCodeText: {fileID: 755686712}
+  soldierSlider: {fileID: 0}
   soldierCnt: 0
 --- !u!114 &582912612 stripped
 MonoBehaviour:
@@ -5353,7 +5307,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4924918963882871115, guid: 50b69618da34e644b95375e88c5122a6, type: 3}
   m_PrefabInstance: {fileID: 1470867131}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 130679548}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -6964,6 +6918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitStatsData: {fileID: 0}
   unitPrefub: {fileID: 3091858684701047378, guid: 3a158ba479bc7b64cba323d556aacc59, type: 3}
   redFrame: {fileID: 1639536963}
   button: {fileID: 797592245}
@@ -6981,6 +6936,7 @@ MonoBehaviour:
   costText: {fileID: 1187967113}
   unitNameText: {fileID: 1137573696}
   unitCodeText: {fileID: 1530414359}
+  soldierSlider: {fileID: 1331638019}
   soldierCnt: 0
 --- !u!1 &801945058
 GameObject:
@@ -7538,11 +7494,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 838132998}
   m_CullTransparentMesh: 1
---- !u!1 &842557060 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8659784463532020734, guid: 47746d04d8b5ae845990ba0198817c25, type: 3}
-  m_PrefabInstance: {fileID: 2019952852}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &865419655 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8458374447184771619, guid: 50b69618da34e644b95375e88c5122a6, type: 3}
@@ -7581,7 +7532,7 @@ RectTransform:
   m_Father: {fileID: 1832046940}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10213,6 +10164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitStatsData: {fileID: 0}
   unitPrefub: {fileID: 5392146104975821629, guid: 9ba3b6f3f02d8494f853f7a4e6e0eb32, type: 3}
   redFrame: {fileID: 626584516}
   button: {fileID: 1069135195}
@@ -10230,6 +10182,7 @@ MonoBehaviour:
   costText: {fileID: 1187967113}
   unitNameText: {fileID: 1137573696}
   unitCodeText: {fileID: 1530414359}
+  soldierSlider: {fileID: 1331638019}
   soldierCnt: 0
 --- !u!1001 &1081467604
 PrefabInstance:
@@ -10832,6 +10785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitStatsData: {fileID: 0}
   unitPrefub: {fileID: 7387470101939567078, guid: 9616138bef620734faf05cce18a93105, type: 3}
   redFrame: {fileID: 21521601}
   button: {fileID: 1138314307}
@@ -10849,6 +10803,7 @@ MonoBehaviour:
   costText: {fileID: 1187967113}
   unitNameText: {fileID: 1137573696}
   unitCodeText: {fileID: 1530414359}
+  soldierSlider: {fileID: 1331638019}
   soldierCnt: 0
 --- !u!1 &1143669777
 GameObject:
@@ -11017,7 +10972,7 @@ RectTransform:
   m_Father: {fileID: 534039305}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13712,7 +13667,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1505563465
 Transform:
   m_ObjectHideFlags: 0
@@ -15604,7 +15559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1802882622
 Transform:
   m_ObjectHideFlags: 0
@@ -15731,6 +15686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitStatsData: {fileID: 0}
   unitPrefub: {fileID: 4520513790756411374, guid: 4d9753e693710f84fa1160f4b8cbc676, type: 3}
   redFrame: {fileID: 1222637583}
   button: {fileID: 1824506712}
@@ -15748,6 +15704,7 @@ MonoBehaviour:
   costText: {fileID: 1982903295}
   unitNameText: {fileID: 942487950}
   unitCodeText: {fileID: 755686712}
+  soldierSlider: {fileID: 0}
   soldierCnt: 0
 --- !u!114 &1824506712 stripped
 MonoBehaviour:

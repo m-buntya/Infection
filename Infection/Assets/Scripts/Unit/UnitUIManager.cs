@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UnitUIManager : MonoBehaviour
 {
-    [SerializeField] UnitFormation unitFormation;
+    [SerializeField] FormationUnitButton unitFormation;
 
     [SerializeField] Canvas SquadUI;
 

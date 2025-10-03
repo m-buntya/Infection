@@ -2,9 +2,56 @@
 using UnityEngine.UI;
 using TMPro;
 using StatePatteren.State;
+using Unity.VisualScripting;
+public class UnitParametor
+{
+    public UnitStats leaderUnit { get; private set; }   // リーダーユニットのパラメータ
+
+    float defaultMaxHp = 0;
+    float defaultAtk = 0;
+    float defaultVirusPow = 0;
+    float defaultSpd = 0;
+
+    public int unitMemberCnt;
+    int unitMemberMinCnt = 0;
+    int unitMemberMaxCnt = 100;
+
+    // 雑兵のメンバー数をセット
+    public void SetSoldierCnt(int value)
+    {
+        unitMemberCnt = Mathf.Clamp(value, unitMemberMinCnt, unitMemberMaxCnt);
+    }
+
+    // リーダーのパラメータをセット
+    public void SetLeaderStats(UnitStats leader)
+    {
+        leaderUnit = leader;
+
+        defaultMaxHp = leader.maxHp;
+        defaultAtk = leader.atk;
+        defaultVirusPow = leader.virusPow;
+        defaultSpd = leader.spd;
+    }
+
+    // 部隊のパラメータをセット
+    public void SetUnitPara()
+    {
+        float correction = unitMemberCnt * 0.01f;      // 部隊の人数 * 1%の補正値
+
+        leaderUnit.maxHp    = defaultMaxHp       + defaultMaxHp * correction;
+        leaderUnit.hp       = leaderUnit.maxHp;
+        leaderUnit.atk      = defaultAtk      + defaultAtk      * correction;
+        leaderUnit.virusPow = defaultVirusPow + defaultVirusPow * correction;
+        float slowRate = (float)unitMemberCnt / unitMemberMaxCnt;
+        leaderUnit.spd = defaultSpd * (1 - slowRate);
+    }
+}
 
 public class FormationUnitButton : MonoBehaviour
 {
+    [SerializeField] UnitStatsData unitStatsData;
+    public UnitParametor unitPara { get; private set; }
+
     public GameObject unitPrefub;
     public GameObject redFrame;
     public Button button;
@@ -29,11 +76,15 @@ public class FormationUnitButton : MonoBehaviour
     public TextMeshProUGUI unitNameText;
     public TextMeshProUGUI unitCodeText;
 
+    [SerializeField] Slider soldierSlider;
     [Header("兵士数（外部から設定）")]
     public int soldierCnt = 0;
 
     private void Start()
     {
+        unitPara = new UnitParametor();
+        soldierSlider.onValueChanged.AddListener(OnSliderSoldier);      // スライダーの変更を検知できるようにする
+
         if (button != null)
         {
             button.onClick.AddListener(() =>
@@ -48,8 +99,6 @@ public class FormationUnitButton : MonoBehaviour
                 if (attackBace != null && attackBace.unitStats != null)
                 {
                     var stats = attackBace.unitStats;
-
-                    
 
                     roleText.text = stats.role.ToString();
                     soldierCntText.text = soldierCnt.ToString();
@@ -87,5 +136,12 @@ public class FormationUnitButton : MonoBehaviour
     {
         if (redFrame != null)
             redFrame.SetActive(visible);
+    }
+
+    // 雑兵数選択
+    void OnSliderSoldier(float value)
+    {
+        unitPara.SetSoldierCnt((int)value);
+        unitPara.SetUnitPara();
     }
 }
