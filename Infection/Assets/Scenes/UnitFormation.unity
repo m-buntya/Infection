@@ -288,11 +288,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefub: {fileID: 4520513790756411374, guid: 4d9753e693710f84fa1160f4b8cbc676, type: 3}
+  unitPrefab: {fileID: 4520513790756411374, guid: 4d9753e693710f84fa1160f4b8cbc676, type: 3}
   redFrame: {fileID: 2067611055}
   button: {fileID: 10094205}
   panelManager: {fileID: 129204533}
-  unitcontroller: {fileID: -1372196467838446890, guid: 4d9753e693710f84fa1160f4b8cbc676, type: 3}
+  unitController: {fileID: -1372196467838446890, guid: 4d9753e693710f84fa1160f4b8cbc676, type: 3}
   attackBace: {fileID: 8117029692756202307, guid: 4d9753e693710f84fa1160f4b8cbc676, type: 3}
   roleText: {fileID: 2034938795}
   soldierCntText: {fileID: 737378290}
@@ -1086,11 +1086,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefub: {fileID: 5485771749992652259, guid: ce447c88bd4c3844b97f0c637976eba6, type: 3}
+  unitPrefab: {fileID: 0}
   redFrame: {fileID: 138364255}
   button: {fileID: 88918119}
   panelManager: {fileID: 129204533}
-  unitcontroller: {fileID: 2191438368491215067, guid: ce447c88bd4c3844b97f0c637976eba6, type: 3}
+  unitController: {fileID: 0}
   attackBace: {fileID: 159891526865721678, guid: ce447c88bd4c3844b97f0c637976eba6, type: 3}
   roleText: {fileID: 962393909}
   soldierCntText: {fileID: 1535910012}
@@ -1885,11 +1885,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefub: {fileID: 5392146104975821629, guid: 9ba3b6f3f02d8494f853f7a4e6e0eb32, type: 3}
+  unitPrefab: {fileID: 0}
   redFrame: {fileID: 1003733895}
   button: {fileID: 172153291}
   panelManager: {fileID: 129204533}
-  unitcontroller: {fileID: -4619373780064826665, guid: 9ba3b6f3f02d8494f853f7a4e6e0eb32, type: 3}
+  unitController: {fileID: 0}
   attackBace: {fileID: 0}
   roleText: {fileID: 962393909}
   soldierCntText: {fileID: 1535910012}
@@ -4922,11 +4922,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefub: {fileID: 6039882794378326645, guid: 3be2bacc28e576543932f8e58de3bbc0, type: 3}
+  unitPrefab: {fileID: 0}
   redFrame: {fileID: 2079179159}
   button: {fileID: 496508613}
   panelManager: {fileID: 129204533}
-  unitcontroller: {fileID: -6776776990387253320, guid: 3be2bacc28e576543932f8e58de3bbc0, type: 3}
+  unitController: {fileID: 0}
   attackBace: {fileID: 2956936156628077043, guid: 3be2bacc28e576543932f8e58de3bbc0, type: 3}
   roleText: {fileID: 962393909}
   soldierCntText: {fileID: 1535910012}
@@ -5152,11 +5152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefub: {fileID: 5485771749992652259, guid: ce447c88bd4c3844b97f0c637976eba6, type: 3}
+  unitPrefab: {fileID: 5485771749992652259, guid: ce447c88bd4c3844b97f0c637976eba6, type: 3}
   redFrame: {fileID: 2104212921}
   button: {fileID: 577399917}
   panelManager: {fileID: 129204533}
-  unitcontroller: {fileID: 2191438368491215067, guid: ce447c88bd4c3844b97f0c637976eba6, type: 3}
+  unitController: {fileID: 2191438368491215067, guid: ce447c88bd4c3844b97f0c637976eba6, type: 3}
   attackBace: {fileID: 159891526865721678, guid: ce447c88bd4c3844b97f0c637976eba6, type: 3}
   roleText: {fileID: 2034938795}
   soldierCntText: {fileID: 737378290}
@@ -5203,11 +5203,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefub: {fileID: 3091858684701047378, guid: 3a158ba479bc7b64cba323d556aacc59, type: 3}
+  unitPrefab: {fileID: 0}
   redFrame: {fileID: 360644503}
   button: {fileID: 582912612}
   panelManager: {fileID: 129204533}
-  unitcontroller: {fileID: 8692106525418995562, guid: 3a158ba479bc7b64cba323d556aacc59, type: 3}
+  unitController: {fileID: 0}
   attackBace: {fileID: 7273613838766685951, guid: 3a158ba479bc7b64cba323d556aacc59, type: 3}
   roleText: {fileID: 962393909}
   soldierCntText: {fileID: 1535910012}
@@ -7180,11 +7180,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefub: {fileID: 5392146104975821629, guid: 9ba3b6f3f02d8494f853f7a4e6e0eb32, type: 3}
+  unitPrefab: {fileID: 5392146104975821629, guid: 9ba3b6f3f02d8494f853f7a4e6e0eb32, type: 3}
   redFrame: {fileID: 1083203352}
   button: {fileID: 762255612}
   panelManager: {fileID: 129204533}
-  unitcontroller: {fileID: -4619373780064826665, guid: 9ba3b6f3f02d8494f853f7a4e6e0eb32, type: 3}
+  unitController: {fileID: -4619373780064826665, guid: 9ba3b6f3f02d8494f853f7a4e6e0eb32, type: 3}
   attackBace: {fileID: 0}
   roleText: {fileID: 2034938795}
   soldierCntText: {fileID: 737378290}
@@ -7385,11 +7385,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefub: {fileID: 3091858684701047378, guid: 3a158ba479bc7b64cba323d556aacc59, type: 3}
+  unitPrefab: {fileID: 3091858684701047378, guid: 3a158ba479bc7b64cba323d556aacc59, type: 3}
   redFrame: {fileID: 1639536963}
   button: {fileID: 797592245}
   panelManager: {fileID: 129204533}
-  unitcontroller: {fileID: 8692106525418995562, guid: 3a158ba479bc7b64cba323d556aacc59, type: 3}
+  unitController: {fileID: 8692106525418995562, guid: 3a158ba479bc7b64cba323d556aacc59, type: 3}
   attackBace: {fileID: 7273613838766685951, guid: 3a158ba479bc7b64cba323d556aacc59, type: 3}
   roleText: {fileID: 2034938795}
   soldierCntText: {fileID: 737378290}
@@ -8002,7 +8002,7 @@ RectTransform:
   m_Father: {fileID: 1832046940}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8399,11 +8399,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefub: {fileID: 8125406227307231549, guid: a7f1f1d1c7bd8294cbcef198732527a0, type: 3}
+  unitPrefab: {fileID: 8125406227307231549, guid: a7f1f1d1c7bd8294cbcef198732527a0, type: 3}
   redFrame: {fileID: 1985359586}
   button: {fileID: 892829539}
   panelManager: {fileID: 129204533}
-  unitcontroller: {fileID: 1117844952377028551, guid: a7f1f1d1c7bd8294cbcef198732527a0, type: 3}
+  unitController: {fileID: 1117844952377028551, guid: a7f1f1d1c7bd8294cbcef198732527a0, type: 3}
   attackBace: {fileID: 8868862598277786053, guid: a7f1f1d1c7bd8294cbcef198732527a0, type: 3}
   roleText: {fileID: 2034938795}
   soldierCntText: {fileID: 737378290}
@@ -10685,11 +10685,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefub: {fileID: 3377404703048164946, guid: be2232ef1ba4e9546b73bc96b8953db8, type: 3}
+  unitPrefab: {fileID: 3377404703048164946, guid: be2232ef1ba4e9546b73bc96b8953db8, type: 3}
   redFrame: {fileID: 626584516}
   button: {fileID: 1069135195}
   panelManager: {fileID: 129204533}
-  unitcontroller: {fileID: 5881327592890101928, guid: be2232ef1ba4e9546b73bc96b8953db8, type: 3}
+  unitController: {fileID: 5881327592890101928, guid: be2232ef1ba4e9546b73bc96b8953db8, type: 3}
   attackBace: {fileID: 2668745394809730730, guid: be2232ef1ba4e9546b73bc96b8953db8, type: 3}
   roleText: {fileID: 2034938795}
   soldierCntText: {fileID: 737378290}
@@ -11422,11 +11422,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefub: {fileID: 7387470101939567078, guid: 9616138bef620734faf05cce18a93105, type: 3}
+  unitPrefab: {fileID: 7387470101939567078, guid: 9616138bef620734faf05cce18a93105, type: 3}
   redFrame: {fileID: 21521601}
   button: {fileID: 1138314307}
   panelManager: {fileID: 129204533}
-  unitcontroller: {fileID: 1857118075311927068, guid: 9616138bef620734faf05cce18a93105, type: 3}
+  unitController: {fileID: 1857118075311927068, guid: 9616138bef620734faf05cce18a93105, type: 3}
   attackBace: {fileID: 7877405462508972318, guid: 9616138bef620734faf05cce18a93105, type: 3}
   roleText: {fileID: 2034938795}
   soldierCntText: {fileID: 737378290}
@@ -11607,7 +11607,7 @@ RectTransform:
   m_Father: {fileID: 534039305}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -16456,7 +16456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1802882622
 Transform:
   m_ObjectHideFlags: 0
@@ -16583,11 +16583,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538608f7b16439c4e9ee01c3d3f2bf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefub: {fileID: 4520513790756411374, guid: 4d9753e693710f84fa1160f4b8cbc676, type: 3}
+  unitPrefab: {fileID: 0}
   redFrame: {fileID: 1222637583}
   button: {fileID: 1824506712}
   panelManager: {fileID: 129204533}
-  unitcontroller: {fileID: -1372196467838446890, guid: 4d9753e693710f84fa1160f4b8cbc676, type: 3}
+  unitController: {fileID: 0}
   attackBace: {fileID: 8117029692756202307, guid: 4d9753e693710f84fa1160f4b8cbc676, type: 3}
   roleText: {fileID: 962393909}
   soldierCntText: {fileID: 1535910012}

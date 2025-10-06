@@ -177,12 +177,10 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (hit.collider != null && hit.collider.CompareTag("DropField"))
         {
             ug.UnitGenerate(gameObject, hit.collider.transform.position);
-            StartCoroutine(CoolTimeDisplay());
         }
         else if (lastValidPosition.HasValue)
         {
             ug.UnitGenerate(gameObject, lastValidPosition.Value);
-            StartCoroutine(CoolTimeDisplay());
         }
 
         dragEndTcs?.TrySetResult(eventData);
