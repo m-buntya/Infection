@@ -343,6 +343,7 @@ GameObject:
   - component: {fileID: 467521677}
   - component: {fileID: 467521676}
   - component: {fileID: 467521678}
+  - component: {fileID: 467521679}
   m_Layer: 5
   m_Name: TapSpace
   m_TagString: Untagged
@@ -451,7 +452,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1684587946}
+      - m_Target: {fileID: 467521679}
         m_TargetAssemblyTypeName: TapToChangeScene, Assembly-CSharp
         m_MethodName: OnTapScreen
         m_Mode: 1
@@ -463,6 +464,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &467521679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467521674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb572a454e9d494fa7dfd47a193f158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextSceneName: HomeScene
+  tapText: {fileID: 275960709}
 --- !u!1 &924673620
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,7 +1700,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1684587943}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfb572a454e9d494fa7dfd47a193f158, type: 3}
   m_Name: 

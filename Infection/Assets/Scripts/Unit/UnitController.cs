@@ -1,6 +1,8 @@
 ﻿using System.Data;
 using System.Net;
+using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace StatePatteren.State
 {
@@ -17,6 +19,8 @@ namespace StatePatteren.State
         UnitManager unitManager;
 
         public UnitStats unitStats { get; private set; }
+
+        public bool isSynthesisReady { get; private set; } = false;
 
         private SquadStateMachine stateMachine;
 
@@ -38,6 +42,11 @@ namespace StatePatteren.State
         public UNIT_GROUP GetUnitGroup()
         {
             return unitGroup;
+        }
+
+        public void SetSynthesisReady(bool value)
+        {
+            isSynthesisReady = value;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -68,12 +77,16 @@ namespace StatePatteren.State
             unitStats.hp = unitStats.maxHp;
 
             stateMachine.Initialize(stateMachine.readyState);
+
+            Debug.Log($"group:{unitGroup}");
         }
 
         // Update is called once per frame
         void Update()
         {
             stateMachine.Update();
+            Debug.Log($"感染ゲージ状態:{unitStats.enemyVirusPoint}");
+            Debug.Log($"group:{unitGroup}");
         }
 
         // ダメージ処理
@@ -95,12 +108,42 @@ namespace StatePatteren.State
             {
                 unitStats.enemyVirusPoint += addPoint;
                 Debug.Log($"Unit：敵ウイルスの感染ゲージが{addPoint}上昇した");
+                TakeChange(unitStats.enemyVirusPoint);
             }
             else
             {
                 unitStats.virusPoint += addPoint;
                 Debug.Log($"Unit：自ウイルスの感染ゲージが{addPoint}上昇した");
+                TakeChange(unitStats.virusPoint);
             }            
+        }
+
+        //寝返り処理
+        public void TakeChange(float countPoint)
+        {
+            if (countPoint < unitStats.enemyVirusMaxPoint || countPoint < unitStats.virusMaxPoint) return;
+
+            Debug.Log($"countPoint:{countPoint}");
+
+            //TODO 値、ゲージの確認
+            Debug.Log("寝返り処理開始");
+            if (unitGroup == UNIT_GROUP.ENEMY && countPoint >= unitStats.enemyVirusMaxPoint)
+            {
+                //Debug.Log("敵が寝返った");
+                //unitStats.enemyVirusPoint = 0;
+                //unitStats.virusPoint = 0;
+                //unitGroup = UNIT_GROUP.PLAYER;
+                //Debug.Log($"group:{unitGroup}");
+
+            }
+            else if (unitGroup == UNIT_GROUP.PLAYER && countPoint >= unitStats.virusMaxPoint)
+            {
+                //Debug.Log("味方が寝返った");
+                //unitStats.virusPoint = 0;
+                //unitStats.enemyVirusPoint = 0;
+                //unitGroup = UNIT_GROUP.ENEMY;
+                //Debug.Log($"group:{unitGroup}");
+            }
         }
 
         // 回復処理
@@ -159,6 +202,7 @@ namespace StatePatteren.State
                     maxHp = 100,
                     virusPoint = 0,
                     virusMaxPoint = 100,
+                    enemyVirusMaxPoint = 100,
                     // 他の初期値も必要に応じて設定
                 };
                 Debug.LogWarning("⚠ unitStats が未設定だったため、仮初期化されました。");

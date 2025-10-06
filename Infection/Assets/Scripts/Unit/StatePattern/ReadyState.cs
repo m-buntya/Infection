@@ -31,6 +31,7 @@ namespace StatePatteren.State
             if (time >= sortieTime)
             {
                 Transition();
+                unitController.SetSynthesisReady(true);
             }
         }
 
@@ -54,6 +55,7 @@ namespace StatePatteren.State
                 sr.color = c;
             }
         }
+
     }
 }
 
