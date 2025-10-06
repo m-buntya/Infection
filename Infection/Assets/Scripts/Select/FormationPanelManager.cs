@@ -52,7 +52,7 @@ public class FormationPanelManager : MonoBehaviour
 
         foreach (var btn in formationButtons)
         {
-            btn.SetRedFrameVisible(btn.unitcontroller == selectedUnit);
+            btn.SetRedFrameVisible(btn.unitController == selectedUnit);
         }
 
         string formattedText = FormatUnitText(selectedUnit);

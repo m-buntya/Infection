@@ -5,13 +5,12 @@ using StatePatteren.State;
 
 public class FormationUnitButton : MonoBehaviour
 {
-    public GameObject unitPrefub;
+    public GameObject unitPrefab;
     public GameObject redFrame;
     public Button button;
     public FormationPanelManager panelManager;
 
-    public UnitController unitcontroller;
-
+    public UnitController unitController;
     public UnitAttackBace attackBace;
 
     private UnitStats currentlySelectedStats;
@@ -34,23 +33,24 @@ public class FormationUnitButton : MonoBehaviour
 
     private void Start()
     {
+        // ✅ 明示的に初期化
+        unitController = unitPrefab.GetComponent<UnitController>();
+        attackBace = unitPrefab.GetComponent<UnitAttackBace>();
+
         if (button != null)
         {
             button.onClick.AddListener(() =>
             {
-                if (panelManager != null)
+                if (panelManager != null && unitController != null)
                 {
-                    var controller = unitPrefub.GetComponent<UnitController>();
-                    panelManager.HighlightUnit(controller);
+                    panelManager.HighlightUnit(unitController);
                 }
 
-                var attackBace = unitPrefub.GetComponent<UnitAttackBace>();
                 if (attackBace != null && attackBace.unitStats != null)
                 {
                     var stats = attackBace.unitStats;
 
-                    
-
+                    // UI表示
                     roleText.text = stats.role.ToString();
                     soldierCntText.text = soldierCnt.ToString();
                     hpText.text = stats.maxHp.ToString("F1");
@@ -63,13 +63,13 @@ public class FormationUnitButton : MonoBehaviour
                     unitNameText.text = stats.unitName;
                     unitCodeText.text = stats.unitCode.ToString();
 
-                    var icon = unitPrefub.GetComponentInChildren<SpriteRenderer>()?.sprite;
+                    var icon = unitPrefab.GetComponentInChildren<SpriteRenderer>()?.sprite;
                     var slotButton = panelManager.GetCurrentSlotButton();
                     if (slotButton != null)
                     {
-                        slotButton.SetUnit(unitcontroller, icon, stats.unitCode.ToString(), stats.unitName);
+                        slotButton.SetUnit(unitController, icon, stats.unitCode.ToString(), stats.unitName);
                         Debug.Log($"📦 FormationUnitButton: unitCode = {stats.unitCode}, unitName = {stats.unitName}, iconName = {icon?.name}");
-                        Debug.Log($"🔍 unitcontroller = {unitcontroller.name}, instanceID = {unitcontroller.GetInstanceID()}");
+                        Debug.Log($"🔍 unitController = {unitController.name}, instanceID = {unitController.GetInstanceID()}");
                     }
                 }
                 else
@@ -78,7 +78,6 @@ public class FormationUnitButton : MonoBehaviour
                 }
             });
         }
-        attackBace = unitPrefub.GetComponent<UnitAttackBace>();
 
         SetRedFrameVisible(false);
     }
