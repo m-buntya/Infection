@@ -149,7 +149,7 @@ public class UnitFormation : MonoBehaviour
     }
 
     // UnitStats ‚ğ new ‚Å•¡»‚·‚éŠÖ”‚ğì‚é
-    public UnitStats Clone(UnitStats original)
+    public static UnitStats Clone(UnitStats original)
     {
         return new UnitStats
         {
