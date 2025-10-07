@@ -5,7 +5,7 @@ public class DamegeTextController:MonoBehaviour
 {
     [SerializeField] TMP_Text damageText;
     Transform target;
-    Vector3 offset = new Vector3(0, 0.01f, 0); //頭上に表示
+    Vector3 offset = new Vector3(-0.6f, 0.8f, 0); //頭上に表示
     [SerializeField] Animator animator;
 
     private void Awake()
@@ -26,7 +26,7 @@ public class DamegeTextController:MonoBehaviour
             damageText.enabled = true;
         }
 
-        animator?.Play("FadeUp"); // ← アニメーション再生
+        animator?.Play("damage_text 1"); // ← アニメーション再生
 
         Invoke(nameof(DestroySelf), 1.5f);
     }
