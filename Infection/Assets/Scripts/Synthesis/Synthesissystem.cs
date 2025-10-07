@@ -9,10 +9,12 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class Synthesissystem : MonoBehaviour
 {
-    //public UnitManager unitManager;
-    GameObject[] unitClones;
+    UnitController unitController;
 
-    public GameObject SynthesisUnit;
+    public UnitManager unitManager;
+    //public UnitDragHandler unitDragHandler;
+
+    public GameObject testSynthesisUnit;
     public SynthesisUnitStatsData synthesisUnitStatsData;
 
     // 合成可能なユニットの参照用
@@ -22,11 +24,18 @@ public class Synthesissystem : MonoBehaviour
     public string taergetUnitName1 = "アーチャー";
     public string targetUnitName2 = "アタッカー";
 
+    //合成をする距離
+    [Tooltip("ここでユニットがどれだけ近づいたら合成を発動するかを指定")]
+    public float synthesisdistance = 3f;
+
     //合成が可能かのフラグ
     public bool isSynthes = false;
 
     public bool hasDisplay = false;
 
+    [Tooltip("true の時は Player と Enemy の合成はしない")]
+    //デバッグ用のフラグ
+    public bool isDebug = false;
 
     // ロールの順不同比較用ペアを正規化
     private (UnitStats.ROLE, UnitStats.ROLE) NormalizePair(UnitStats.ROLE a, UnitStats.ROLE b)
@@ -41,26 +50,30 @@ public class Synthesissystem : MonoBehaviour
 
     private void Update()
     {
+        //TODO 後で使えるようにストック部分を作る
         if (hasDisplay) return;
 
-        unitClones = FindObjectsOfType<GameObject>()
-                .Where(go => go.name == "Unit(Clone)")
-                .ToArray();
-
-        Debug.Log("見つかったユニットの数: " + unitClones.Length);
+        Debug.Log("見つかった味方ユニットの数: " + unitManager.GetPlayerUnits().Count);
+        Debug.Log("見つかった敵ユニットの数: " + unitManager.GetEnemyUnits().Count);
 
         isSynthes = false; // 毎フレーム初期化
 
-        // オブジェクト同士のペアをチェック
-        for (int i = 0; i < unitClones.Length; i++)
-        {
-            for (int j = i + 1; j < unitClones.Length; j++)
-            {
-                GameObject objA = unitClones[i];
-                GameObject objB = unitClones[j];
+        List<GameObject> allUnits = new List<GameObject>();
+        allUnits.AddRange(unitManager.GetPlayerUnits());
+        allUnits.AddRange(unitManager.GetEnemyUnits());
 
+        // オブジェクト同士のペアをチェック
+        for (int i = 0; i < allUnits.Count; i++)
+        {
+            for (int j = i + 1; j < allUnits.Count; j++)
+            {
+                GameObject objA = allUnits[i];
+                GameObject objB = allUnits[j];
+
+                //ユニット同士の距離を測る
                 float distance = Vector3.Distance(objA.transform.position, objB.transform.position);
-                if (distance <= 10f)
+
+                if (distance <= synthesisdistance)//変数で距離を調整
                 {
                     var ucA = objA.GetComponent<UnitController>();
                     var ucB = objB.GetComponent<UnitController>();
@@ -68,15 +81,34 @@ public class Synthesissystem : MonoBehaviour
                     if (ucA != null && ucB != null &&
                         ucA.unitStats != null && ucB.unitStats != null)
                     {
+                        //グループのチェック
+                        var groupA = ucA.GetUnitGroup();
+                        var groupB = ucB.GetUnitGroup();
+
+                        if(isDebug && 
+                            ((groupA == UnitController.UNIT_GROUP.PLAYER && groupB == UnitController.UNIT_GROUP.ENEMY)||
+                            (groupA == UnitController.UNIT_GROUP.ENEMY && groupB == UnitController.UNIT_GROUP.ENEMY)))
+                        {
+                            Debug.Log("DebugモードでPlayerとEnemyの合成をスキップ");
+                            continue;
+                        }
+
+                        //両方の生成が完了しているか
+                        if (!ucA.isSynthesisReady || !ucB.isSynthesisReady)
+                        {
+                            Debug.Log("どちらかのユニットが合成準備完了していない");
+                            continue;
+                        }
+
                         var roleA = ucA.unitStats.role;
                         var roleB = ucB.unitStats.role;
-
                         var pair = NormalizePair(roleA, roleB);
+
                         Debug.Log($"Checking pair: {roleA} and {roleB}, Distance: {distance}");
 
                         if(synthesisUnitStatsData == null)
                         {
-                            Debug.LogError("SynthesisUnitStatsData is not assigned.");
+                            Debug.LogError("SynthesisUnitStatsDataが見つからないです");
                         }
 
                         bool exists = synthesisUnitStatsData.SynthesisUnitParameter.Any(entry =>
@@ -128,9 +160,9 @@ public class Synthesissystem : MonoBehaviour
         }
 
         // 合成ユニットの生成
-        //Vector2 spawnPosition = (targetUnit1.transform.position + targetUnit2.transform.position) / 2;// 2つのユニットの中間地点に配置
-        Vector2 spawnPosition = new Vector2(0, 0); //テスト用座標
-        GameObject newUnit = Instantiate(SynthesisUnit, spawnPosition, Quaternion.identity);
+        // 2つのユニットの中間地点に配置
+        Vector2 spawnPosition = (targetUnit1.transform.position + targetUnit2.transform.position) / 2;
+        GameObject newUnit = Instantiate(testSynthesisUnit, spawnPosition, Quaternion.identity);
         Debug.Log($"合成ユニットを生成しました: {newUnit.name}");
 
         var controller = newUnit.GetComponent<SynthesisUnitController>();

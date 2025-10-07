@@ -40,8 +40,12 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private void Start()
     {
         cam = Camera.main;
+
         isDrag = false;
         unitGenerator = GameObject.Find("UnitGenerater").GetComponent<UnitGenerater>(); 
+
+        unitGenerator = GameObject.Find("UnitGenerater").GetComponent<UnitGenerater>();
+
     }
 
     void Update()
@@ -52,7 +56,7 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // コストが足りているか
     public void CostCheck()
     {
-        if(unitGenerator.GetStats(gameObject).cost <= 0)
+        if (unitGenerator.GetStats(gameObject).cost <= 0)
         {
             isDrag = false;
         }
@@ -71,7 +75,7 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // グレーアウト処理
     void GrayOut()
     {
-        if(isDrag)
+        if (isDrag)
         {
             GrayOutObj.SetActive(false);
         }
@@ -151,7 +155,7 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        
+
         if (!isDrag) return;
         if (dragPreviewObject != null)
         {
@@ -172,7 +176,7 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             dragEndTcs?.TrySetResult(eventData);
             return;
         }
-        
+
         RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
         if (hit.collider != null && hit.collider.CompareTag("DropField"))
         {
@@ -199,5 +203,10 @@ public class UnitDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             c.a = alpha;
             sr.color = c;
         }
+    }
+
+    public bool GetIsDrag()
+    {
+        return isDrag;
     }
 }
