@@ -22,7 +22,7 @@ public class DamegeTextController:MonoBehaviour
 
         if (damageText != null)
         {
-            damageText.text = $"{Mathf.Abs(damage)}";
+            damageText.text = $"-{Mathf.Abs(damage)}";
             damageText.enabled = true;
         }
 
