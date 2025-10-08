@@ -44,6 +44,7 @@ namespace StatePatteren.State
             return unitGroup;
         }
 
+        // 合成準備完了の設定
         public void SetSynthesisReady(bool value)
         {
             isSynthesisReady = value;
@@ -125,24 +126,35 @@ namespace StatePatteren.State
 
             Debug.Log($"countPoint:{countPoint}");
 
-            //TODO 値、ゲージの確認
             Debug.Log("寝返り処理開始");
             if (unitGroup == UNIT_GROUP.ENEMY && countPoint >= unitStats.enemyVirusMaxPoint)
             {
-                //Debug.Log("敵が寝返った");
-                //unitStats.enemyVirusPoint = 0;
-                //unitStats.virusPoint = 0;
-                //unitGroup = UNIT_GROUP.PLAYER;
-                //Debug.Log($"group:{unitGroup}");
+                Debug.Log("敵が寝返った");
+                //値、グループ、見た目の変更
+                unitStats.enemyVirusPoint = 0;
+                unitStats.virusPoint = 0;
+                unitGroup = UNIT_GROUP.PLAYER;
+                Debug.Log($"group:{unitGroup}");
+                this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);    // 見た目だけ反転
+                
+                //リスト処理
+                unitManager.RemoveUnitList(this.gameObject, "Enemy");// 敵リストから削除
+                unitManager.AddUnitList(this.gameObject, "Player");// 味方リストに追加
 
             }
-            else if (unitGroup == UNIT_GROUP.PLAYER && countPoint >= unitStats.virusMaxPoint)
+            if (unitGroup == UNIT_GROUP.PLAYER && countPoint >= unitStats.virusMaxPoint)
             {
-                //Debug.Log("味方が寝返った");
-                //unitStats.virusPoint = 0;
-                //unitStats.enemyVirusPoint = 0;
-                //unitGroup = UNIT_GROUP.ENEMY;
-                //Debug.Log($"group:{unitGroup}");
+                Debug.Log("味方が寝返った");
+                //値、グループ、見た目の変更
+                unitStats.virusPoint = 0;
+                unitStats.enemyVirusPoint = 0;
+                unitGroup = UNIT_GROUP.ENEMY;
+                Debug.Log($"group:{unitGroup}");
+                this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);    // 見た目だけ反転
+
+                //リスト処理
+                unitManager.RemoveUnitList(this.gameObject, "Player");// リストから削除
+                unitManager.AddUnitList(this.gameObject, "Enemy");// 敵リストに追加
             }
         }
 
