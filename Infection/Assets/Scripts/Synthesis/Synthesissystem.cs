@@ -37,6 +37,10 @@ public class Synthesissystem : MonoBehaviour
     //デバッグ用のフラグ
     public bool isDebug = false;
 
+    //味方、敵のユニット数
+    public int paleyerCount;
+    public int enemyCount;
+
     // ロールの順不同比較用ペアを正規化
     private (UnitStats.ROLE, UnitStats.ROLE) NormalizePair(UnitStats.ROLE a, UnitStats.ROLE b)
     {

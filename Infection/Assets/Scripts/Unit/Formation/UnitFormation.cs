@@ -41,9 +41,9 @@ public class UnitParametor
     {
         float correction = unitMemberCnt * 0.01f;      // ïîë‡ÇÃêlêî * 1%ÇÃï‚ê≥íl
 
-        leaderUnit.maxHp    = defaultMaxHp       + defaultMaxHp * correction;
-        leaderUnit.hp       = leaderUnit.maxHp;
-        leaderUnit.atk      = defaultAtk      + defaultAtk      * correction;
+        leaderUnit.maxHp = defaultMaxHp + defaultMaxHp * correction;
+        leaderUnit.hp = leaderUnit.maxHp;
+        leaderUnit.atk = defaultAtk + defaultAtk * correction;
         leaderUnit.virusPow = defaultVirusPow + defaultVirusPow * correction;
         float slowRate = (float)unitMemberCnt / unitMemberMaxCnt;
         leaderUnit.spd = defaultSpd * (1 - slowRate);

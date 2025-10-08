@@ -8,12 +8,18 @@ public class SynthesisUI : MonoBehaviour
 
     UnitController unitController;
 
+    public UnitManager unitManager;
+
     public GameObject synthesisCanvas;
     public TextMeshProUGUI SynthesisTextBox;
 
     //合成可能なユニットの名前を入れる
     public string targetUnit1 = "アーチャー";
     public string targetUnit2 = "アタッカー";
+
+    //味方、敵のユニット数表示用
+    public TextMeshProUGUI TextPaleyerCount;
+    public TextMeshProUGUI TextEnemyCount;
 
     bool isDisplay = false; // 合成UIの表示フラグ
 
@@ -27,6 +33,10 @@ public class SynthesisUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //ユニット数表示
+        //TextPaleyerCount.text = "Player\n" + synthesissystem.paleyerCount;
+        //TextEnemyCount.text = "Enemy\n" + synthesissystem.enemyCount;
+
         if (synthesissystem.isSynthes && !isDisplay)
         {
             //対象のユニット名を取得
