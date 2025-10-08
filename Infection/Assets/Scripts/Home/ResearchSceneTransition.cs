@@ -3,19 +3,43 @@ using UnityEngine.SceneManagement;
 
 public class ResearchSceneTransition : MonoBehaviour
 {
+    private SceneTransitionManager transitionManager;
+
+    private void Start()
+    {
+        transitionManager = FindObjectOfType<SceneTransitionManager>();
+        if (transitionManager == null)
+        {
+            Debug.LogError("[SceneTransition] SceneTransitionManager が見つかりません");
+        }
+
+    }
+
     //研究シーンへ移動
     public void OnClickResearchButton()
     {
-        SceneManager.LoadScene("ResearchScene");
+        if (transitionManager != null)
+        {
+            transitionManager.RequestSceneChange("ResearchScene");
+        }
+
     }
 
     //研究シーンから退出
     public void OnClickHomeButton()
     {
-        SceneManager.LoadScene("HomeScene");
+        if (transitionManager != null)
+        {
+            transitionManager.RequestSceneChange("HomeScene");
+        }
+
     }
     public void OnclickSelectionButton()
     {
-        SceneManager.LoadScene("UnitFormation");
+        if (transitionManager != null)
+        {
+            transitionManager.RequestSceneChange("UnitFormation");
+        }
+
     }
 }
