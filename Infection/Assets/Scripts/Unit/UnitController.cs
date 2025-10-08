@@ -2,7 +2,12 @@
 using System.Net;
 using System.Text.RegularExpressions;
 using UnityEngine;
+
+using TMPro;
+using Unity.VisualScripting;
+
 using UnityEngine.Rendering;
+
 
 namespace StatePatteren.State
 {
@@ -18,6 +23,8 @@ namespace StatePatteren.State
         UnitGenerater unitGenerater;
         UnitManager unitManager;
 
+        [SerializeField] GameObject damageTextPrefab;
+        [SerializeField] Canvas uiCanvas;
         public UnitStats unitStats { get; private set; }
 
         public bool isSynthesisReady { get; private set; } = false;
@@ -52,7 +59,7 @@ namespace StatePatteren.State
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            if(unitGroup == UNIT_GROUP.PLAYER)
+            if (unitGroup == UNIT_GROUP.PLAYER)
             {
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);    // 見た目だけ反転
             }
@@ -76,9 +83,13 @@ namespace StatePatteren.State
 
             unitStats.hp = unitStats.maxHp;
 
-            stateMachine.Initialize(stateMachine.readyState);
+           stateMachine.Initialize(stateMachine.readyState);
+
+            //Invoke(nameof(TestDamageText), 3f);
+
 
             Debug.Log($"group:{unitGroup}");
+
         }
 
         // Update is called once per frame
@@ -99,6 +110,7 @@ namespace StatePatteren.State
             {
                 Dead();
             }
+            ShowDamageText(damage);
         }
 
         // 感染ゲージ増加処理
@@ -114,8 +126,12 @@ namespace StatePatteren.State
             {
                 unitStats.virusPoint += addPoint;
                 Debug.Log($"Unit：自ウイルスの感染ゲージが{addPoint}上昇した");
+
+            }
+
                 TakeChange(unitStats.virusPoint);
-            }            
+                        
+
         }
 
         //寝返り処理
@@ -151,7 +167,7 @@ namespace StatePatteren.State
         {
             unitStats.hp += hp;
 
-            if(unitStats.hp > unitStats.maxHp)
+            if (unitStats.hp > unitStats.maxHp)
             {
                 unitStats.hp = unitStats.maxHp;
             }
@@ -179,7 +195,7 @@ namespace StatePatteren.State
         {
             Debug.Log("死亡処理開始");
 
-            if(unitGroup == UNIT_GROUP.PLAYER)
+            if (unitGroup == UNIT_GROUP.PLAYER)
             {
                 unitManager.RemoveUnitList(gameObject, "Player");
             }
@@ -214,8 +230,23 @@ namespace StatePatteren.State
             var spriteRenderer = GetComponentInChildren<SpriteRenderer>(true); // ← trueで非アクティブも拾える
             return spriteRenderer?.sprite;
         }
+        void ShowDamageText(float damage)
+        {
+            if (damageTextPrefab == null || uiCanvas == null) return;
+
+            var textObj = Instantiate(damageTextPrefab, uiCanvas.transform);
+            var controller = textObj.GetComponent<DamegeTextController>();
+            controller?.Initialize(damage, transform); // ← ユニットの Transform を渡す
+        }
+
+        void TestDamageText()
+        {
+            float testDamage = -10f;
+            Debug.Log($"🧪 テスト：{testDamage} のダメージ表示を実行します");
+            ShowDamageText(testDamage);
+        }
+
+
 
     }
-
-
 }

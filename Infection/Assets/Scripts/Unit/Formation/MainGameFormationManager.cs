@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using StatePatteren.State;
 
 public class MainGameFormationManager : MonoBehaviour
 {
@@ -28,95 +29,48 @@ public class MainGameFormationManager : MonoBehaviour
         {
             var data = formation.slotDataList[i];
 
+            // プレファブ名とパスを取得
+            string prefabName = UnitCreator.GetPrefabNameByCode(data.unitCode);
+            string path = $"Units/{prefabName}";
+            GameObject prefab = Resources.Load<GameObject>(path);
+            Sprite icon = Resources.Load<Sprite>($"Sprites/{data.iconName}");
 
-            var icon = Resources.Load<Sprite>($"Sprites/{data.iconName}");
+            if (prefab == null)
+            {
+                Debug.LogWarning($"[MainGame] プレハブ読み込み失敗: unitCode = {data.unitCode}, path = {path}");
+                continue;
+            }
 
+            // ドラッグボタンにプレファブを設定
+            if (i < dragHandlers.Count)
+            {
+                var handler = dragHandlers[i];
+                handler.unitPrefab = prefab;
+                handler.gameObject.SetActive(true);
+                Debug.Log($"[MainGame] ドラッグボタン割り当て: slot[{i}] = {prefab.name}");
+            }
 
-            var unit = UnitCreator.CreateUnitByCode(data.unitCode);
+            // ユニット生成（Scene表示用）
+            UnitController unit = UnitCreator.CreateUnitByCode(data.unitCode);
 
-            // UIに反映
-
+            // スロットUIに反映
             if (i < slotUIs.Count)
             {
                 slotUIs[i].SetUnit(unit, icon);
             }
 
-            if (i < dragHandlers.Count)
+            // ゲーム空間に配置
+            if (unit != null)
             {
-                var handler = dragHandlers[i];
-
-                // unitCode が空ならドラッグ不可
-                if (string.IsNullOrEmpty(data.unitCode))
-                {
-                    handler.gameObject.SetActive(false); // ✅ 完全に非表示にする
-                    continue;
-                }
-
-                string prefabName = UnitCreator.GetPrefabNameByCode(data.unitCode);
-                if (string.IsNullOrEmpty(prefabName))
-                {
-                    Debug.LogWarning($"[MainGame] unitCode '{data.unitCode}' に対応するプレハブ名が不明です");
-                    handler.gameObject.SetActive(false); // ✅ プレハブ不明でも非表示
-                    continue;
-                }
-
-                var prefab = Resources.Load<GameObject>($"Units/{prefabName}");
-                if (prefab == null)
-                {
-                    Debug.LogWarning($"[MainGame] プレハブが見つかりません: Units/{prefabName}");
-                    handler.gameObject.SetActive(false); // ✅ プレハブ未取得でも非表示
-                    continue;
-                }
-
-                handler.unitPrefab = prefab;
-                handler.gameObject.SetActive(true); // ✅ 有効なユニットなら表示
-
-                // ゲーム空間に配置
-                if (unit != null)
-                {
-                    var instance = Instantiate(unit.gameObject, unitParent);
-                    instance.transform.position = GetSpawnPosition(i);
-
-                }
-
-                // 🔍 デバッグログで確認
-                //Debug.Log($"🧩 読み込み: slot[{i}] unitCode = {data.unitCode}, iconName = {data.iconName}, icon = {(icon != null ? icon.name : "null")}");
+                var instance = Instantiate(unit.gameObject, unitParent);
+                instance.transform.position = GetSpawnPosition(i);
             }
         }
+    }
 
-
-        void LoadFormationFromManager()
-        {
-            var formation = UnitFormationManager.GetFormation();
-
-            for (int i = 0; i < formation.slotDataList.Count; i++)
-            {
-                var data = formation.slotDataList[i];
-                var unit = UnitCreator.CreateUnitByCode(data.unitCode);
-                var icon = Resources.Load<Sprite>($"Icons/{data.iconName}");
-
-                // UIに反映
-                if (i < slotUIs.Count)
-                {
-                    slotUIs[i].SetUnit(unit, icon);
-                }
-
-                // ゲーム空間に配置（例：Instantiate）
-                if (unit != null)
-                {
-                    var instance = Instantiate(unit.gameObject, unitParent);
-                    instance.transform.position = GetSpawnPosition(i); // 任意の配置ロジック
-                }
-
-                //Debug.Log($"🧪 メインゲーム復元: スロット {i}, ユニット = {data.unitCode}, アイコン = {data.iconName}");
-                Debug.Log($"[確認] スロット {i} の unitCode = '{data.unitCode}'");
-            }
-        }
-
-        Vector3 GetSpawnPosition(int index)
-        {
-            // スロット番号に応じた配置位置を返す（例：橋の左右など）
-            return new Vector3(index * 2f, 0, 0); // 仮の例
-        }
+    Vector3 GetSpawnPosition(int index)
+    {
+        // スロット番号に応じた配置位置を返す（例：橋の左右など）
+        return new Vector3(index * 2f, 0, 0); // 仮の例
     }
 }

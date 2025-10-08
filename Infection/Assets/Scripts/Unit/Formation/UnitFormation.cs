@@ -6,49 +6,49 @@ using UnityEngine.UI;
 
 [System.Serializable]
 // 部隊のステータス管理
-//public class UnitParametor
-//{
-//    public UnitStats leaderUnit { get; private set; }   // リーダーユニットのパラメータ
+public class UnitParametor
+{
+    public UnitStats leaderUnit { get; private set; }   // リーダーユニットのパラメータ
 
-//    float defaultMaxHp = 0;
-//    float defaultAtk = 0;
-//    float defaultVirusPow = 0;
-//    float defaultSpd = 0;
+    float defaultMaxHp = 0;
+    float defaultAtk = 0;
+    float defaultVirusPow = 0;
+    float defaultSpd = 0;
 
-//    public int unitMemberCnt;
-//    int unitMemberMinCnt = 0;
-//    int unitMemberMaxCnt = 100;
+    public int unitMemberCnt;
+    int unitMemberMinCnt = 0;
+    int unitMemberMaxCnt = 100;
 
-//    // 雑兵のメンバー数をセット
-//    public void SetSoldierCnt(int value)
-//    {
-//        unitMemberCnt = Mathf.Clamp(value, unitMemberMinCnt, unitMemberMaxCnt);
-//    }
+    // 雑兵のメンバー数をセット
+    public void SetSoldierCnt(int value)
+    {
+        unitMemberCnt = Mathf.Clamp(value, unitMemberMinCnt, unitMemberMaxCnt);
+    }
 
-//    // リーダーのパラメータをセット
-//    public void SetLeaderStats(UnitStats leader)
-//    {
-//        leaderUnit = leader;
+    // リーダーのパラメータをセット
+    public void SetLeaderStats(UnitStats leader)
+    {
+        leaderUnit = leader;
 
-//        defaultMaxHp = leader.maxHp;
-//        defaultAtk = leader.atk;
-//        defaultVirusPow = leader.virusPow;
-//        defaultSpd = leader.spd;
-//    }
+        defaultMaxHp = leader.maxHp;
+        defaultAtk = leader.atk;
+        defaultVirusPow = leader.virusPow;
+        defaultSpd = leader.spd;
+    }
 
-//    // 部隊のパラメータをセット
-//    public void SetUnitPara()
-//    {
-//        float correction = unitMemberCnt * 0.01f;      // 部隊の人数 * 1%の補正値
+    // 部隊のパラメータをセット
+    public void SetUnitPara()
+    {
+        float correction = unitMemberCnt * 0.01f;      // 部隊の人数 * 1%の補正値
 
-//        leaderUnit.maxHp    = defaultMaxHp       + defaultMaxHp * correction;
-//        leaderUnit.hp       = leaderUnit.maxHp;
-//        leaderUnit.atk      = defaultAtk      + defaultAtk      * correction;
-//        leaderUnit.virusPow = defaultVirusPow + defaultVirusPow * correction;
-//        float slowRate = (float)unitMemberCnt / unitMemberMaxCnt;
-//        leaderUnit.spd = defaultSpd * (1 - slowRate);
-//    }
-//}
+        leaderUnit.maxHp    = defaultMaxHp       + defaultMaxHp * correction;
+        leaderUnit.hp       = leaderUnit.maxHp;
+        leaderUnit.atk      = defaultAtk      + defaultAtk      * correction;
+        leaderUnit.virusPow = defaultVirusPow + defaultVirusPow * correction;
+        float slowRate = (float)unitMemberCnt / unitMemberMaxCnt;
+        leaderUnit.spd = defaultSpd * (1 - slowRate);
+    }
+}
 
 // 部隊の編成管理
 public class UnitFormation : MonoBehaviour

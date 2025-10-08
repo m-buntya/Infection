@@ -33,8 +33,16 @@ public static class UnitCreator
             case "virus_Infection": return "virus_Infection";
             case "White_Line_0": return "White_Line_0";
             case "monster": return "monster";
+            case "Healer":return "Healer";
+            case "Tank":return "Tank";
             default: return null;
         }
     }
+    public static GameObject GetPrefabByCode(string unitCode)
+    {
+        string prefabName = GetPrefabNameByCode(unitCode);
+        if (string.IsNullOrEmpty(prefabName)) return null;
 
+        return Resources.Load<GameObject>($"Units/{prefabName}");
+    }
 }
