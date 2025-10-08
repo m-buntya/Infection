@@ -15,12 +15,15 @@ namespace StrategyPatteren.Role
         GameObject playerCastleObj;
         GameObject enemyCastleObj;
 
-        public void Action(UnitController unit)
+        public AttackerBehavior()
         {
             castleManager = GameObject.Find("CastleManager").GetComponent<CastleManager>();
             playerCastleObj = GameObject.Find("Player_Castle");
             enemyCastleObj = GameObject.Find("Enemy_Castle");
+        }
 
+        public void Action(UnitController unit)
+        {
             GetTargetSystem getTarget = new GetTargetSystem();
 
             if (unit.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)

@@ -304,14 +304,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10ca26dd85e7274789abd04305811b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  costManager: {fileID: 0}
   unitPrefab: {fileID: 7387470101939567078, guid: 9616138bef620734faf05cce18a93105, type: 3}
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
-  grayOutObj: {fileID: 5904566937929861643}
-  coolTimeObj: {fileID: 2065630458545279032}
-  coolTimeText: {fileID: 4042270301266117178}
+  GrayOutObj: {fileID: 5904566937929861643}
 --- !u!114 &1923072831275126271
 MonoBehaviour:
   m_ObjectHideFlags: 0
