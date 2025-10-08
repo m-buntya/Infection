@@ -67,7 +67,7 @@ public class UnitSlotButton : MonoBehaviour
             iconImage.sprite = icon;
         }
 
-        Debug.Log($"🧩 SetUnit 呼び出し: unitCode = {unitCode}, unitName = {unitName}, iconName = {iconName}");
+        //Debug.Log($"🧩 SetUnit 呼び出し: unitCode = {unitCode}, unitName = {unitName}, iconName = {iconName}");
     }
     //public void RestoreIconFromName()
     //{
