@@ -34,8 +34,8 @@ public class SynthesisUI : MonoBehaviour
     void Update()
     {
         //ユニット数表示
-        TextPaleyerCount.text = "Player\n" + synthesissystem.paleyerCount;
-        TextEnemyCount.text = "Enemy\n" + synthesissystem.enemyCount;
+        //TextPaleyerCount.text = "Player\n" + synthesissystem.paleyerCount;
+        //TextEnemyCount.text = "Enemy\n" + synthesissystem.enemyCount;
 
         if (synthesissystem.isSynthes && !isDisplay)
         {
