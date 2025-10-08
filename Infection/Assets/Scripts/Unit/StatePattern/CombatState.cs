@@ -20,13 +20,13 @@ namespace StatePatteren.State
             this.unitController = unitController;
         }
 
-
         public void Enter()
         {
             playerCastle = GameObject.Find("Player_Castle").gameObject;
             enemyCastle = GameObject.Find("Enemy_Castle").gameObject;
 
             atkSpd = unitController.unitStats.atkSpd;
+            Debug.Log($"atkSpd: {atkSpd}");
             time = atkSpd;
         }
 
@@ -39,12 +39,10 @@ namespace StatePatteren.State
             if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.PLAYER)
             {
                 target = getTargetSystem.GetTarget(unitController.gameObject, UnitController.UNIT_GROUP.ENEMY);
-                CastleTarget(enemyCastle.transform.position);
             }
             else if (unitController.GetUnitGroup() == UnitController.UNIT_GROUP.ENEMY)
             {
                 target = getTargetSystem.GetTarget(unitController.gameObject, UnitController.UNIT_GROUP.PLAYER);
-                CastleTarget(playerCastle.transform.position);
             }
 
             if(target == null)

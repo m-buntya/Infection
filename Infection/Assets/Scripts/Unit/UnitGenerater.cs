@@ -38,7 +38,7 @@ public class UnitGenerater : MonoBehaviour
         GameObject unit = Instantiate(unitObj, pos, Quaternion.identity);
 
         UnitController unitController = unit.GetComponent<UnitController>();
-        unitController.SetUnitStats(Clone(unitStatsDic[create]));
+        unitController.SetUnitStats(UnitFormation.Clone(unitStatsDic[create]));
         unitController.SetUnitGroup(UnitController.UNIT_GROUP.PLAYER);
 
         unitManager.AddUnitList(unit, "Player");
@@ -56,7 +56,7 @@ public class UnitGenerater : MonoBehaviour
             GameObject unit = Instantiate(unitObj, prefabGridManager.prefabList[grid_Idx].transform.position, Quaternion.identity);
 
             UnitController unitController = unit.GetComponent<UnitController>();
-            unitController.SetUnitStats(Clone(unitStatsData.UnitParameter[unit_Idx]));
+            unitController.SetUnitStats(UnitFormation.Clone(unitStatsData.UnitParameter[unit_Idx]));
             unitController.SetUnitGroup(UnitController.UNIT_GROUP.ENEMY);
 
             unitManager.AddUnitList(unit, "Enemy");
@@ -87,32 +87,5 @@ public class UnitGenerater : MonoBehaviour
     public UnitStats GetStats(GameObject unitIcon)
     {
         return unitStatsDic[unitIcon];
-    }
-
-    // UnitStats Ç new Ç≈ï°êªÇ∑ÇÈä÷êîÇçÏÇÈ
-    public UnitStats Clone(UnitStats original)
-    {
-        return new UnitStats
-        {
-            unitCode = original.unitCode,
-            unitName = original.unitName,
-            leaderSkill = original.leaderSkill,
-            role = original.role,
-            lv = original.lv,
-            maxLv = original.maxLv,
-            hp = original.maxHp,
-            maxHp = original.maxHp,
-            virusPoint = original.virusPoint,
-            virusMaxPoint = original.virusMaxPoint,
-            enemyVirusPoint = original.enemyVirusPoint,
-            enemyVirusMaxPoint = original.enemyVirusMaxPoint,
-            atk = original.atk,
-            virusPow = original.virusPow,
-            atkSpd = original.atkSpd,
-            spd = original.spd,
-            range = original.range,
-            cost = original.cost,
-            sortieCoolTime = original.sortieCoolTime
-        };
     }
 }
