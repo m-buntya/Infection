@@ -752,6 +752,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4292763280788693075}
     m_Modifications:
+    - target: {fileID: 189491694184390656, guid: 5fbe66caac08e514a9366e6bcf07aac7, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1687484265458309587, guid: 5fbe66caac08e514a9366e6bcf07aac7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -878,6 +882,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DamageTextPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 4616553890116273457, guid: 5fbe66caac08e514a9366e6bcf07aac7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4857841456946174269, guid: 5fbe66caac08e514a9366e6bcf07aac7, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d350dfa95d378924886310b7aee94a46, type: 2}
     - target: {fileID: 8997781155741331072, guid: 5fbe66caac08e514a9366e6bcf07aac7, type: 3}
       propertyPath: m_SizeDelta.x
       value: 365.2127
@@ -892,7 +904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8997781155741331072, guid: 5fbe66caac08e514a9366e6bcf07aac7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 81.15704
+      value: -9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

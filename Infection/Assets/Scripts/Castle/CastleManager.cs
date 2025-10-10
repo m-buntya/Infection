@@ -7,6 +7,7 @@ public class CastleManager : MonoBehaviour
     Dictionary<GameObject, Castle> castleDic = new Dictionary<GameObject, Castle>();
     [SerializeField] GameObject playerCastle;
     [SerializeField] GameObject enemyCastle;
+    [SerializeField] CastleUI castleUI;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -15,7 +16,7 @@ public class CastleManager : MonoBehaviour
         castleDic[enemyCastle] = new Castle(100);
     }
 
-    // Update is called once per frame
+    // Update is called once per framete
     void Update()
     {
         if (castleDic[playerCastle].IsDestroy())
@@ -31,5 +32,28 @@ public class CastleManager : MonoBehaviour
     public Castle GetCastle(GameObject castle)
     {
         return castleDic[castle];
+    }
+    public void RequestPlayerCastleDamage(float damage)
+    {
+        if (castleUI != null)
+        {
+            castleUI.DamagePlayerCastle(damage);
+        }
+        else
+        {
+            Debug.LogWarning("CastleUI Ç™ñ¢ê›íËÇ≈Ç∑");
+        }
+    }
+
+    public void RequestEnemyCastleDamage(float damage)
+    {
+        if (castleUI != null)
+        {
+            castleUI.DamageEnemyCastle(damage);
+        }
+        else
+        {
+            Debug.LogWarning("CastleUI Ç™ñ¢ê›íËÇ≈Ç∑");
+        }
     }
 }

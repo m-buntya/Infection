@@ -17,7 +17,7 @@ public class Castle
     {
         hp -= damage;
 
-        Debug.Log($"城がダメージを受けた！ Damege:{damage}");
+        //Debug.Log($"城がダメージを受けた！ Damege:{damage}");
 
         if (hp < 0)
         {
