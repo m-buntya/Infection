@@ -1,61 +1,128 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System.Collections;
-using System.IO;
-public class SceneTransitionManager:MonoBehaviour
+
+public class SceneTransitionManager : MonoBehaviour
 {
+    [Header("フェード設定")]
     public Image fadeImage;
+    public GameObject inputBlocker;
     public float fadeDuration = 1f;
+
+    [Header("シーン遷移ボタン設定")]
+    public Button[] sceneButtons;
+    public string[] sceneNames;
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        // 画面全体を覆うように設定
+        //RectTransform rt = fadeImage.rectTransform;
+        //rt.anchorMin = new Vector2(0.5f, 0.5f);
+        //rt.anchorMax = new Vector2(0.5f, 0.5f);
+        //rt.pivot = new Vector2(0.5f, 0.5f);
+        //rt.anchoredPosition = Vector2.zero;
+        //rt.sizeDelta = new Vector2(1f, 1f); // 基準サイズ
+
+        fadeImage.transform.localScale = new Vector3(20f, 12f, 1f); // 拡大倍率
+
+        fadeImage.color = new Color(0, 0, 0, 1);
+        fadeImage.gameObject.SetActive(true);
+        inputBlocker.SetActive(true);
+
+        // ボタンにイベント登録
+        for (int i = 0; i < sceneButtons.Length && i < sceneNames.Length; i++)
+        {
+            string targetScene = sceneNames[i];
+            sceneButtons[i].onClick.AddListener(() => RequestSceneChange(targetScene));
+        }
     }
 
-    public void StartSceneTransition(string nextScene)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        StartCoroutine(TransitionCoroutine(nextScene));
+        StartCoroutine(SlideFadeIn());
+    }
+
+    public void RequestSceneChange(string sceneName)
+    {
+        StartCoroutine(TransitionCoroutine(sceneName));
     }
 
     private IEnumerator TransitionCoroutine(string nextScene)
     {
-        yield return StartCoroutine(FadeOutLeftToRight());
-        yield return SceneManager.LoadSceneAsync(nextScene);
-        yield return StartCoroutine(FadeInLeftToRight());
-    }
-    private IEnumerator FadeOutLeftToRight()
-    {
+        inputBlocker.SetActive(true);
         fadeImage.gameObject.SetActive(true);
+
+        yield return StartCoroutine(SlideFadeOut());
+        yield return null;
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextScene);
+        asyncLoad.allowSceneActivation = false;
+
+        yield return new WaitForSeconds(0.2f);
+        asyncLoad.allowSceneActivation = true;
+    }
+
+    private IEnumerator SlideFadeOut()
+    {
         RectTransform rt = fadeImage.rectTransform;
+        float canvasWidth = ((RectTransform)fadeImage.canvas.transform).rect.width;
+
         rt.anchorMin = new Vector2(0, 0);
         rt.anchorMax = new Vector2(0, 1);
-        rt.offsetMin = Vector2.zero;
-        rt.offsetMax = Vector2.zero;
+        rt.offsetMin = new Vector2(canvasWidth, 0);
+        rt.offsetMax = new Vector2(canvasWidth, 0);
+
+        fadeImage.color = new Color(0, 0, 0, 1);
 
         float elapsed = 0f;
         while (elapsed < fadeDuration)
         {
             float t = elapsed / fadeDuration;
-            rt.anchorMax = new Vector2(t, 1);
+            float x = Mathf.Lerp(canvasWidth, 0, t);
+            rt.offsetMin = new Vector2(x, 0);
+            rt.offsetMax = new Vector2(x + canvasWidth, 0);
             elapsed += Time.deltaTime;
             yield return null;
         }
+
+        rt.anchorMin = new Vector2(0, 0);
         rt.anchorMax = new Vector2(1, 1);
+        rt.offsetMin = Vector2.zero;
+        rt.offsetMax = Vector2.zero;
     }
 
-    private IEnumerator FadeInLeftToRight()
+    private IEnumerator SlideFadeIn()
     {
+        fadeImage.gameObject.SetActive(true);
+        inputBlocker.SetActive(true);
+
         RectTransform rt = fadeImage.rectTransform;
+        float canvasWidth = ((RectTransform)fadeImage.canvas.transform).rect.width;
+
+        // 初期状態：画面右端に黒い幕（幅 = canvasWidth）
+        rt.anchorMin = new Vector2(0, 0);
+        rt.anchorMax = new Vector2(0, 1);
+        rt.offsetMin = new Vector2(canvasWidth, 0);
+        rt.offsetMax = new Vector2(canvasWidth * 2, 0); // 幅 = canvasWidth
+
+        fadeImage.color = new Color(0, 0, 0, 1);
+
         float elapsed = 0f;
         while (elapsed < fadeDuration)
         {
-            float t = 1f - (elapsed / fadeDuration);
-            rt.anchorMin = new Vector2(1 - t, 0);
+            float t = elapsed / fadeDuration;
+            float x = Mathf.Lerp(canvasWidth, 0, t); // 右→左にスライド
+            rt.offsetMin = new Vector2(x, 0);
+            rt.offsetMax = new Vector2(x + canvasWidth, 0); // 幅を固定
             elapsed += Time.deltaTime;
             yield return null;
         }
-        rt.anchorMin = new Vector2(0, 0);
+
         fadeImage.gameObject.SetActive(false);
+        inputBlocker.SetActive(false);
     }
 }
