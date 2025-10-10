@@ -20,7 +20,7 @@ public class Synthesissystem : MonoBehaviour
     // 合成可能なユニットの参照用
     GameObject targetUnit1;
     GameObject targetUnit2;
-    // 合成可能なユニットの名前を入れる
+    // ターゲットとなるユニット名が入る
     public string taergetUnitName1 = "アーチャー";
     public string targetUnitName2 = "アタッカー";
 
@@ -54,11 +54,11 @@ public class Synthesissystem : MonoBehaviour
 
     private void Update()
     {
+        paleyerCount = unitManager.GetPlayerUnits().Count;
+        enemyCount = unitManager.GetEnemyUnits().Count;
+
         //TODO 後で使えるようにストック部分を作る
         if (hasDisplay) return;
-
-        Debug.Log("見つかった味方ユニットの数: " + unitManager.GetPlayerUnits().Count);
-        Debug.Log("見つかった敵ユニットの数: " + unitManager.GetEnemyUnits().Count);
 
         isSynthes = false; // 毎フレーム初期化
 
@@ -89,8 +89,8 @@ public class Synthesissystem : MonoBehaviour
                         var groupA = ucA.GetUnitGroup();
                         var groupB = ucB.GetUnitGroup();
 
-                        if(isDebug && 
-                            ((groupA == UnitController.UNIT_GROUP.PLAYER && groupB == UnitController.UNIT_GROUP.ENEMY)||
+                        if (isDebug &&
+                            ((groupA == UnitController.UNIT_GROUP.PLAYER && groupB == UnitController.UNIT_GROUP.ENEMY) ||
                             (groupA == UnitController.UNIT_GROUP.ENEMY && groupB == UnitController.UNIT_GROUP.ENEMY)))
                         {
                             Debug.Log("DebugモードでPlayerとEnemyの合成をスキップ");
@@ -110,7 +110,7 @@ public class Synthesissystem : MonoBehaviour
 
                         Debug.Log($"Checking pair: {roleA} and {roleB}, Distance: {distance}");
 
-                        if(synthesisUnitStatsData == null)
+                        if (synthesisUnitStatsData == null)
                         {
                             Debug.LogError("SynthesisUnitStatsDataが見つからないです");
                         }
@@ -180,7 +180,16 @@ public class Synthesissystem : MonoBehaviour
             Debug.LogWarning("SynthesisUnitController が見つかりませんでした");
         }
 
+
+        //ユニットのグループを取得
+        string targetUnitgroup1 = targetUnit1.GetComponent<UnitController>().GetUnitGroup().ToString();
+        string targetUnitgroup2 = targetUnit2.GetComponent<UnitController>().GetUnitGroup().ToString();
+        targetUnitgroup1 = targetUnitgroup1 == "PLAYER" ? "Player" : "Enemy";
+        targetUnitgroup2 = targetUnitgroup2 == "PLAYER" ? "Player" : "Enemy";
+
         // 旧ユニットの削除
+        unitManager.RemoveUnitList(targetUnit1, targetUnitgroup1);
+        unitManager.RemoveUnitList(targetUnit2, targetUnitgroup2);
         Destroy(targetUnit1);
         Destroy(targetUnit2);
 
