@@ -21,7 +21,7 @@ public class UnitAttackBace:MonoBehaviour
         {
             
             GameClearController gameClearController = FindObjectOfType<GameClearController>();
-            //if (gameClearController != null) return;
+            if (gameClearController != null) return;
             int damage = Mathf.RoundToInt(unitStats.atk);
             if (isEnemyUnit && other.CompareTag("PlayerBace"))
             {

@@ -12,8 +12,22 @@ public class CastleManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        castleDic[playerCastle] = new Castle(100);
-        castleDic[enemyCastle] = new Castle(100);
+        var player = new Castle(100, "プレイヤー城");
+        var enemy = new Castle(100, "エネミー城");
+
+        // ダメージ通知イベントを購読（UI表示は CastleUI に任せる）
+        player.OnDamaged += (damage, name) =>
+        {
+            castleUI.ShowPlayerDamage(damage); // ← CastleUI に任せる
+        };
+
+        enemy.OnDamaged += (damage, name) =>
+        {
+            castleUI.ShowEnemyDamage(damage); // ← CastleUI に任せる
+        };
+
+        castleDic[playerCastle] = player;
+        castleDic[enemyCastle] = enemy;
     }
 
     // Update is called once per framete

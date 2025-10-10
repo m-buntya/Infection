@@ -42,5 +42,13 @@ public class CastleUI : MonoBehaviour
     {
         StartCoroutine(ShowDamage(playerCastleText, 999)); // 任意の数値でテスト
     }
+    public void ShowPlayerDamage(float damage)
+    {
+        StartCoroutine(ShowDamage(playerCastleText, damage));
+    }
 
+    public void ShowEnemyDamage(float damage)
+    {
+        StartCoroutine(ShowDamage(enemyCastleText, damage));
+    }
 }
