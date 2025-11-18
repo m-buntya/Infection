@@ -138,40 +138,40 @@ namespace StatePatteren.State
         //寝返り処理
         public void TakeChange(float countPoint)
         {
-            if (countPoint < unitStats.enemyVirusMaxPoint || countPoint < unitStats.virusMaxPoint) return;
+            //if (countPoint < unitStats.enemyVirusMaxPoint || countPoint < unitStats.virusMaxPoint) return;
 
-            Debug.Log($"countPoint:{countPoint}");
+            //Debug.Log($"countPoint:{countPoint}");
 
-            Debug.Log("寝返り処理開始");
-            if (unitGroup == UNIT_GROUP.ENEMY && countPoint >= unitStats.enemyVirusMaxPoint)
-            {
-                Debug.Log("敵が寝返った");
-                //値、グループ、見た目の変更
-                unitStats.enemyVirusPoint = 0;
-                unitStats.virusPoint = 0;
-                unitGroup = UNIT_GROUP.PLAYER;
-                Debug.Log($"group:{unitGroup}");
-                this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);    // 見た目だけ反転
+            //Debug.Log("寝返り処理開始");
+            //if (unitGroup == UNIT_GROUP.ENEMY && countPoint >= unitStats.enemyVirusMaxPoint)
+            //{
+            //    Debug.Log("敵が寝返った");
+            //    //値、グループ、見た目の変更
+            //    unitStats.enemyVirusPoint = 0;
+            //    unitStats.virusPoint = 0;
+            //    unitGroup = UNIT_GROUP.PLAYER;
+            //    Debug.Log($"group:{unitGroup}");
+            //    this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);    // 見た目だけ反転
                 
-                //リスト処理
-                unitManager.RemoveUnitList(this.gameObject, "Enemy");// 敵リストから削除
-                unitManager.AddUnitList(this.gameObject, "Player");// 味方リストに追加
+            //    //リスト処理
+            //    unitManager.RemoveUnitList(this.gameObject, "Enemy");// 敵リストから削除
+            //    unitManager.AddUnitList(this.gameObject, "Player");// 味方リストに追加
 
-            }
-            if (unitGroup == UNIT_GROUP.PLAYER && countPoint >= unitStats.virusMaxPoint)
-            {
-                Debug.Log("味方が寝返った");
-                //値、グループ、見た目の変更
-                unitStats.virusPoint = 0;
-                unitStats.enemyVirusPoint = 0;
-                unitGroup = UNIT_GROUP.ENEMY;
-                Debug.Log($"group:{unitGroup}");
-                this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);    // 見た目だけ反転
+            //}
+            //if (unitGroup == UNIT_GROUP.PLAYER && countPoint >= unitStats.virusMaxPoint)
+            //{
+            //    Debug.Log("味方が寝返った");
+            //    //値、グループ、見た目の変更
+            //    unitStats.virusPoint = 0;
+            //    unitStats.enemyVirusPoint = 0;
+            //    unitGroup = UNIT_GROUP.ENEMY;
+            //    Debug.Log($"group:{unitGroup}");
+            //    this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);    // 見た目だけ反転
 
-                //リスト処理
-                unitManager.RemoveUnitList(this.gameObject, "Player");// リストから削除
-                unitManager.AddUnitList(this.gameObject, "Enemy");// 敵リストに追加
-            }
+            //    //リスト処理
+            //    unitManager.RemoveUnitList(this.gameObject, "Player");// リストから削除
+            //    unitManager.AddUnitList(this.gameObject, "Enemy");// 敵リストに追加
+            //}
         }
 
         // 回復処理

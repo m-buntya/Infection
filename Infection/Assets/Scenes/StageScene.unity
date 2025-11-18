@@ -1483,7 +1483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   synthesissystem: {fileID: 1482606255}
-  unitManager: {fileID: 0}
+  unitManager: {fileID: 1527972582}
   synthesisCanvas: {fileID: 271960147}
   SynthesisTextBox: {fileID: 552085645}
   targetUnit1: "\u30A2\u30FC\u30C1\u30E3\u30FC"
@@ -2274,9 +2274,9 @@ MonoBehaviour:
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
-  grayOutObj: {fileID: 0}
-  coolTimeObj: {fileID: 0}
   coolTimeText: {fileID: 0}
+  coolTimeImg: {fileID: 0}
+  GrayOutObj: {fileID: 0}
 --- !u!114 &715438846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4557,9 +4557,9 @@ MonoBehaviour:
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
-  grayOutObj: {fileID: 0}
-  coolTimeObj: {fileID: 0}
   coolTimeText: {fileID: 0}
+  coolTimeImg: {fileID: 0}
+  GrayOutObj: {fileID: 0}
 --- !u!114 &1473877375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5460,9 +5460,9 @@ MonoBehaviour:
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
-  grayOutObj: {fileID: 0}
-  coolTimeObj: {fileID: 0}
   coolTimeText: {fileID: 0}
+  coolTimeImg: {fileID: 0}
+  GrayOutObj: {fileID: 0}
 --- !u!114 &1704316077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6861,9 +6861,9 @@ MonoBehaviour:
   blockAreaLayer:
     serializedVersion: 2
     m_Bits: 64
-  grayOutObj: {fileID: 0}
-  coolTimeObj: {fileID: 0}
   coolTimeText: {fileID: 0}
+  coolTimeImg: {fileID: 0}
+  GrayOutObj: {fileID: 0}
 --- !u!114 &2092159168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7050,33 +7050,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d191260dd59034ebd44365a9c09018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotUIs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 715438850}
-  - {fileID: 2092159172}
-  - {fileID: 1473877379}
-  - {fileID: 1704316081}
-  unitParent: {fileID: 267418860}
-  dragHandlers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 715438845}
-  - {fileID: 2092159167}
-  - {fileID: 1473877374}
-  - {fileID: 1704316076}
 --- !u!114 &2108905941
 MonoBehaviour:
   m_ObjectHideFlags: 0
